@@ -4,7 +4,7 @@ import { Container, Button } from "@material-ui/core";
 function App() {
   return (
     <Container maxWidth="xl">
-      <h1>Rngage 2021 Submission!</h1>
+      <h1>Engage 2021 Submission!</h1>
       <Button size="medium" variant="contained" color="primary">
         Click
       </Button>
