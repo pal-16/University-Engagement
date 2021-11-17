@@ -22,7 +22,7 @@ import {
   Add
 } from "@material-ui/icons";
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
-import Spinner from "../Spinner";
+import Spinner from "../../components/common/Spinner";
 import { useAuthState } from "../../context/AuthContext";
 import StatusChip from "./StatusChip";
 import { getApplications } from "../../actions/applicationActions";

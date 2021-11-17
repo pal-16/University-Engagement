@@ -3,10 +3,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Box, Container } from "@material-ui/core";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import Spinner from "./components/Spinner";
+import Spinner from "../src/components/common/Spinner";
 import { AuthProvider } from "./context/AuthContext";
 import { SnackbarProvider } from "./context/SnackbarContext";
-import SnackBar from "./components/SnackBar";
+import SnackBar from "./components/common/SnackBar";
 // Common Pages
 const LazyLanding = lazy(() => import("./components/common/Landing"));
 const LazyPageNotFound = lazy(() => import("./components/common/PageNotFound"));

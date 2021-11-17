@@ -51,10 +51,6 @@ const ApplicationSchema = new Schema(
       type: String,
       required: false
     },
-    doi: {
-      type: String,
-      required: false
-    },
     files: {
       type: [
         {

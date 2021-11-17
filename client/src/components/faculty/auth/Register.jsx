@@ -16,11 +16,11 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
-import Spinner from "../../../components/Spinner";
+import Spinner from "../../common/Spinner";
 import { Link } from "react-router-dom";
 import { useAuthState, useAuthDispatch } from "../../../context/AuthContext";
 import { SnackbarContext } from "../../../context/SnackbarContext";
-import FormField from "../../../components/FormField";
+import FormField from "../../../components/common/FormField";
 import constants from "../../../constants";
 import { register } from "../../../actions/authActions";
 import { REQUEST_AUTH, AUTH_ERROR } from "../../../reducers/types";

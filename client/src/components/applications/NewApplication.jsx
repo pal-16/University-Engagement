@@ -13,10 +13,10 @@ import {
   Paper
 } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
-import Spinner from "../../components/Spinner";
+import Spinner from "../common/Spinner";
 import { useHistory } from "react-router-dom";
 import { SnackbarContext } from "../../context/SnackbarContext";
-import FormField from "../../components/FormField";
+import FormField from "../../components/common/FormField";
 import constants from "../../constants";
 import {
   createApplication,

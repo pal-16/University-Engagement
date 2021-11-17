@@ -24,7 +24,7 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import FormField from "../FormField";
+import FormField from "../common/FormField";
 import {
   approveApplication,
   rejectApplication,

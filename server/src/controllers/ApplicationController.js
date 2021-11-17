@@ -113,7 +113,7 @@ module.exports = {
         return res.status(404).json({ error: "Invalid Student ID" });
       }
       application.status = "Accepted";
-      application.reward = 5;
+      application.reward = reward;
       await application.save();
 
       return res.status(200).json({ message: "Application approved" });

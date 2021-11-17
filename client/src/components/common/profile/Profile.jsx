@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Spinner from "../../Spinner";
+import Spinner from "../../common/Spinner";
 import {
   Avatar,
   Box,

@@ -2,8 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../common/Login";
 import Register from "./auth/Register";
-// import Dashboard from "./Dashboard";
-import ProtectedRoute from "../../components/ProtectedRoute";
+import ProtectedRoute from "../../components/common/ProtectedRoute";
 import ApplicationDetail from "../applications/ApplicationDetail";
 import FacultyActions from "../applications/FacultyActions";
 import ApplicationsList from "../applications/ApplicationsList";
@@ -15,12 +14,6 @@ const Faculty = () => {
         <Login userType="faculty" name="Faculty" />
       </Route>
       <Route path="/faculty/register" component={Register} />
-      {/* <ProtectedRoute
-        exact
-        path="/faculty"
-        component={Dashboard}
-        userType={"faculty"}
-      /> */}
       <ProtectedRoute
         exact
         path="/faculty/profile"

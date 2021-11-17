@@ -12,13 +12,13 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner";
+import Spinner from "../common/Spinner";
 import { useAuthState, useAuthDispatch } from "../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import { login } from "../../actions/authActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
 import { REQUEST_AUTH, AUTH_ERROR } from "../../reducers/types";
-import FormField from "../../components/FormField";
+import FormField from "../../components/common/FormField";
 
 const useStyles = makeStyles((theme) => ({
   root: {

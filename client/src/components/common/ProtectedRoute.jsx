@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuthState } from "../context/AuthContext";
+import { useAuthState } from "../../context/AuthContext";
 
 const ProtectedRoute = ({ userType: type, component: Component, ...rest }) => {
   const { isAuthenticated, userType } = useAuthState();
