@@ -1,6 +1,6 @@
 const StudentController = require("./controllers/StudentController");
 const FacultyController = require("./controllers/FacultyController");
-const ApplicationController = require("./controllers/ApplicationController");
+const ApplicationController = require("./controllers/applications/index");
 const uploader = require("./utilities/uploader");
 const auth = require("./middleware/auth");
 
@@ -16,7 +16,7 @@ module.exports = (app) => {
   app.get(
     "/api/student/:id/applications",
     auth.loginRequired,
-    ApplicationController.getStudentApplications
+    ApplicationController.retrieve.getStudentApplications
   );
   app.get(
     "/api/student/:studentID",
@@ -40,7 +40,7 @@ module.exports = (app) => {
   app.get(
     "/api/faculty/:id/applications",
     auth.loginRequired,
-    ApplicationController.getFacultyApplications
+    ApplicationController.retrieve.getFacultyApplications
   );
 
   //Application Routes
@@ -48,31 +48,31 @@ module.exports = (app) => {
     "/api/applications/apply",
     auth.loginRequired,
     uploader.single("file"),
-    ApplicationController.applyForReward
+    ApplicationController.create.applyForReward
   );
   app.get(
     "/api/applications/:id",
     auth.loginRequired,
-    ApplicationController.getApplication
+    ApplicationController.retrieve.getApplication
   );
   app.post(
     "/api/applications/:id/approve",
     auth.loginRequired,
-    ApplicationController.approveApplication
+    ApplicationController.approve.approveApplication
   );
   app.post(
     "/api/applications/:id/reject",
     auth.loginRequired,
-    ApplicationController.rejectApplication
+    ApplicationController.reject.rejectApplication
   );
   app.put(
     "/api/applications/:id",
     auth.loginRequired,
-    ApplicationController.updateApplication
+    ApplicationController.delete.updateApplication
   );
   app.delete(
     "/api/applications/:id",
     auth.loginRequired,
-    ApplicationController.deleteApplication
+    ApplicationController.delete.deleteApplication
   );
 };

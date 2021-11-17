@@ -45,6 +45,11 @@ const student = new mongoose.Schema({
       }
     ],
     default: []
+  },
+  coins:{
+    type: Number,
+    required: false,
+    default: 0
   }
 });
 
