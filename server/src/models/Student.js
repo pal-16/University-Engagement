@@ -50,6 +50,15 @@ const student = new mongoose.Schema({
     type: Number,
     required: false,
     default: 0
+  },
+  transfer: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "transaction"
+      }
+    ],
+    default: []
   }
 });
 

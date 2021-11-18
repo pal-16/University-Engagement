@@ -39,18 +39,6 @@ const ApplicationSchema = new Schema(
       type: String,
       required: false
     },
-    startDate: {
-      type: Date,
-      required: false
-    },
-    endDate: {
-      type: Date,
-      required: false
-    },
-    organisedBy: {
-      type: String,
-      required: false
-    },
     files: {
       type: [
         {
