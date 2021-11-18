@@ -47,6 +47,7 @@ const FacultyActions = (props) => {
   const [title, setTitle] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [reward, setReward] = useState("");
+
   const [errors, updateErrors] = useState({
     title: "",
     date: "",
@@ -60,41 +61,13 @@ const FacultyActions = (props) => {
   };
   const [isVerified, setIsVerified] = useState(false);
   const [verificationSuccess, setVerificationSuccess] = useState(false);
-  const { token } = useAuthState();
+  const { userID, token } = useAuthState();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => {
     clearErrors();
     setIsOpen(false);
   };
-
-  // const handleVerify = async () => {
-  //   if (!title) {
-  //     updateErrors((prevErrors) => ({
-  //       ...prevErrors,
-  //       title: "Please enter the title",
-  //     }));
-  //     return;
-  //   }
-
-  //   const body = {
-  //     title: title,
-  //     date: selectedDate.toLocaleDateString("en-GB"),
-  //     studentID: props.applicationData.studentID._id,
-  //   };
-
-  //   verifyApplication({ body, token }).then((res) => {
-  //     if (res.error) {
-  //       return;
-  //     } else {
-  //       setIsVerified(true);
-  //       if (res.data.message === "Verification Successful")
-  //         setVerificationSuccess(true);
-  //       else setVerificationSuccess(false);
-  //     }
-  //   });
-  //   clearErrors();
-  // };
 
   const handleApprove = async () => {
     if (+reward <= 0) {
@@ -111,6 +84,7 @@ const FacultyActions = (props) => {
       token,
       title,
       reward: +reward,
+      facultyID: userID,
       date: selectedDate.toLocaleDateString("en-GB")
     }).then((res) => {
       if (res.error) {
@@ -148,23 +122,6 @@ const FacultyActions = (props) => {
               Please select a reward from below if you want to approve the
               application.
             </DialogContentText>
-            {/* <FormField
-              label="Achievement Title"
-              name="title"
-              required={true}
-              onChange={(e) => setTitle(e.target.value)}
-              error={errors.title}
-            />
-            <KeyboardDatePicker
-              disableFuture
-              inputVariant="outlined"
-              label="Date of Achievement"
-              value={selectedDate}
-              placeholder={new Date().toLocaleDateString("en-GB")}
-              onChange={(date) => setSelectedDate(date)}
-              format="dd/MM/yyyy"
-              style={{ width: "100%" }}
-            /> */}
             <>
               {props.applicationData.domainAchievement !== "Other" ? (
                 <FormControl

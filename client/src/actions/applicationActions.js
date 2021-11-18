@@ -121,12 +121,13 @@ export const approveApplication = async ({
   date,
   reward,
   id,
+  facultyID,
   token
 }) => {
   try {
     const res = await axios.post(
       BASE_URL + `/applications/${id}/approve`,
-      { title, date, reward },
+      { title, date, reward, facultyID},
       {
         headers: {
           Authorization: `Bearer ${token}`

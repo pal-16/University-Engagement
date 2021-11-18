@@ -117,7 +117,7 @@ export default function Profile({ onMobileClose, openMobile }) {
           fetchedStudents.data["department"],
           fetchedStudents.data["degree"],
           fetchedStudents.data["year"],
-          fetchedStudents.data["walletBalance"],
+          fetchedStudents.data["coins"],
         ];
         setDetailList(details);
         setLoading(false);

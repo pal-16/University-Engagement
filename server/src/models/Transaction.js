@@ -2,22 +2,23 @@ const mongoose = require("mongoose");
 
 const transaction = new mongoose.Schema(
   {
-    transactionType: {
+    senderID: {
+      type: String,
+      required: true,
+    },
+    senderType: {
       type: String,
       required: true
     },
-    studentID: {
-      type: Number,
-      required: true
-    },
-    fileID: {
-      type: Number,
-      required: true
-    },
-    docHash: {
+    receiverID: {
       type: String,
       required: true
-    }
+    },
+    receiverType: {
+      type: String,
+      required: true
+    },
+    coins: { type: Number, default: 0, required: true },
   },
   { timestamps: true }
 );
