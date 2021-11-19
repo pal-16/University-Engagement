@@ -121,7 +121,7 @@ const Header = () => {
           >
             <SchoolRoundedIcon />
             <Typography variant="h6" noWrap style={{ marginLeft: "10px" }}>
-              Micorosoft Engage
+              Microsoft Engage
             </Typography>
           </Button>
           <div className={classes.grow} />

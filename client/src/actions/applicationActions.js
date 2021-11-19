@@ -78,6 +78,7 @@ export const createApplication = async ({ token, body }) => {
   }
 };
 
+
 export const deleteApplication = async ({ id, token }) => {
   try {
     const res = await axios.delete(BASE_URL + `/applications/${id}`, {

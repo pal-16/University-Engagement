@@ -1,6 +1,8 @@
 const StudentController = require("./controllers/StudentController");
 const FacultyController = require("./controllers/FacultyController");
 const ApplicationController = require("./controllers/applications/index");
+const CrowdfundingController = require("./controllers/crowdfunding/index");
+
 const uploader = require("./utilities/uploader");
 const auth = require("./middleware/auth");
 
@@ -30,4 +32,8 @@ module.exports = (app) => {
   app.post("/api/applications/:id/reject",auth.loginRequired,ApplicationController.reject.rejectApplication);
   app.put("/api/applications/:id",auth.loginRequired,ApplicationController.delete.updateApplication);
   app.delete("/api/applications/:id",auth.loginRequired,ApplicationController.delete.deleteApplication);
+
+
+  app.post("/api/crowdfunding/createPost",auth.loginRequired,CrowdfundingController.createPost.createPost);
+ 
 };

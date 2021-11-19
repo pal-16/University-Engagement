@@ -1,0 +1,36 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const CrowdfundingSchema = new Schema(
+  {
+    userID:{
+        type: String,
+        required:true
+    },
+    userType:{
+        type: String,
+        required:true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: false
+    },
+    currentAmount: {
+        type: Number,
+        required: false,
+        default:0
+    },
+    amountNeeded:{
+        type:Number,
+        required:true,
+    }
+  },
+  { timestamps: true }
+);
+
+const Crowdfunding = mongoose.model("crowdfunding", CrowdfundingSchema);
+module.exports = Crowdfunding;

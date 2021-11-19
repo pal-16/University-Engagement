@@ -8,6 +8,7 @@ import ApplicationDetail from "../applications/ApplicationDetail";
 import StudentActions from "../applications/StudentActions";
 import NewApplication from "../applications/NewApplication";
 import DashboardLayout from "../../components/common/Dashboard";
+import CreatePost from "../crowdfunding/CreatePost";
 const Student = () => {
   return (
     <Switch>
@@ -31,6 +32,12 @@ const Student = () => {
         exact
         path="/student/applications/new"
         component={NewApplication}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
+        path="/student/crowdfunding/create"
+        component={CreatePost}
         userType={"student"}
       />
       <ProtectedRoute
