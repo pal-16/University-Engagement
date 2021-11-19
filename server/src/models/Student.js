@@ -59,6 +59,15 @@ const student = new mongoose.Schema({
       }
     ],
     default: []
+  },
+  crowdfunding: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "crowdfunding"
+      }
+    ],
+    default: []
   }
 });
 
