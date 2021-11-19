@@ -24,6 +24,12 @@ const CrowdfundingSchema = new Schema(
         required: false,
         default:0
     },
+    status: {
+      type: String,
+      enum: ["Pending", "Accepted"],
+      default: "Pending",
+      required: false
+    },
     amountNeeded:{
         type:Number,
         required:true,

@@ -35,5 +35,7 @@ module.exports = (app) => {
 
 
   app.post("/api/crowdfunding/createPost",auth.loginRequired,CrowdfundingController.createPost.createPost);
+  app.get("/api/crowdfunding/getPosts",auth.loginRequired,CrowdfundingController.getPost.getCrowdfundingPosts);
+  app.post("/api/crowdfunding/donate",auth.loginRequired,CrowdfundingController.donate.donateCoins);
  
 };

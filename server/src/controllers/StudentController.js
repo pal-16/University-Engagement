@@ -58,7 +58,8 @@ exports.loginStudent = async (req, res) => {
       status: "success",
       token,
       data: {
-        userID: student._id
+        userID: student._id,
+        userCoins:student.coins
       }
     });
   } catch (e) {

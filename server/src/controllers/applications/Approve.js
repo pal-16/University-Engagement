@@ -42,7 +42,7 @@ const axios = require("axios");
       });
 
       application.status = "Accepted";
-      application.reward = reward;
+      application.reward = req.body.reward;
       await application.save();
 
       return res.status(200).json({ message: "Application approved" });

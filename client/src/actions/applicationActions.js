@@ -98,24 +98,6 @@ export const deleteApplication = async ({ id, token }) => {
   }
 };
 
-export const verifyApplication = async ({ body, token }) => {
-  try {
-    const res = await axios.post(BASE_URL + "/applications/verify", body, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return {
-      data: res.data,
-      status: res.status
-    };
-  } catch (err) {
-    return {
-      error: err.response.data.error,
-      status: err.response.status
-    };
-  }
-};
 
 export const approveApplication = async ({
   title,

@@ -58,12 +58,13 @@ const ApplicationsList = () => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { userID, token, userType } = useAuthState();
+  const { userID, token, userType, userCoins } = useAuthState();
   const [loading, setLoading] = useState(false);
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
-
+  console.log("Hello");
+  console.log(userCoins);
   useEffect(() => {
     setLoading(true);
     getApplications({ id: userID, token, userType }).then((res) => {
