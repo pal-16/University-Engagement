@@ -9,6 +9,7 @@ import StudentActions from "../applications/StudentActions";
 import NewApplication from "../applications/NewApplication";
 import DashboardLayout from "../../components/common/Dashboard";
 import CreatePost from "../crowdfunding/CreatePost";
+import CrowdfundingPosts from "../crowdfunding/DisplayPosts"
 const Student = () => {
   return (
     <Switch>
@@ -30,13 +31,19 @@ const Student = () => {
       />
       <ProtectedRoute
         exact
+        path="/student/crowdfunding/displayPosts"
+        component={CrowdfundingPosts}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
         path="/student/applications/new"
         component={NewApplication}
         userType={"student"}
       />
       <ProtectedRoute
         exact
-        path="/student/crowdfunding/create"
+        path="/student/crowdfunding/new"
         component={CreatePost}
         userType={"student"}
       />
