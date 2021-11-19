@@ -68,6 +68,15 @@ const student = new mongoose.Schema({
       }
     ],
     default: []
+  },
+  project: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "project"
+      }
+    ],
+    default: []
   }
 });
 
