@@ -2,13 +2,14 @@ const StudentController = require("./controllers/StudentController");
 const FacultyController = require("./controllers/FacultyController");
 const ApplicationController = require("./controllers/applications/index");
 const CrowdfundingController = require("./controllers/crowdfunding/index");
+const ProjectController = require("./controllers/project/index");
 
 const uploader = require("./utilities/uploader");
 const auth = require("./middleware/auth");
 
 module.exports = (app) => {
   app.get("/api/check", (req, res) => {
-    res.json("Hello World");
+    res.json("Connected");
   });
 
   //Student Routes
@@ -35,5 +36,7 @@ module.exports = (app) => {
 
 
   app.post("/api/crowdfunding/createPost",auth.loginRequired,CrowdfundingController.createPost.createPost);
+ 
+  app.post("/api/project/createProject",auth.loginRequired,ProjectController.createProject.createProject);
  
 };
