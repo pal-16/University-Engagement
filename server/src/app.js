@@ -1,11 +1,12 @@
 require("dotenv").config();
+const dbconnect = require("./config/dbconnect.js");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const path = require("path");
-const routes = require("./routes");
-const config = require("./config");
-const dbconnect = require("./config/dbconnect.js");
+ const path = require("path");
+ const routes = require("./routes");
+ const config = require("./config");
+
 const AppError = require("./middleware/appError");
 const globalErrorHandler = require("./controllers/errorController");
 
@@ -19,18 +20,18 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(morgan("dev"));
+ app.use(morgan("dev"));
 
 routes(app);
 
-//Global Error Handling
+// //Global Error Handling
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-app.use(globalErrorHandler);
+ app.use(globalErrorHandler);
 
-dbconnect();
+ dbconnect();
 
 let port = config.port;
 

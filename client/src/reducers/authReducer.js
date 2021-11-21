@@ -25,7 +25,7 @@ export const AuthReducer = (initialState, action) => {
       };
     case AUTH_SUCCESS:
       if (action.payload.rememberme) {
-        console.log("Hello=======================")
+      
         console.log(action.payload.data);
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("isAuthenticated", true);

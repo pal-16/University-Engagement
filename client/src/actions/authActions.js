@@ -16,7 +16,7 @@ export const login = async ({
       password
     });
 
-    console.log(res);
+   
     dispatch({
       type: AUTH_SUCCESS,
       payload: { ...res.data, rememberme, userType }

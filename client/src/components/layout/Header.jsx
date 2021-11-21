@@ -151,6 +151,28 @@ const Header = () => {
                   </Typography>
                 </Button>
                 <Button
+                  onClick={() => navigationHandler(`/${userType}/crowdfunding`)}
+                  color="inherit"
+                  className={`${classes.navButton} ${classes.button}`}
+                  disableRipple
+                  disableFocusRipple
+                >
+                  <Typography variant="body1" noWrap>
+                    Crowdfunding
+                  </Typography>
+                </Button>
+                <Button
+                  onClick={() => navigationHandler(`/${userType}/projects`)}
+                  color="inherit"
+                  className={`${classes.navButton} ${classes.button}`}
+                  disableRipple
+                  disableFocusRipple
+                >
+                  <Typography variant="body1" noWrap>
+                    Projects
+                  </Typography>
+                </Button>
+                <Button
                   onClick={handleLogout}
                   color="inherit"
                   className={`${classes.navButton} ${classes.button}`}

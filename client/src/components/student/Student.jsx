@@ -9,7 +9,10 @@ import StudentActions from "../applications/StudentActions";
 import NewApplication from "../applications/NewApplication";
 import DashboardLayout from "../../components/common/Dashboard";
 import CreatePost from "../crowdfunding/CreatePost";
-import CrowdfundingPosts from "../crowdfunding/DisplayPosts"
+import CrowdfundingPosts from "../crowdfunding/DisplayPosts";
+import NewProject from "../project/NewProject";
+import DisplayProjects from "../project/DisplayProject";
+import ProjectDetail from "../project/ProjectDetail";
 const Student = () => {
   return (
     <Switch>
@@ -45,6 +48,24 @@ const Student = () => {
         exact
         path="/student/crowdfunding/new"
         component={CreatePost}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
+        path="/student/project/new"
+        component={NewProject}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
+        path="/student/projects/display"
+        component={DisplayProjects}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
+        path="/student/project/:id"
+        component={() => <  ProjectDetail />}
         userType={"student"}
       />
       <ProtectedRoute

@@ -31,7 +31,7 @@ export const getPosts = async ({ id, token, userType }) => {
       }
     });
 
-    console.log(res.data);
+    
     return {
       data: res.data,
       status: res.status

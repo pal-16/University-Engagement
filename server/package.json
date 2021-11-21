@@ -7,7 +7,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "format:server": "prettier --config .prettierrc ../server/src/**/*.js --write",
-    "format:client": "prettier --config .prettierrc '../client/src/**/*.{js, jsx, css}' --write"
+    "format:client": "prettier --config .prettierrc '../client/src/**/*.{js, jsx, css}' --write",
+    "test": "mocha --recursive --exit --timeout 100000"
   },
   "husky": {
     "hooks": {
@@ -37,6 +38,11 @@
   },
   "devDependencies": {
     "husky": "^4.3.8",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^6.2.1",
+    "sinon": "^7.5.0",
+    "faker": "^4.1.0",
     "lint-staged": "^11.1.2",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2"
