@@ -1,5 +1,4 @@
 const Student = require("../../models/Student");
-const Faculty = require("../../models/Faculty");
 const Project = require("../../models/Project");
 
 
@@ -9,15 +8,11 @@ exports.createProject=async(req, res)=>{
       const projectPost = await Project.create({
         ...req.body
       });
-        if(req.body.userType=="student"){
+      
             await Student.findByIdAndUpdate(req.body.userID, {
                 $push: { project: projectPost }
             });
-        }else{
-        await Faculty.findByIdAndUpdate(req.body.userID, {
-            $push: { project: projectPost }
-        });
-        }
+     
       return res.status(201).json({
         message: "Project Post created"
       });

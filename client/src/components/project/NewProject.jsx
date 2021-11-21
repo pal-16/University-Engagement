@@ -16,14 +16,17 @@ import { CloudUpload } from "@material-ui/icons";
 import Spinner from "../common/Spinner";
 import { useHistory } from "react-router-dom";
 import { SnackbarContext } from "../../context/SnackbarContext";
-import FormField from "../../components/common/FormField";
+import FormField from "../common/FormField";
 import constants from "../../constants";
 import {
-  createApplication,
-  getFacultyList
-} from "../../actions/applicationActions";
+  createProject
+} from "../../actions/projectActions";
 import { useAuthState } from "../../context/AuthContext";
-
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+import { v4 as uuidv4 } from 'uuid';
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh"
@@ -53,29 +56,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NewProject= () => {
+const NewProject = () => {
   const classes = useStyles();
   const history = useHistory();
   const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
   const [loading, setLoading] = useState(false);
   const { token, userID } = useAuthState();
-
   const [application, setApplication] = useState({
     title: "",
     description: "",
-    domainAchievement: "",
-    faculty: ""
+    projectDomain: "",
+    semester: "",
+    tags: []
+
   });
 
   const [file, setFile] = useState(null);
-  const [facultyList, setFacultyList] = useState([]);
-
   const [errors, updateErrors] = useState({
     title: "",
     description: "",
-    domainAchievement: "",
-    faculty: "",
-    file: ""
+    projectDomain: "",
+    semester: "",
+    tags: []
   });
 
   const handleApplication = (e) => {
@@ -85,25 +87,15 @@ const NewProject= () => {
     }));
   };
 
-  useEffect(() => {
-    setLoading(true);
-    getFacultyList({ token }).then((res) => {
-      if (res.error) {
-      } else {
-        setFacultyList(res.data.data.faculties);
-      }
-      setLoading(false);
-    });
-  }, [token]);
 
   const isFormValid = () => {
     let formIsValid = true;
     updateErrors({
       title: "",
       description: "",
-      domainAchievement: "",
-      faculty: "",
-      file: ""
+      projectDomain: "",
+      semester: "",
+      tags: []
     });
     if (!application.title.length) {
       updateErrors((prevErrors) => ({
@@ -119,42 +111,49 @@ const NewProject= () => {
       }));
       formIsValid = false;
     }
-    if (!application.domainAchievement.length) {
+    if (!application.projectDomain.length) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        domainAchievement: "* Please select a domain"
+        projectDomain: "* Please select a domain"
       }));
       formIsValid = false;
     }
-    if (!application.faculty.length) {
+    if (!application.semester.length) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        faculty: "* Please select a faculty"
+        semester: "* Please select a domain"
       }));
       formIsValid = false;
     }
-    if (!file) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        file: "* Please select a file"
-      }));
-      formIsValid = false;
-    }
+
+
     return formIsValid;
   };
 
   const handleFormSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
+    console.log("InputFields", inputFields);
     if (isFormValid()) {
       let formData = new FormData();
       formData.append("title", application.title);
       formData.append("description", application.description);
-      formData.append("domainAchievement", application.domainAchievement);
-      formData.append("file", file);
-      formData.append("studentID", userID);
-      formData.append("facultyID", application.faculty);
-      createApplication({ body: formData, token }).then((res) => {
+      formData.append("projectDomain", application.projectDomain);
+      formData.append("semester", application.semester);
+      //  formData.append("file", file);]
+      var Tags = [];
+      for (var m in inputFields) {
+        console.log(inputFields[m]['tags']);
+        Tags.push(inputFields[m]['tags']);
+
+      }
+      formData.append("userID", userID);
+      formData.append("tags", Tags);
+
+      application.userID = userID;
+      application.tags = Tags;
+      console.log(Tags);
+      createProject({ body: application, token }).then((res) => {
         setLoading(false);
         if (res.error) {
           setSeverity("error");
@@ -162,17 +161,47 @@ const NewProject= () => {
           setOpen(true);
         } else {
           setSeverity("success");
-          setMessage("Application submitted successfully");
+          setMessage("Project added to the college database");
           setOpen(true);
-          history.push("/student/applications");
+          history.push("/student");
         }
       });
     }
   };
 
+  const [inputFields, setInputFields] = useState([
+    { id: uuidv4(), tags: '' },
+  ]);
+
+
+  const handleChangeInput = (id, event) => {
+    const newInputFields = inputFields.map(i => {
+      if (id === i.id) {
+        i[event.target.name] = event.target.value
+      }
+      return i;
+    })
+
+    setInputFields(newInputFields);
+  }
+
+  const handleAddFields = () => {
+    setInputFields([...inputFields, { id: uuidv4(), tags: '' }])
+  }
+
+  const handleRemoveFields = id => {
+    const values = [...inputFields];
+    values.splice(values.findIndex(value => value.id === id), 1);
+    setInputFields(values);
+  }
+
+
+
   return loading ? (
     <Spinner />
   ) : (
+
+
     <Box
       className={classes.root}
       display="flex"
@@ -208,24 +237,24 @@ const NewProject= () => {
                   variant="outlined"
                   required
                   className={classes.formControl}
-                  error={errors.domainAchievement.length !== 0}
+                  error={errors.projectDomain.length !== 0}
                 >
                   <InputLabel id="domain-label">Domain</InputLabel>
                   <Select
                     labelId="domain-label"
-                    id="domain"
-                    name="domainAchievement"
-                    value={application.domainAchievement}
+                    id="projectDomain"
+                    name="projectDomain"
+                    value={application.projectDomain}
                     onChange={handleApplication}
-                    label="Domain"
+                    label="projectDomain"
                   >
-                    {constants.DOMAINS.map((domain) => (
-                      <MenuItem key={domain} value={domain}>
-                        {domain}
+                    {constants.DOMAINTAGS.map((projectDomain) => (
+                      <MenuItem key={projectDomain} value={projectDomain}>
+                        {projectDomain}
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText>{errors.domainAchievement}</FormHelperText>
+                  <FormHelperText>{errors.projectDomain}</FormHelperText>
                 </FormControl>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -233,27 +262,49 @@ const NewProject= () => {
                   variant="outlined"
                   required
                   className={classes.formControl}
-                  error={errors.faculty.length !== 0}
+                  error={errors.semester.length !== 0}
                 >
-                  <InputLabel id="faculty-label">Faculty</InputLabel>
+                  <InputLabel id="semester-label">Semester</InputLabel>
                   <Select
-                    labelId="faculty-label"
-                    id="faculty"
-                    name="faculty"
-                    value={application.faculty}
+                    labelId="semester-label"
+                    id="semester"
+                    name="semester"
+                    value={application.semester}
                     onChange={handleApplication}
-                    label="Faculty"
+                    label="semester"
                   >
-                    {facultyList.map((faculty) => (
-                      <MenuItem key={faculty._id} value={faculty._id}>
-                        {faculty.name}
+                    {constants.SEMESTER.map((semester) => (
+                      <MenuItem key={semester} value={semester}>
+                        {semester}
                       </MenuItem>
                     ))}
                   </Select>
-                  <FormHelperText>{errors.faculty}</FormHelperText>
+                  <FormHelperText>{errors.semester}</FormHelperText>
                 </FormControl>
               </Grid>
             </Grid>
+            {inputFields.map(inputField => (
+              <div key={inputField.id}>
+                <TextField
+                  name="tags"
+                  label="Project Tags"
+                  variant="filled"
+                  value={inputField.tags}
+                  onChange={event => handleChangeInput(inputField.id, event)}
+                />
+
+                <IconButton disabled={inputFields.length === 1} onClick={() => handleRemoveFields(inputField.id)}>
+                  <RemoveIcon />
+                </IconButton>
+                <IconButton
+                  onClick={handleAddFields}
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
+            ))}
+
+            <br />
             <input
               type="file"
               name="file"

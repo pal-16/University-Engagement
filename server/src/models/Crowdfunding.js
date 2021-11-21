@@ -3,13 +3,10 @@ const Schema = mongoose.Schema;
 
 const CrowdfundingSchema = new Schema(
   {
-    userID:{
-        type: String,
-        required:true
-    },
-    userType:{
-        type: String,
-        required:true
+    studentID: {
+      type: Schema.Types.ObjectId,
+      ref: "student",
+      required: true
     },
     title: {
       type: String,
@@ -24,12 +21,6 @@ const CrowdfundingSchema = new Schema(
         required: false,
         default:0
     },
-    status: {
-      type: String,
-      enum: ["Pending", "Accepted"],
-      default: "Pending",
-      required: false
-    },
     amountNeeded:{
         type:Number,
         required:true,
@@ -39,7 +30,7 @@ const CrowdfundingSchema = new Schema(
       enum: ["Pending", "Completed"],
       default: "Pending",
       required: false
-    },
+    }
   },
   { timestamps: true }
 );
