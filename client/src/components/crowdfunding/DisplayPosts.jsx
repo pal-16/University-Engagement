@@ -92,41 +92,35 @@ const CrowdfundingPosts = () => {
             display="flex"
             flexDirection="column"
             justifyContent="start"
-            alignItems="center"
-        >
-            <Grid
-                container
-                spacing={2}
-                style={{ width: "100%", marginBottom: "16px" }}
-            >
-                <Grid
-                    item
-                    xs={12}
-                    md={4}
-                    style={{ textAlign: isSmallScreen ? "center" : "left" }}
-                >
-                    <Typography variant="h6">
-                        {"Crowdfunding Posts".toLocaleUpperCase()}
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
-                    {userType === "student" && (
-                        <Typography variant="h6">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                    history.push("/student/crowdfunding/new");
-                                }}
-                                startIcon={<Add />}
-                            >
-                                New Post
-                            </Button>
-                        </Typography>
-                    )}
-                </Grid>
 
-            </Grid>
+        >   <Box
+
+            align="center"
+        >
+
+                <Typography variant="h6">
+                    {"Crowdfunding Posts".toLocaleUpperCase()}
+                </Typography>
+
+
+
+
+                {userType === "student" && (
+                    <Typography variant="h6">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                history.push("/student/crowdfunding/new");
+                            }}
+                            startIcon={<Add />}
+                        >
+                            New Post
+                        </Button>
+                    </Typography>
+                )}
+                <br />
+            </Box>
             <Divider variant="fullWidth" className={classes.divider} />
             <div>
                 <Container>
@@ -138,21 +132,35 @@ const CrowdfundingPosts = () => {
                     >
 
                     </Typography>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                         {applications.map((application) => (
 
                             <Grid item xs={12} sm={6} key={application._id}>
                                 <Card className={classes.card}>
-                                    <CardHeader title={"HELLO"} />
+                                    <CardHeader title={application.title} align="center" />
+                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "45px" }}>
+                                        Created By {application.userID.name} |    Created at {application.createdAt}
+                                    </Typography>
+                                    <hr />
                                     <CardContent>
-                                        <Typography color="primary" variant="h5">
-                                            {application.title}
+                                        <Typography color="primary" variant="subtitle4">
+                                            <b>    Description   </b>: {application.description}
                                         </Typography>
-                                        <Typography color="textSecondary" variant="subtitle2">
-                                            {application.description}
+                                        <br />
+                                        <br />
+                                        <Typography color="primary" variant="subtitle4">
+                                            <b>  Amount Needed </b>: {application.amountNeeded}
                                         </Typography>
+                                        <br />
+                                        <br />
+                                        <Typography color="primary" variant="subtitle4">
+                                            <b> Current Amount </b>: {application.currentAmount}
+                                        </Typography>
+                                        <br />
+                                        <br />
+
                                         <FacultyActions
-                                            position={isSmallScreen ? "center" : "start"}
+                                            position={"center"}
                                             applicationData={application}
                                             setLoading={setLoading}
                                             id={application._id}
@@ -209,7 +217,7 @@ const CrowdfundingPosts = () => {
                     </TableBody>
                 </Table>
             </TableContainer> */}
-        </Box>
+        </Box >
     );
 };
 

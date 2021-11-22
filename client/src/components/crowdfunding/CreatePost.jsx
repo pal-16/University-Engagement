@@ -145,7 +145,7 @@ const CreatePost = () => {
                     setSeverity("success");
                     setMessage("Application submitted successfully");
                     setOpen(true);
-                    history.push("/student/posts");
+                    history.push("/student/crowdfundings/displayAll");
                 }
             });
         }

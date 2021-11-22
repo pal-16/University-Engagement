@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const CrowdfundingSchema = new Schema(
   {
-    studentID: {
+    userID: {
       type: Schema.Types.ObjectId,
       ref: "student",
       required: true
