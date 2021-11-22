@@ -5,7 +5,7 @@ const axios = require("axios");
  exports.getCrowdfundingPosts=async(req, res)=>{
     try {
        
-      const Crowdfundings = await Crowdfunding.find({});
+      const Crowdfundings = await Crowdfunding.find({}).populate('userID');
       console.log(Crowdfundings);
       return res.status(200).json({ Crowdfundings });
     } catch (e) {
@@ -17,9 +17,7 @@ const axios = require("axios");
 
   exports.getPost=async(req, res)=>{
     try {
-      const Crowdfunding = await Crowdfunding.findById(req.params.id)
-        .populate("studentID")
-        .exec();
+      const Crowdfunding = await Crowdfunding.findById(req.params.id).populate('userID');
       if (Crowdfunding) {
         return res.status(200).json(Crowdfunding);
       } else {

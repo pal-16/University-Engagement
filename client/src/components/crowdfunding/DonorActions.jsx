@@ -67,7 +67,7 @@ const DonorActions = (props) => {
             }));
             return;
 
-        } else if (+donateAmount > +userCoins) {
+        } else if (+donateAmount > props.applicationData.userID.coins) {
             updateErrors((prevErrors) => ({
                 ...prevErrors,
                 donateAmount: "You do not have sufficient balance. Kindly reduce the donation amount"
@@ -81,7 +81,7 @@ const DonorActions = (props) => {
             token,
             donateAmount: +donateAmount,
             senderID: userID,
-            receiverID: props.applicationData.userID
+            receiverID: props.applicationData.userID._id
         }).then((res) => {
             if (res.error) {
                 setSeverity("error");
@@ -89,7 +89,8 @@ const DonorActions = (props) => {
                 setOpen(true);
                 return;
             } else {
-                history.replace(`/student/`);
+                history.replace(`/student/crowdfundings/displayAll`);
+                history.replace(`/student/crowdfundings/displayAll`);
                 setSeverity("success");
                 setMessage("Donation Done");
                 setOpen(true);
@@ -107,7 +108,7 @@ const DonorActions = (props) => {
                 <DialogTitle>Contribute to the following post</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Your current balance is {+userCoins}
+                        Your current balance is {props.applicationData.userID.coins}
                     </DialogContentText>
                     <FormControl
                         variant="outlined"
