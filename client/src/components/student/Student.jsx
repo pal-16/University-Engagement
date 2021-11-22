@@ -28,20 +28,14 @@ const Student = () => {
       />
       <ProtectedRoute
         exact
-        path="/student/applications"
+        path="/student/applications/displayAll"
         component={ApplicationsList}
         userType={"student"}
       />
       <ProtectedRoute
         exact
-        path="/student/crowdfunding/displayPosts"
-        component={CrowdfundingPosts}
-        userType={"student"}
-      />
-      <ProtectedRoute
-        exact
-        path="/student/applications/new"
-        component={NewApplication}
+        path="/student/applications/:id"
+        component={() => <ApplicationDetail actions={StudentActions} />}
         userType={"student"}
       />
       <ProtectedRoute
@@ -52,13 +46,19 @@ const Student = () => {
       />
       <ProtectedRoute
         exact
+        path="/student/crowdfundings/displayAll"
+        component={CrowdfundingPosts}
+        userType={"student"}
+      />
+      <ProtectedRoute
+        exact
         path="/student/project/new"
         component={NewProject}
         userType={"student"}
       />
       <ProtectedRoute
         exact
-        path="/student/projects/display"
+        path="/student/projects/displayAll"
         component={DisplayProjects}
         userType={"student"}
       />
@@ -68,12 +68,7 @@ const Student = () => {
         component={() => <  ProjectDetail />}
         userType={"student"}
       />
-      <ProtectedRoute
-        exact
-        path="/student/applications/:id"
-        component={() => <ApplicationDetail actions={StudentActions} />}
-        userType={"student"}
-      />
+
     </Switch>
   );
 };

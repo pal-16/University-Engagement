@@ -5,7 +5,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 export const createProject = async ({ token, body }) => {
   try {
  
-    const res = await axios.post(BASE_URL + "/project/new", body, {
+    const res = await axios.post(BASE_URL + "/projects/new", body, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -24,7 +24,7 @@ export const createProject = async ({ token, body }) => {
 
 export const getProjects = async ({ token }) => {
   try {
-    const res = await axios.get(BASE_URL + `/project/display`, {
+    const res = await axios.get(BASE_URL + `/projects/getAll`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -91,7 +91,7 @@ export const commentProject = async ({ id, token,body }) => {
 export const getProjectDetails= async ({ id,token }) => {
   try {
     console.log("Sent a required")
-    const res = await axios.get(BASE_URL + `/project/${id}/display`, {
+    const res = await axios.get(BASE_URL + `/project/${id}/getDetail`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

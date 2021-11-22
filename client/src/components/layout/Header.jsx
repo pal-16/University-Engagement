@@ -140,7 +140,7 @@ const Header = () => {
                   </Typography>
                 </Button>
                 <Button
-                  onClick={() => navigationHandler(`/${userType}/applications`)}
+                  onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
                   color="inherit"
                   className={`${classes.navButton} ${classes.button}`}
                   disableRipple
@@ -151,7 +151,7 @@ const Header = () => {
                   </Typography>
                 </Button>
                 <Button
-                  onClick={() => navigationHandler(`/${userType}/crowdfunding`)}
+                  onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
                   color="inherit"
                   className={`${classes.navButton} ${classes.button}`}
                   disableRipple
@@ -162,7 +162,7 @@ const Header = () => {
                   </Typography>
                 </Button>
                 <Button
-                  onClick={() => navigationHandler(`/${userType}/projects`)}
+                  onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
                   color="inherit"
                   className={`${classes.navButton} ${classes.button}`}
                   disableRipple
