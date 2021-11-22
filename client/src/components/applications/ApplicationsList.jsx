@@ -63,8 +63,7 @@ const ApplicationsList = () => {
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
-  console.log("Hello");
-  console.log(userCoins);
+
   useEffect(() => {
     setLoading(true);
     getApplications({ id: userID, token, userType }).then((res) => {
