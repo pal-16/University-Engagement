@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreatePost = () => {
-    console.log("Here");
+
     const classes = useStyles();
     const history = useHistory();
     const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);

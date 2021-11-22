@@ -39,7 +39,6 @@ exports.applyForReward=async(req, res)=>{
         res.status(500).json({ error: err.message })
       );
       blobWriter.end(req.file.buffer);
-
       const application = await Application.create({
         ...req.body,
         files: [fileUrl]

@@ -114,7 +114,7 @@ const ProjectDetail = (props) => {
             if (res.error) {
                 setLoading(false);
             } else {
-                console.log("in project detail===================================");
+
                 console.log(res.data);
                 setApplicationData(res.data);
                 setCommentLists(res.data.comments)
