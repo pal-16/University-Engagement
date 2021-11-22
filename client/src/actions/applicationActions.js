@@ -4,7 +4,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 export const getApplicationDetails = async ({ id, token }) => {
   try {
-    const res = await axios.get(BASE_URL + `/applications/${id}`, {
+    const res = await axios.get(BASE_URL + `/applications/${id}/getDetail`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -23,7 +23,7 @@ export const getApplicationDetails = async ({ id, token }) => {
 
 export const getApplications = async ({ id, token, userType }) => {
   try {
-    const res = await axios.get(BASE_URL + `/${userType}/${id}/applications`, {
+    const res = await axios.get(BASE_URL + `/${userType}/${id}/applications/getAll`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -61,7 +61,7 @@ export const getFacultyList = async ({ token }) => {
 
 export const createApplication = async ({ token, body }) => {
   try {
-    const res = await axios.post(BASE_URL + "/applications/apply", body, {
+    const res = await axios.post(BASE_URL + "/applications/new", body, {
       headers: {
         Authorization: `Bearer ${token}`
       }

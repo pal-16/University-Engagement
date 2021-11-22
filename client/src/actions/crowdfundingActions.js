@@ -5,7 +5,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 export const createPost = async ({ token, body }) => {
   try {
  
-    const res = await axios.post(BASE_URL + "/crowdfunding/createPost", body, {
+    const res = await axios.post(BASE_URL + "/crowdfundings/new", body, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -25,7 +25,7 @@ export const createPost = async ({ token, body }) => {
 
 export const getPosts = async ({ id, token, userType }) => {
   try {
-    const res = await axios.get(BASE_URL + `/crowdfunding/getPosts`, {
+    const res = await axios.get(BASE_URL + `/crowdfundings/getAll`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -47,7 +47,7 @@ export const getPosts = async ({ id, token, userType }) => {
 
 export const donate = async ({ postID, token,donateAmount,  senderID, receiverID, userType }) => {
   try {
-    const res = await axios.post(BASE_URL + "/crowdfunding/donate", { postID, token,donateAmount,  senderID, receiverID, userType }, {
+    const res = await axios.post(BASE_URL + "/crowdfundings/donate", { postID, token,donateAmount,  senderID, receiverID, userType }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
