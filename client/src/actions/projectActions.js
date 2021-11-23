@@ -46,7 +46,7 @@ export const getProjects = async ({ token }) => {
 export const likeProject = async ({ id, token, userID }) => {
   try {
    
-    const res = await axios.post(BASE_URL + `/project/${id}/like`,userID, {
+    const res = await axios.post(BASE_URL + `/projects/${id}/like`,userID, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -68,7 +68,7 @@ export const likeProject = async ({ id, token, userID }) => {
 export const commentProject = async ({ id, token,body }) => {
   try {
    
-    const res = await axios.post(BASE_URL + `/project/${id}/comment`,body, {
+    const res = await axios.post(BASE_URL + `/projects/${id}/comment`,body, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -91,7 +91,7 @@ export const commentProject = async ({ id, token,body }) => {
 export const getProjectDetails= async ({ id,token }) => {
   try {
     console.log("Sent a required")
-    const res = await axios.get(BASE_URL + `/project/${id}/getDetail`, {
+    const res = await axios.get(BASE_URL + `/projects/${id}/getDetail`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
