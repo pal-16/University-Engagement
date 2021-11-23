@@ -1,16 +1,17 @@
 import { commentProject } from "../../../actions/projectActions";
+import moment from 'moment';
+import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
 import { SnackbarContext } from "../../../context/SnackbarContext";
 import { useAuthState } from "../../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import React, { useState, useContext } from 'react'
-import { Comment, Avatar, Button, Input } from 'antd';
+import { Comment, Avatar, Button, Input, Tooltip, List } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 const { TextArea } = Input;
 
-function SingleComment(props) {
-    //  const user = useSelector(state => state.user);
 
+function SingleComment(props) {
     const [CommentValue, setCommentValue] = useState("")
     const [OpenReply, setOpenReply] = useState(false)
     const { userID, token } = useAuthState();
@@ -21,19 +22,18 @@ function SingleComment(props) {
     const openReply = () => {
         setOpenReply(!OpenReply)
     }
-
+    console.log(props);
     const onSubmit = (e) => {
         e.preventDefault();
 
         const variables = {
             commentText: Comment,
             authorID: userID,
-            projectID: props.postId
+            projectID: props.projectID
         }
-        console.log(variables);
 
         commentProject({
-            id: props.postId,
+            id: props.projectID,
             token,
             body: variables
         }).then((res) => {
@@ -45,7 +45,6 @@ function SingleComment(props) {
             } else {
                 setCommentValue("")
                 console.log(res.data)
-                console.log("Palak Mantry");
                 console.log(res.data.newComment);
 
                 props.refreshFunction(res.data.newComment)
@@ -60,23 +59,26 @@ function SingleComment(props) {
 
     return (
         <div>
+
+
+
+
             <Comment
+                avatar={<FaUser></FaUser>}
                 //     actions={actions}
-                author={"Palak"}
-                avatar={
-                    <Avatar
-                        src={""}
-                        alt="image"
-                    />
-                }
                 content={
                     <p>
                         {props.comment}
                     </p>
                 }
+                author={props.author}
+                datetime={<Tooltip title={moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')}>
+                    <span>{moment(props.createdAt).fromNow()}</span>
+                </Tooltip>}
             ></Comment>
 
-            {OpenReply &&
+            {
+                OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                     <TextArea
                         style={{ width: '100%', borderRadius: '5px' }}
@@ -89,7 +91,7 @@ function SingleComment(props) {
                 </form>
             }
 
-        </div>
+        </div >
     )
 }
 

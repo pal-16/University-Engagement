@@ -45,8 +45,9 @@ export const getProjects = async ({ token }) => {
 
 export const likeProject = async ({ id, token, userID }) => {
   try {
-   
-    const res = await axios.post(BASE_URL + `/projects/${id}/like`,userID, {
+   console.log(userID);
+   console.log("PALAKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+    const res = await axios.post(BASE_URL + `/projects/${id}/like`,{userID:userID}, {
       headers: {
         Authorization: `Bearer ${token}`
       }

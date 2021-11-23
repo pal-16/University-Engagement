@@ -6,6 +6,8 @@ const Project = require("../../models/Project");
 exports.likeProject=async(req, res)=>{
     try {
     // find project by id
+    console.log("===============================");
+    console.log(req.body.userID);
     await Project.findByIdAndUpdate(req.params.id, {
       $push: { like: req.body.userID }
     });

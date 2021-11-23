@@ -6,8 +6,8 @@ const Student = require("../../models/Student");
  exports.getProjects=async(req, res)=>{
     try {
     
-      const projects = await Project.find({}).populate('userID').populate('comments');
-      console.log(projects);
+      const projects = await Project.find().sort({"like":-1}).populate('userID').populate({ path: 'comments' , populate:{ path: 'author' }}).exec();
+     
       return res.status(200).json({ projects });
     } catch (e) {
       console.log(e.message);
@@ -20,9 +20,9 @@ const Student = require("../../models/Student");
   exports.getProjectDetail=async(req, res)=>{
     try {
     
-      const project = await Project.findById(req.params.id).populate('userID').populate({ path: 'comments' })
+      const project = await Project.findById(req.params.id).populate('userID').populate([{ path: 'comments' , populate:{ path: 'author' }}])
       if (project) {
-        console.log(project)
+    
         return res.status(200).json(project);
       } else {
         return res.status(404).json({ error: "Invalid Application ID" });

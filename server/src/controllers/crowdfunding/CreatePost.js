@@ -2,7 +2,6 @@ const Student = require("../../models/Student");
 const Faculty = require("../../models/Faculty");
 const Crowdfunding = require("../../models/Crowdfunding");
 
-
 exports.createPost=async(req, res)=>{
     try {
 
@@ -18,6 +17,13 @@ exports.createPost=async(req, res)=>{
             $push: { crowdfunding: crowdfundingPost }
         });
         }
+       
+        // create reusable transporter object using the default SMTP transport
+      
+        
+        
+      
+  
       return res.status(201).json({
         message: "Crowdfunding Post created"
       });
