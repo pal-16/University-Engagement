@@ -21,9 +21,9 @@ describe("Achievements Test Routes", () => {
   
   beforeEach((done) => {
       Student.create({
-          studentID:"181071088",
+          studentID:"181071099",
           name: "test namefdwbfrgr",
-          email: "student9@gmail.com",
+          email: "student99@gmail.com",
           password: "12345678",
           department: "Computer Engineering",
           degree: "BTech",
@@ -35,9 +35,9 @@ describe("Achievements Test Routes", () => {
           studentID = student._id.toString();
           token = signToken(studentID);
           Faculty.create({
-            facultyID:"181071093",
+            facultyID:"181071095",
             name: "faculty 1",
-            email: "faculty4@gmail.com",
+            email: "faculty5@gmail.com",
             password: "12345678",
             department: "Computer Engineering",
             position: "BTech",
@@ -59,7 +59,7 @@ describe("Achievements Test Routes", () => {
   })
 
  
-   describe("POST /api/applications/apply", () => {
+   describe("POST /api/applications/new", () => {
     
 //       it("Achievement Submitted successfully for faculty to verify", (done) => {
 
@@ -92,7 +92,7 @@ describe("Achievements Test Routes", () => {
         };   
           chai
               .request(app)
-              .post("/api/applications/apply")
+              .post("/api/applications/new")
               .set('Authorization', `Bearer ${token}`)
               .send({ ...incompleteAchievement })
               .end((err, res) => {
@@ -122,7 +122,7 @@ describe("Achievements Test Routes 2", () => {
   
     beforeEach((done) => {
         Student.create({
-            studentID:"181071084",
+            studentID:"181071055",
             name: "test namefdwbfrgr",
             email: "student5@gmail.com",
             password: "12345678",
@@ -155,7 +155,7 @@ describe("Achievements Test Routes 2", () => {
 
               chai
                   .request(app)
-                  .get("/api/student/"+studentID+"/applications")
+                  .get("/api/student/"+studentID+"/applications/getAll")
                   .set('Authorization', `Bearer ${token}`)
                   .end((err, res) => {
                      // expect(err).to.be.null;
@@ -183,7 +183,7 @@ describe("Achievements Test Routes 3", () => {
    
     beforeEach((done) => {
         Faculty.create({
-              facultyID:"181071093",
+              facultyID:"181071099",
               name: "faculty 1",
               email: "faculty4@gmail.com",
               password: "12345678",
@@ -213,7 +213,7 @@ describe("Achievements Test Routes 3", () => {
 
               chai
                   .request(app)
-                  .get("/api/faculty/"+facultyID+"/applications")
+                  .get("/api/faculty/"+facultyID+"/applications/getAll")
                   .set('Authorization', `Bearer ${token}`)
                   .end((err, res) => {
                      // expect(err).to.be.null;
@@ -246,7 +246,7 @@ describe("Achievements Test Routes 4", () => {
     
     beforeEach((done) => {
         Student.create({
-            studentID:"181071088",
+            studentID:"181071033",
             name: "test namefdwbfrgr",
             email: "student9@gmail.com",
             password: "12345678",
@@ -257,7 +257,7 @@ describe("Achievements Test Routes 4", () => {
             studentID = student._id.toString();
             token = signToken(studentID);
             Faculty.create({
-              facultyID:"181071093",
+              facultyID:"181071023",
               name: "faculty 1",
               email: "faculty4@gmail.com",
               password: "12345678",
@@ -298,7 +298,7 @@ describe("Achievements Test Routes 4", () => {
          
             chai
                 .request(app)
-                .get("/api/applications/"+applicationID)
+                .get("/api/applications/"+applicationID+"/getDetail")
                 .set('Authorization', `Bearer ${token}`)
                 .end((err, res) => {
                    // expect(err).to.be.null;

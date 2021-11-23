@@ -6,7 +6,7 @@ const Comment = require("../../models/Comment");
 
 exports.commentProject=async(req, res)=>{
     try {
-   
+  
     const newComment = new Comment({
       commentText: req.body.commentText,
       author: req.body.authorID,
