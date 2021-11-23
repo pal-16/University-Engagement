@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
     Button,
@@ -64,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DisplayProjects = () => {
+
     const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
@@ -73,6 +75,9 @@ const DisplayProjects = () => {
     const [applications, setApplications] = useState([]);
     //   const [filteredApplications, setFilteredApplications] = useState([]);
     const [statusFilter, setStatusFilter] = useState("All");
+    const [filteredApplications, setFilteredApplications] = useState([]);
+
+    const [semesterFilter, setSemesterFilter] = useState("All");
 
     useEffect(() => {
         setLoading(true);
@@ -86,6 +91,26 @@ const DisplayProjects = () => {
             }
         });
     }, [token, userID, userType]);
+    useEffect(() => {
+        console.log("Hello");
+        console.log(statusFilter);
+        if (statusFilter === "All" && semesterFilter == "All") {
+            setFilteredApplications(applications);
+        } else {
+            let temp = applications.filter((a) => {
+                if (statusFilter == "All")
+                    return a.semester == semesterFilter;
+                else if (semesterFilter == "All")
+                    return a.projectDomain == statusFilter;
+                else
+                    return a.projectDomain == statusFilter && a.semester == semesterFilter;
+            });
+            console.log(temp);
+            setFilteredApplications(temp);
+        }
+
+    }, [semesterFilter, statusFilter, applications]);
+
 
 
     return loading ? (
@@ -110,9 +135,11 @@ const DisplayProjects = () => {
                     style={{ textAlign: isSmallScreen ? "center" : "left" }}
                 >
                     <Typography variant="h6">
-                        {"Crowdfunding Posts".toLocaleUpperCase()}
+                        {"Projects".toLocaleUpperCase()}
                     </Typography>
                 </Grid>
+
+
                 <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
                     {userType === "student" && (
                         <Typography variant="h6">
@@ -124,26 +151,41 @@ const DisplayProjects = () => {
                                 }}
                                 startIcon={<Add />}
                             >
-                                New Post
+                                New Project
                             </Button>
                         </Typography>
                     )}
                 </Grid>
 
+                <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    style={{ textAlign: isSmallScreen ? "center" : "right" }}
+                >
+                    <select options={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                        <option value="All">Domains</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="App Development">App Development</option>
+                        <option value="Blockchain">Blockchain</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                    </select>
+
+                    <select options={semesterFilter} onChange={(e) => setSemesterFilter(e.target.value)}>
+                        <option value="All">Semester</option>
+                        <option value="Semester 1">1</option>
+                        <option value="Semester 2">2</option>
+                        <option value="Semester 3">3</option>
+                        <option value="Semester 4">4</option>
+                    </select>
+                </Grid>
+
             </Grid>
-            <Divider variant="fullWidth" className={classes.divider} />
             <div>
 
-                <Typography
-                    color="textPrimary"
-                    gutterBottom
-                    variant="h2"
-                    align="center"
-                >
 
-                </Typography>
 
-                {applications.map((application) => (
+                {filteredApplications.map((application) => (
                     <>
                         <Link
                             to={`/student/projects/${application._id}`}
@@ -154,14 +196,29 @@ const DisplayProjects = () => {
                                 <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "350px" }}>
                                     Created By {application.userID.name} |    Created at {application.createdAt}
                                 </Typography>
-                                <hr />
+
                                 <CardContent>
-                                    <Typography color="textSecondary" variant="h6">
-                                        {application.description}
+                                    <Divider variant="fullWidth" className={classes.divider} />
+                                    <Typography color="textSecondary" variant="substitle3">
+                                        <b> Description </b>   {application.description}
                                     </Typography>
+                                    <br />
+                                    <br />
                                     <Typography color="textSecondary" variant="substitle3">
                                         <b> Developed during </b> : {application.semester}
                                     </Typography>
+
+
+                                    <br />
+                                    <br />
+
+
+
+                                    <Typography color="textSecondary" variant="h5">
+                                        <FaComment></FaComment>{application.comments.length}   <FaThumbsUp></FaThumbsUp>{application.like.length}
+                                    </Typography>
+
+                                    <br />
 
                                     <div className={classes.btns}>
                                         {application.tags.map(name => <Button color="primary" variant="contained" key={name}> {name} </Button>)}

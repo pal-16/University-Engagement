@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 var CommentSchema = new Schema({
-    project:{
+    projectID:{
         type:Schema.Types.ObjectId,
         ref:"project"
     },
@@ -13,7 +13,8 @@ var CommentSchema = new Schema({
         type: String,
         required: true
     }
-})
+},
+{timestamps:true});
 
 const Comment = mongoose.model("comment",CommentSchema);
 module.exports = Comment;

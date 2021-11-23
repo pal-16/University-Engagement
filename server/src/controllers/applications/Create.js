@@ -3,7 +3,17 @@ const Student = require("../../models/Student");
 const Faculty = require("../../models/Faculty");
 const bucket = require("../../config/firebase");
 const axios = require("axios");
+const nodemailer = require('nodemailer');
 
+let transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user:'mantrypalak@gmail.com', // generated ethereal user
+    pass: 'mumbai2000@P', // generated ethereal password
+  },
+});
 
 exports.applyForReward=async(req, res)=>{
     try {
@@ -47,9 +57,15 @@ exports.applyForReward=async(req, res)=>{
       await Student.findByIdAndUpdate(req.body.studentID, {
         $push: { applications: application }
       });
-      await Faculty.findByIdAndUpdate(req.body.facultyID, {
+      let faculty = await Faculty.findByIdAndUpdate(req.body.facultyID, {
         $push: { applications: application }
       });
+      let info = await transporter.sendMail({
+        from: 'mantrypalak@gmail.com',
+        to: faculty.email,
+        subject: 'Student Submitted An Application',
+        html: '<h1>Please verify the student achievement and accordingly allocate coins</h1>'
+    });
       return res.status(201).json({
         message: "Application for reward created, status pending"
       });

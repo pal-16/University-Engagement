@@ -6,18 +6,19 @@ const Comment = require("../../models/Comment");
 
 exports.commentProject=async(req, res)=>{
     try {
-   console.log(req.body);
+   
     const newComment = new Comment({
       commentText: req.body.commentText,
       author: req.body.authorID,
       project: req.body.projectID
     });
     await newComment.save();
-      console.log(newComment);
+
     await Project.findByIdAndUpdate(req.body.projectID, {   $push: { comments: newComment}});
 
-
-    return res.status(200).json(newComment);
+    let finalComment = await Comment.findById(newComment._id).populate('author');
+  
+    return res.status(200).json(finalComment);
     } catch (e) {
       return res.status(500).json({ error: e.message });
     }

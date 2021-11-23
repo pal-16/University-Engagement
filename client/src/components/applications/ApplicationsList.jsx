@@ -64,6 +64,7 @@ const ApplicationsList = () => {
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
 
+
   useEffect(() => {
     setLoading(true);
     getApplications({ id: userID, token, userType }).then((res) => {
@@ -85,7 +86,11 @@ const ApplicationsList = () => {
       });
       setFilteredApplications(temp);
     }
+
+
   }, [statusFilter, applications]);
+
+
 
   return loading ? (
     <Spinner />

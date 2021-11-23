@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
+import CardHeader from "@material-ui/core/CardHeader";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import {
     Button,
     Box,
@@ -17,8 +21,15 @@ import Spinner from "../../components/common/Spinner";
 import ApplicationItem from "../applications/ApplicationItem";
 import Comments from './sections/Comments'
 //import StatusChip from "./StatusChip";
+import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
+    btns: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+        marginTop: "5px"
+    },
     root: {
         minHeight: "80vh",
         padding: "20px"
@@ -76,7 +87,7 @@ const ProjectDetail = (props) => {
                 setOpen(true);
                 return;
             } else {
-                history.replace(`/student`);
+                history.replace(`/student/projects/${id}`);
                 setSeverity("success");
                 setMessage("Liked");
                 setOpen(true);
@@ -95,15 +106,13 @@ const ProjectDetail = (props) => {
         files: [],
         comments: [],
         like: [],
-        userID: []
+        userID: {}
     });
     const [loading, setLoading] = useState(false);
 
     const [CommentLists, setCommentLists] = useState([])
 
     const updateComment = (newComment) => {
-
-        console.log(newComment);
 
         setCommentLists(CommentLists.concat(newComment));
     }
@@ -126,59 +135,92 @@ const ProjectDetail = (props) => {
     return loading ? (
         <Spinner />
     ) : (
-        <Box
-            className={classes.root}
-            display="flex"
-            flexDirection="column"
-            justifyContent="start"
-            alignItems="center"
-        >
-            <Paper elevation={isSmallScreen ? 0 : 3} className={classes.paper}>
+        <>
+            {/* {/* <Box
+                className={classes.root}
+                display="flex"
+                flexDirection="column"
+                justifyContent="start"
 
-
-                <Typography variant="h6">
-                    {"Project Details".toLocaleUpperCase()}
-                </Typography>
-                <Grid
-                    container
-                    spacing={isSmallScreen ? 0 : 3}
-                    className={classes.grid}
-                >
+            >
+                <Paper elevation={isSmallScreen ? 0 : 3} className={classes.paper}>
+                    <Typography variant="h6">
+                        {"Project Details".toLocaleUpperCase()}
+                    </Typography>
                     <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        className={!isSmallScreen ? classes.separator : ""}
-                        style={{ paddingRight: "30px" }}
+                        container
+                        spacing={isSmallScreen ? 0 : 3}
+                        className={classes.grid}
                     >
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            className={!isSmallScreen ? classes.separator : ""}
+                            style={{ paddingRight: "30px" }}
+                        >
 
 
 
-                        <ApplicationItem
-                            label="Title"
-                            value={projectData.title}
-                        />
+                            <ApplicationItem
+                                label="Title"
+                                value={projectData.title}
+                            />
 
-                        <ApplicationItem
-                            label="Description"
-                            value={projectData.description}
-                        />
-                        <button>{projectData.like.length}</button>
-                        <ApplicationItem
-                            label="Domain of Achievement"
-                            value={projectData.projectDomain}
-                        />
+                            <ApplicationItem
+                                label="Description"
+                                value={projectData.description}
+                            />
 
+                            <ApplicationItem
+                                label="Domain of Achievement"
+                                value={projectData.projectDomain}
+                            />
+
+                        </Grid>
                     </Grid>
-                    <Button color="primary" onClick={handleLike}>
-                        Like
-                    </Button>
-                    <br />
+                </Paper>
 
-                </Grid>
-                <Comments className="comments-container" CommentLists={CommentLists} postId={projectData._id} refreshFunction={updateComment} />
-            </Paper>
-        </Box>
+            </Box> */}
+            <br />
+            <Card className={classes.card} variant="outlined">
+                <CardHeader title={projectData.title} align="center" />
+                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "350px" }}>
+                    Created By {projectData.userID.name} |    Created at {projectData.createdAt}
+                </Typography>
+                <hr />
+                <CardContent>
+                    <Typography color="textSecondary" variant="substitle3">
+                        <b> Description </b>   {projectData.description}
+                    </Typography>
+                    <Typography color="textSecondary" variant="substitle3">
+                        <b> Developed during </b> : {projectData.semester}
+                    </Typography>
+
+
+                    <div className={classes.btns}>
+                        {projectData.tags.map(name => <Button color="primary" variant="contained" key={name}> {name} </Button>)}
+                    </div>
+
+
+                    {/* <FacultyActions
+                                            position={isSmallScreen ? "center" : "start"}
+                                            applicationData={application}
+                                            setLoading={setLoading}
+                                            id={application._id}
+                                        /> */}
+                </CardContent>
+            </Card>
+            <Button color="primary" onClick={handleLike}>
+                Like  <FaThumbsUp></FaThumbsUp> <p style={{ marginLeft: "10px" }}> </p> {projectData.like.length}
+            </Button>
+
+            <Button color="secondary" variant="contained" onClick={handleLike} style={{ marginLeft: "50px" }} c>
+                Fork this project on GitHub
+            </Button>
+            <Comments className="comments-container" CommentLists={CommentLists} projectID={projectData._id} refreshFunction={updateComment} />
+
+        </>
     );
 };
 

@@ -3,16 +3,15 @@ import { SnackbarContext } from "../../../context/SnackbarContext";
 import { useAuthState } from "../../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import React, { useState, useEffect, useContext } from 'react'
-import { Button, Input } from 'antd';
+import { Button, Input, Comment, Avatar, Tooltip, List } from 'antd';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
 import { commentProject } from "../../../actions/projectActions";
 const { TextArea } = Input;
 
-function Comments(props) {
 
-    console.log(props);
+function Comments(props) {
 
     const [Comment, setComment] = useState("")
     const history = useHistory();
@@ -29,12 +28,11 @@ function Comments(props) {
         const variables = {
             commentText: Comment,
             authorID: userID,
-            projectID: props.postId
+            projectID: props.projectID
         }
-        console.log(variables);
 
         commentProject({
-            id: props.postId,
+            id: props.projectID,
             token,
             body: variables
         }).then((res) => {
@@ -45,6 +43,7 @@ function Comments(props) {
                 return;
             } else {
                 setComment("")
+                console.log("new comment")
                 console.log(res.data);
                 props.refreshFunction(res.data)
             }
@@ -58,19 +57,24 @@ function Comments(props) {
     return (
         <div>
             <br />
-            <p> replies</p>
+            <p> Comments</p>
             <hr />
-            {/* Comment Lists  */}
+
+            <List
+                className="comment-list"
+                header={`${props.CommentLists.length} replies`}
+                itemLayout="horizontal"
+                dataSource={props.CommentLists}
+                renderItem={item => (
+                    <li>
+                        <SingleComment
+                            comment={item.commentText} projectID={props.projectID} createdAt={item.createdAt} author={item.author.name} refreshFunction={item.refreshFunction}
+                        />
+                    </li>
+                )}
+            />
 
 
-            {props.CommentLists && props.CommentLists.map((comment) => (
-                (
-                    <React.Fragment>
-
-                        <SingleComment comment={comment.commentText} postId={props.postId} refreshFunction={props.refreshFunction} />
-                    </React.Fragment>
-                )
-            ))}
 
 
 
@@ -80,7 +84,7 @@ function Comments(props) {
                     style={{ width: '100%', borderRadius: '5px' }}
                     onChange={handleChange}
                     value={Comment}
-                    placeholder="write some comments"
+                    placeholder="Enter your comment"
                 />
                 <br />
                 <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
