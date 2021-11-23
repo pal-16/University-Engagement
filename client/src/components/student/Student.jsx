@@ -58,7 +58,7 @@ const Student = () => {
       />
       <ProtectedRoute
         exact
-        path="/student/project/new"
+        path="/student/projects/new"
         component={NewProject}
         userType={"student"}
       />
@@ -70,7 +70,7 @@ const Student = () => {
       />
       <ProtectedRoute
         exact
-        path="/student/project/:id"
+        path="/student/projects/:id"
         component={() => <  ProjectDetail />}
         userType={"student"}
       />

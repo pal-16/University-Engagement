@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
 import { SnackbarContext } from "../../context/SnackbarContext";
-import { getProjectDetails, likeProject, commentProject } from "../../actions/projectActions";
+import { getProjectDetails, likeProject } from "../../actions/projectActions";
 import { useAuthState } from "../../context/AuthContext";
 import Spinner from "../../components/common/Spinner";
 import ApplicationItem from "../applications/ApplicationItem";
@@ -78,14 +78,14 @@ const ProjectDetail = (props) => {
             } else {
                 history.replace(`/student`);
                 setSeverity("success");
-                setMessage("Application approved. Reward will be mined shortly.");
+                setMessage("Liked");
                 setOpen(true);
             }
 
         });
     };
 
-    const [applicationData, setApplicationData] = useState({
+    const [projectData, setProjectData] = useState({
         _id: "",
         title: "",
         description: "",
@@ -116,7 +116,7 @@ const ProjectDetail = (props) => {
             } else {
 
                 console.log(res.data);
-                setApplicationData(res.data);
+                setProjectData(res.data);
                 setCommentLists(res.data.comments)
                 setLoading(false);
             }
@@ -134,10 +134,10 @@ const ProjectDetail = (props) => {
             alignItems="center"
         >
             <Paper elevation={isSmallScreen ? 0 : 3} className={classes.paper}>
-                <h1>Heloo</h1>
+
 
                 <Typography variant="h6">
-                    {"Application Details".toLocaleUpperCase()}
+                    {"Project Details".toLocaleUpperCase()}
                 </Typography>
                 <Grid
                     container
@@ -151,24 +151,22 @@ const ProjectDetail = (props) => {
                         className={!isSmallScreen ? classes.separator : ""}
                         style={{ paddingRight: "30px" }}
                     >
+
+
+
                         <ApplicationItem
-                            label="Application ID"
-                            value={applicationData._id}
+                            label="Title"
+                            value={projectData.title}
                         />
 
                         <ApplicationItem
-                            label="Student Name"
-                            value={applicationData.title}
+                            label="Description"
+                            value={projectData.description}
                         />
-
-                        <ApplicationItem
-                            label="Faculty Name"
-                            value={applicationData.description}
-                        />
-                        <button>{applicationData.like.length}</button>
+                        <button>{projectData.like.length}</button>
                         <ApplicationItem
                             label="Domain of Achievement"
-                            value={applicationData.projectDomain}
+                            value={projectData.projectDomain}
                         />
 
                     </Grid>
@@ -178,7 +176,7 @@ const ProjectDetail = (props) => {
                     <br />
 
                 </Grid>
-                <Comments CommentLists={CommentLists} postId={applicationData._id} refreshFunction={updateComment} />
+                <Comments className="comments-container" CommentLists={CommentLists} postId={projectData._id} refreshFunction={updateComment} />
             </Paper>
         </Box>
     );

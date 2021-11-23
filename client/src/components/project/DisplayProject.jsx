@@ -32,6 +32,12 @@ import CardMedia from "@material-ui/core/CardMedia";
 import { getProjects } from "../../actions/projectActions";
 
 const useStyles = makeStyles((theme) => ({
+    btns: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+        marginTop: "5px"
+    },
     container: {
         minHeight: "80vh",
         padding: "20px"
@@ -75,6 +81,7 @@ const DisplayProjects = () => {
                 setLoading(false);
             } else {
                 setApplications(res.data.projects);
+
                 setLoading(false);
             }
         });
@@ -89,7 +96,7 @@ const DisplayProjects = () => {
             display="flex"
             flexDirection="column"
             justifyContent="start"
-            alignItems="center"
+
         >
             <Grid
                 container
@@ -113,7 +120,7 @@ const DisplayProjects = () => {
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
-                                    history.push("/student/project/new");
+                                    history.push("/student/projects/new");
                                 }}
                                 startIcon={<Add />}
                             >
@@ -126,50 +133,58 @@ const DisplayProjects = () => {
             </Grid>
             <Divider variant="fullWidth" className={classes.divider} />
             <div>
-                <Container>
-                    <Typography
-                        color="textPrimary"
-                        gutterBottom
-                        variant="h2"
-                        align="center"
-                    >
 
-                    </Typography>
-                    <Grid container spacing={3}>
-                        {applications.map((application) => (
+                <Typography
+                    color="textPrimary"
+                    gutterBottom
+                    variant="h2"
+                    align="center"
+                >
 
-                            <Grid item xs={12} sm={12} key={application._id}>
-                                <Card className={classes.card}>
-                                    <CardHeader title={"Project"} />
-                                    <CardContent>
-                                        <Link
-                                            to={`/student/project/${application._id}`}
-                                            className={classes.titleLink}
-                                        >
-                                            <Typography color="primary" variant="h5">
-                                                {application.title}
-                                            </Typography>
-                                        </Link>
-                                        <Typography color="textSecondary" variant="subtitle2">
-                                            {application.description}
-                                        </Typography>
-                                        <div>
-                                            {application.tags.map(name => <button key={name}> {name} </button>)}
-                                        </div>
+                </Typography>
+
+                {applications.map((application) => (
+                    <>
+                        <Link
+                            to={`/student/projects/${application._id}`}
+                            className={classes.titleLink}
+                        >
+                            <Card className={classes.card} variant="outlined">
+                                <CardHeader title={application.title} align="center" />
+                                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "350px" }}>
+                                    Created By {application.userID.name} |    Created at {application.createdAt}
+                                </Typography>
+                                <hr />
+                                <CardContent>
+                                    <Typography color="textSecondary" variant="h6">
+                                        {application.description}
+                                    </Typography>
+                                    <Typography color="textSecondary" variant="substitle3">
+                                        <b> Developed during </b> : {application.semester}
+                                    </Typography>
+
+                                    <div className={classes.btns}>
+                                        {application.tags.map(name => <Button color="primary" variant="contained" key={name}> {name} </Button>)}
+                                    </div>
 
 
-                                        {/* <FacultyActions
+                                    {/* <FacultyActions
                                             position={isSmallScreen ? "center" : "start"}
                                             applicationData={application}
                                             setLoading={setLoading}
                                             id={application._id}
                                         /> */}
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
-                </Container>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                        <br />
+
+                    </>
+
+                ))}
+
+
+
             </div>
 
 
@@ -216,7 +231,7 @@ const DisplayProjects = () => {
                     </TableBody>
                 </Table>
             </TableContainer> */}
-        </Box>
+        </Box >
     );
 };
 
