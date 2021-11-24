@@ -6,7 +6,7 @@ const axios = require("axios");
 
 exports.donateCoins=async(req, res)=>{
     try {
-     
+      console.log(req.body);
         let post = await Crowdfunding.findById(req.body.postID);
         if (!post) {
           return res.status(404).json({ error: "Invalid Post ID" });

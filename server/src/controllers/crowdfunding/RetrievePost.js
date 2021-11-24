@@ -6,7 +6,6 @@ const axios = require("axios");
     try {
        
       const Crowdfundings = await Crowdfunding.find({}).populate('userID');
-      console.log(Crowdfundings);
       return res.status(200).json({ Crowdfundings });
     } catch (e) {
       return res.status(500).json({ error: e.message });

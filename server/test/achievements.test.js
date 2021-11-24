@@ -21,9 +21,9 @@ describe("Achievements Test Routes", () => {
   
   beforeEach((done) => {
       Student.create({
-          studentID:"181071099",
+          studentID:"181071111",
           name: "test namefdwbfrgr",
-          email: "student99@gmail.com",
+          email: "student101@gmail.com",
           password: "12345678",
           department: "Computer Engineering",
           degree: "BTech",
