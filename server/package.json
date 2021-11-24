@@ -12,11 +12,6 @@
     "client": "cd ../client && npm start",
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon src/app.js\" \"npm run client\""
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.js": "npm run format:server",
     "../client/src/**/*.{js,jsx, css}": "npm run format:client"
