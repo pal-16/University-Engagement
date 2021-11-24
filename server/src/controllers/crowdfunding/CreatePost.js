@@ -8,15 +8,15 @@ exports.createPost=async(req, res)=>{
       const crowdfundingPost = await Crowdfunding.create({
         ...req.body
       });
-        if(req.body.userType=="student"){
+      
             await Student.findByIdAndUpdate(req.body.userID, {
                 $push: { crowdfunding: crowdfundingPost }
             });
-        }else{
-        await Faculty.findByIdAndUpdate(req.body.userID, {
-            $push: { crowdfunding: crowdfundingPost }
-        });
-        }
+        // }else{
+        // await Faculty.findByIdAndUpdate(req.body.userID, {
+        //     $push: { crowdfunding: crowdfundingPost }
+        // });
+        // }
        
         // create reusable transporter object using the default SMTP transport
       
