@@ -20,6 +20,7 @@ import {
 import ProfileItem from "./ProfileItem";
 import { useAuthState } from "../../../context/AuthContext";
 import { getUser } from "../../../actions/authActions";
+import { getStudentRank } from "../../../actions/applicationActions";
 
 const studentDetails = [
   {
@@ -81,6 +82,12 @@ const facultyDetails = [
 ];
 
 const useStyles = makeStyles(() => ({
+  box: {
+    height: "200px",
+    width: "200px",
+    //background: linear - gradient(rgba(250, 0, 0, 0.5), transparent),
+    backgroundColor: "black"
+  },
   mobileDrawer: {
     width: 256,
     backgroundColor: "#f1f1f1"
@@ -90,7 +97,7 @@ const useStyles = makeStyles(() => ({
     width: 1400,
     top: 60,
     marginLeft: 1,
-    maxHeight: 500
+    maxHeight: 400
   },
   avatar: {
     cursor: "pointer",
@@ -105,10 +112,14 @@ export default function Profile({ onMobileClose, openMobile }) {
   const { userType, userID, token } = useAuthState();
   const [detailList, setDetailList] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [rank, setRank] = useState("");
   useEffect(() => {
     setLoading(true);
     if (userType === "student") {
+      getStudentRank({ id: userID, token }).then((res) => {
+        console.log("Student Rank")
+        setRank(res.data.message);
+      })
       getUser({ id: userID, token, userType }).then((fetchedStudents) => {
         const details = [
           fetchedStudents.data["name"],
@@ -142,6 +153,7 @@ export default function Profile({ onMobileClose, openMobile }) {
     <Spinner />
   ) : (
     <>
+
       <Hidden lgUp>
         <Drawer
           anchor="top"
@@ -198,12 +210,14 @@ export default function Profile({ onMobileClose, openMobile }) {
         </Drawer>
       </Hidden>
       <Hidden mdDown>
+
         <Drawer
           anchor="center"
           classes={{ paper: classes.desktopDrawer }}
           open
           variant="persistent"
         >
+
           <Box height="50%" width="100%" display="flex">
             <Box
               alignItems="center"
@@ -211,6 +225,8 @@ export default function Profile({ onMobileClose, openMobile }) {
               flexDirection="column"
               p={2}
             >
+
+
               <Avatar className={classes.avatar}>
                 <User />
               </Avatar>

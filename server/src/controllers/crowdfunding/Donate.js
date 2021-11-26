@@ -19,11 +19,24 @@ exports.donateCoins=async(req, res)=>{
               if (!student) {
                 return res.status(404).json({ error: "Invalid Student ID" });
               }
-              student.coins=student.coins-req.body.donateAmount;
+              // 2 = 2+ 10
+              var extra = "not exceeded";
               post.currentAmount=post.currentAmount+req.body.donateAmount;
-              if(post.currentAmount==0)
-              post.status="Accepted";
-
+              console.log(post.currentAmount);
+              console.log(post.amountNeeded);
+              console.log(extra);
+              if(post.currentAmount>post.amountNeeded){
+                post.status="Completed";
+               
+                extra="exceeded";
+              }else if(post.currentAmount==post.amountNeeded)
+              post.status="Completed";
+               
+              if(extra =="exceeded")
+              student.coins=student.coins-req.body.donateAmount+(post.currentAmount-post.amountNeeded);
+              else
+              student.coins=student.coins-req.body.donateAmount;
+              console.log(extra);
               await post.save();
               await student.save();
       
@@ -42,7 +55,11 @@ exports.donateCoins=async(req, res)=>{
               await Student.findByIdAndUpdate(req.body.receiverID, {
                 $push: { transfer: newTransaction._id }
               });
-              return res.status(200).json({ message: "Application approved" });
+              if(extra == "exceeded")
+              return res.status(200).json({ message: "You had contributed few additional coins as asked in the post, we have added remaining coins back to your wallet" });
+              
+              return res.status(200).json({ message: "Amount donated" });
+              
       } catch (e) {
 
         return res.status(500).json({ error: e.message });

@@ -4,13 +4,11 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd ../client && npm run build",
-    "install-client": "cd ../client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node src/app.js",
-    "client": "cd ../client && npm start",
-    "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon src/app.js\" \"npm run client\""
+    "dev": "nodemon src/app.js",
+    "format:server": "prettier --config .prettierrc ../server/src/**/*.js --write",
+    "format:client": "prettier --config .prettierrc '../client/src/**/*.{js, jsx, css}' --write",
+    "test": "mocha --recursive --exit --timeout 100000"
   },
   "lint-staged": {
     "src/**/*.js": "npm run format:server",

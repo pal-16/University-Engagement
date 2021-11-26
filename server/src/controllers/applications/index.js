@@ -4,6 +4,7 @@ module.exports = {
     retrieve: require('./Retrieve.js'),
     create : require('./Create.js'),
     delete : require('./Delete.js'),
+    rank:require('./instituteRank')
  }
  
 

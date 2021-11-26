@@ -51,6 +51,16 @@ const student = new mongoose.Schema({
     required: false,
     default: 0
   },
+  rank:{
+    type: Number,
+    required: false,
+    default: 0
+  },
+  totalCoinsAchieved:{
+    type: Number,
+    required: false,
+    default: 0
+  },
   transfer: {
     type: [
       {

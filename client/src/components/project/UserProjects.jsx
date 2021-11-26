@@ -30,7 +30,7 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import { getProjects } from "../../actions/projectActions";
+import { getUserProjects } from "../../actions/projectActions";
 const useStyles = makeStyles((theme) => ({
     btns: {
         '& > *': {
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     selected: {}
 }));
 
-const DisplayProjects = () => {
+const DisplayUserProjects = () => {
 
     const history = useHistory();
     const classes = useStyles();
@@ -80,7 +80,7 @@ const DisplayProjects = () => {
 
     useEffect(() => {
         setLoading(true);
-        getProjects({ token }).then((res) => {
+        getUserProjects({ id: userID, token }).then((res) => {
             if (res.error) {
                 setLoading(false);
             } else {
@@ -293,4 +293,4 @@ const DisplayProjects = () => {
     );
 };
 
-export default DisplayProjects;
+export default DisplayUserProjects;

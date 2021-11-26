@@ -58,7 +58,26 @@ export const getFacultyList = async ({ token }) => {
     };
   }
 };
+export const getStudentRank = async ({ id,token }) => {
 
+  try {
+    const res = await axios.get(BASE_URL + `/student/${id}/rank`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    console.log(res.data);
+    return {
+      data: res.data.message,
+      status: res.status
+    };
+  } catch (err) {
+    return {
+      error: err.response.data.error,
+      status: err.response.status
+    };
+  }
+}
 export const createApplication = async ({ token, body }) => {
   try {
     const res = await axios.post(BASE_URL + "/applications/new", body, {

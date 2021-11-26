@@ -1,5 +1,6 @@
 const Crowdfunding = require("../../models/Crowdfunding");
 const axios = require("axios");
+const Student = require("../../models/Student");
 
 
  exports.getCrowdfundingPosts=async(req, res)=>{
@@ -27,4 +28,14 @@ const axios = require("axios");
     }
   };
 
- 
+  exports.getUserPosts=async(req, res)=> {
+    try {
+      console.log(req.params.id);
+      const posts = await Crowdfunding.find({userID:req.params.id})
+ console.log(posts);
+      return res.status(200).json({ posts });
+    } catch (e) {
+      console.log(e.message);
+      return res.status(500).json({ error: e.message });
+    }
+  };

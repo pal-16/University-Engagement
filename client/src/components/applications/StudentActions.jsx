@@ -22,7 +22,7 @@ const StudentActions = (props) => {
         setSeverity("success");
         setMessage("Application submitted successfully");
         setOpen(true);
-        history.push("/student/applications");
+        history.push("/student/applications/displayAll");
       }
       props.setLoading(false);
     });
