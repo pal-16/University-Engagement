@@ -2,9 +2,7 @@ const Application = require("../../models/Application");
 const Student = require("../../models/Student");
 const Faculty = require("../../models/Faculty");
 const Transaction = require("../../models/Transaction");
-const bucket = require("../../config/firebase");
-const axios = require("axios");
-
+const transporter= require('../../config/mail');
   exports.approveApplication=async(req, res)=>{
     try {
       let application = await Application.findById(req.params.id);
@@ -28,11 +26,17 @@ const axios = require("axios");
         senderType: "faculty",
         receiverID: application["studentID"],
         receiverType: "student",
-        coins: total
+        coins: req.body.reward
       });
       await newTransaction.save();
-      
-      await Student.findByIdAndUpdate(application["studentID"], { coins: total});
+      let info = await transporter.sendMail({
+        from: 'mantrypalak@gmail.com',
+        to: student.email,
+        subject: 'Faculty Acceptance',
+        html: '<h1>Faculty has verified your application and you have been alloted coins</h1>'
+    });
+    console.log(info);
+      await Student.findByIdAndUpdate(application["studentID"], { coins: total, totalCoinsAchieved: total});
 
       await Student.findByIdAndUpdate(application["studentID"], {
         $push: { transfer: newTransaction._id }

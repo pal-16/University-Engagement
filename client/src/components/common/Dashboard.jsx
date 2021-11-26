@@ -35,19 +35,28 @@ const DashboardLayout = () => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
-    <div
-      className={classes.root}
-      style={{
-        display: "flex",
-        justifyContent: "normal",
-        alignItems: "normal"
-      }}
-    >
-      <Profile
-        onMobileClose={() => setMobileNavOpen(false)}
-        openMobile={isMobileNavOpen}
-      />
-    </div>
+    <>
+
+
+
+
+
+      <div
+        className={classes.root}
+        style={{
+          display: "flex",
+          justifyContent: "normal",
+          alignItems: "normal"
+        }}
+      >
+
+
+        <Profile
+          onMobileClose={() => setMobileNavOpen(false)}
+          openMobile={isMobileNavOpen}
+        />
+      </div>
+    </>
   );
 };
 

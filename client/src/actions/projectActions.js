@@ -43,10 +43,30 @@ export const getProjects = async ({ token }) => {
   }
 };
 
+export const getUserProjects = async ({ id, token }) => {
+  try {
+    const res = await axios.get(BASE_URL + `/projects/${id}/getAll`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    console.log(res.data);
+    return {
+      data: res.data,
+      status: res.status
+    };
+  } catch (err) {
+    return {
+      error: err.response.data.error,
+      status: err.response.status
+    };
+  }
+};
+
+
 export const likeProject = async ({ id, token, userID }) => {
   try {
-   console.log(userID);
-   console.log("PALAKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
     const res = await axios.post(BASE_URL + `/projects/${id}/like`,{userID:userID}, {
       headers: {
         Authorization: `Bearer ${token}`

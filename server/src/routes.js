@@ -18,7 +18,8 @@ module.exports = (app) => {
   app.get("/api/student", auth.loginRequired, StudentController.getAllStudents);
   app.get("/api/student/:id/applications/getAll",auth.loginRequired,ApplicationController.retrieve.getStudentApplications);
   app.get("/api/student/:studentID",auth.loginRequired,StudentController.getStudent);
-
+  app.get("/api/student/:id/rank",auth.loginRequired,ApplicationController.rank.getStudentRank);
+ 
   //Faculty Routes
   app.post("/api/faculty/register", FacultyController.registerFaculty);
   app.post("/api/faculty/login", FacultyController.loginFaculty);
@@ -36,14 +37,17 @@ module.exports = (app) => {
 
 
   app.post("/api/crowdfundings/new",auth.loginRequired,CrowdfundingController.createPost.createPost);
+  app.get("/api/crowdfundings/:id/getAll",auth.loginRequired,CrowdfundingController.getPost.getUserPosts);
+  
   app.get("/api/crowdfundings/getAll",auth.loginRequired,CrowdfundingController.getPost.getCrowdfundingPosts);
   app.post("/api/crowdfundings/donate",auth.loginRequired,CrowdfundingController.donate.donateCoins);
- 
+  
   app.post("/api/projects/new",auth.loginRequired,ProjectController.createProject.createProject);
   app.get("/api/projects/getAll",auth.loginRequired,ProjectController.display.getProjects);
   app.get("/api/projects/:id/getDetail",auth.loginRequired,ProjectController.display.getProjectDetail);
   app.post("/api/projects/:id/like",auth.loginRequired,ProjectController.like.likeProject);
   app.post("/api/projects/:id/comment",auth.loginRequired,ProjectController.comment.commentProject);
- 
+  app.get("/api/projects/:id/getAll",auth.loginRequired,ProjectController.display.getUserPosts);
+
  
 };

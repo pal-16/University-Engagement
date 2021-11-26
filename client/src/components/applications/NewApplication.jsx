@@ -20,9 +20,10 @@ import FormField from "../../components/common/FormField";
 import constants from "../../constants";
 import {
   createApplication,
-  getFacultyList
+  getFacultyList, getStudentRank
 } from "../../actions/applicationActions";
 import { useAuthState } from "../../context/AuthContext";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,6 +88,10 @@ const NewApplication = () => {
 
   useEffect(() => {
     setLoading(true);
+    getStudentRank({ id: userID, token }).then((res) => {
+      console.log("Student Rank")
+      console.log(res.data);
+    })
     getFacultyList({ token }).then((res) => {
       if (res.error) {
       } else {
@@ -154,6 +159,7 @@ const NewApplication = () => {
       formData.append("file", file);
       formData.append("studentID", userID);
       formData.append("facultyID", application.faculty);
+
       createApplication({ body: formData, token }).then((res) => {
         setLoading(false);
         if (res.error) {
@@ -164,7 +170,7 @@ const NewApplication = () => {
           setSeverity("success");
           setMessage("Application submitted successfully");
           setOpen(true);
-          history.push("/student/applications");
+          history.push("/student/applications/displayAll");
         }
       });
     }

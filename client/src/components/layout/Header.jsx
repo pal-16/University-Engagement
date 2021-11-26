@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SchoolRoundedIcon from "@material-ui/icons/SchoolRounded";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import Dropdown from "../common/Dropdown";
+import "../common/Dropdownstyles.css";
 import {
   AppBar,
   Button,
@@ -52,6 +54,33 @@ const Header = () => {
   const navigationHandler = (route) => {
     handleMobileMenuClose();
     history.push(route);
+  };
+
+  const dropdownHandler = (route) => {
+    console.log(route);
+    if (route == "Projects Feed") {
+      navigationHandler(`/${userType}/projects/displayAll`)
+    } else if (route == "View my projects") {
+      navigationHandler(`/${userType}/projects/displayUserProjects`)
+    } else if (route == "Upload project") {
+      navigationHandler(`/${userType}/projects/new`)
+    } else if (route == "Achievements Wall") {
+      navigationHandler(`/${userType}/applications/displayAll`)
+    } else if (route == "Submit an achievement") {
+      navigationHandler(`/${userType}/applications/new`)
+    } else if (route == "View my achievements") {
+      navigationHandler(`/${userType}/applications/displayAll`)
+    } else if (route == "Create a post") {
+      navigationHandler(`/${userType}/crowdfundings/new`)
+    } else if (route == "Crowdfunding Feed") {
+      navigationHandler(`/${userType}/crowdfundings/displayAll`)
+    } else if (route == "View my posts") {
+      navigationHandler(`/${userType}/crowdfundings/displayUserPosts`)
+    } else if (route == "Profile") {
+      navigationHandler(`/${userType}/profile`)
+    } else {
+      handleLogout();
+    }
   };
 
   const handleMobileMenuClose = () => {
@@ -112,104 +141,145 @@ const Header = () => {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Button
-            color="inherit"
-            disableRipple
-            disableFocusRipple
-            className={classes.button}
-            onClick={() => navigationHandler("/")}
-          >
-            <SchoolRoundedIcon />
-            <Typography variant="h6" noWrap style={{ marginLeft: "10px" }}>
-              Microsoft Engage
-            </Typography>
-          </Button>
+
+          {isAuthenticated ? (
+
+            <div>
+
+              <Dropdown
+                placeholder="Crowdfunding"
+                value={"Crowdfunding"}
+                onChange={(val) => dropdownHandler(val)}
+                options={["Create a post", "Crowdfunding Feed", "View my posts"]}
+              />
+              <Dropdown
+                placeholder="Projects"
+                value={"Projects"}
+                onChange={(val) => dropdownHandler(val)}
+                options={["Upload project", "Project Feed", "View my projects"]}
+              />
+              <Dropdown
+
+                placeholder="Acheivements"
+                value={"Achievements"}
+                onChange={(val) => dropdownHandler(val)}
+                options={["Submit an achievement", "View my acheivements", "Achievements Wall"]}
+              />
+              <Dropdown
+                className={`${classes.navButton} ${classes.button}`}
+                placeholder="Profile"
+                value={"Profile"}
+                onClick={() => navigationHandler(`/${userType}/profile`)}
+              />
+              <Button
+                onClick={handleLogout}
+                color="inherit"
+                className={`${classes.navButton} ${classes.button}`}
+                disableRipple
+                disableFocusRipple >
+                <Typography variant="body1" noWrap style={{ paddingBottom: "8px" }} >
+                  Logout
+                </Typography>
+              </Button>
+
+              {/* <Button
+    onClick={() => navigationHandler(`/${userType}/profile`)}
+    color="inherit"
+    className={`${classes.navButton} ${classes.button}`}
+    disableRipple
+    disableFocusRipple
+  >
+    <Typography variant="body1" noWrap>
+      Profile
+    </Typography>
+  </Button> */}
+              {/* <Button
+    onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
+    color="inherit"
+    className={`${classes.navButton} ${classes.button}`}
+    disableRipple
+    disableFocusRipple
+  >
+    <Typography variant="body1" noWrap>
+      Applications
+    </Typography>
+  </Button>
+  <Button
+    onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
+    color="inherit"
+    className={`${classes.navButton} ${classes.button}`}
+    disableRipple
+    disableFocusRipple
+  >
+    <Typography variant="body1" noWrap>
+      Crowdfunding
+    </Typography>
+  </Button>
+  <Button
+    onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
+    color="inherit"
+    className={`${classes.navButton} ${classes.button}`}
+    disableRipple
+    disableFocusRipple
+  >
+    <Typography variant="body1" noWrap>
+      Projects
+    </Typography>
+  </Button> */}
+              {/* <Button
+    onClick={handleLogout}
+    color="inherit"
+    className={`${classes.navButton} ${classes.button}`}
+    disableRipple
+    disableFocusRipple
+  >
+    <Typography variant="body1" noWrap>
+      Logout
+    </Typography>
+  </Button> */}
+            </div>
+          ) : (
+            <div>
+              <Button
+                onClick={() => navigationHandler("/student/login")}
+                color="inherit"
+                className={`${classes.navButton} ${classes.button}`}
+                disableRipple
+                disableFocusRipple
+              >
+                <Typography variant="body1" noWrap>
+                  Student
+                </Typography>
+              </Button>
+              <Button
+                onClick={() => navigationHandler("/faculty/login")}
+                color="inherit"
+                disableRipple
+                disableFocusRipple
+                className={classes.button}
+              >
+                <Typography variant="body1" noWrap>
+                  Faculty
+                </Typography>
+              </Button>
+            </div>
+          )}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {isAuthenticated ? (
-              <div>
-                <Button
-                  onClick={() => navigationHandler(`/${userType}/profile`)}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Profile
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Applications
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Crowdfunding
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Projects
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={handleLogout}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Logout
-                  </Typography>
-                </Button>
-              </div>
-            ) : (
-              <div>
-                <Button
-                  onClick={() => navigationHandler("/student/login")}
-                  color="inherit"
-                  className={`${classes.navButton} ${classes.button}`}
-                  disableRipple
-                  disableFocusRipple
-                >
-                  <Typography variant="body1" noWrap>
-                    Student
-                  </Typography>
-                </Button>
-                <Button
-                  onClick={() => navigationHandler("/faculty/login")}
-                  color="inherit"
-                  disableRipple
-                  disableFocusRipple
-                  className={classes.button}
-                >
-                  <Typography variant="body1" noWrap>
-                    Faculty
-                  </Typography>
-                </Button>
-              </div>
-            )}
+
+            <Button
+              color="inherit"
+              disableRipple
+              disableFocusRipple
+              className={classes.button}
+
+              onClick={() => navigationHandler("/")}
+            >
+              <SchoolRoundedIcon />
+              <Typography variant="h6" noWrap style={{ color: "white", marginLeft: "10px" }}>
+                Microsoft Engage
+              </Typography>
+            </Button>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -225,7 +295,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-    </div>
+    </div >
   );
 };
 

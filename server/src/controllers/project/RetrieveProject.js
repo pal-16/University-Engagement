@@ -31,3 +31,12 @@ const Student = require("../../models/Student");
       return res.status(500).json({ error: e.message });
     }
   };
+
+  exports.getUserPosts=async(req, res)=> {
+    try {
+      const posts = await Student.find({ userID: req.params.id }).populate('project');
+      return res.status(200).json({ posts });
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    }
+  };

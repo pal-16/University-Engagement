@@ -30,7 +30,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import FacultyActions from "./DonorActions";
-import { getPosts } from "../../actions/crowdfundingActions";
+import { getUserPosts } from "../../actions/crowdfundingActions";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     selected: {}
 }));
 
-const CrowdfundingPosts = () => {
+const CrowdfundingUserPosts = () => {
     const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
@@ -71,18 +71,15 @@ const CrowdfundingPosts = () => {
 
     useEffect(() => {
         setLoading(true);
-        getPosts({ token, userType }).then((res) => {
+        getUserPosts({ id: userID, token, userType }).then((res) => {
             console.log("getting again");
             if (res.error) {
                 setLoading(false);
             } else {
                 console.log(res.data);
-                let temp = res.data.Crowdfundings.filter((a) => {
-                    return a.status === "Pending";
-                });
-                setApplications(temp);
+
                 // console.log(res.data.Crowdfundings);
-                //  setApplications(res.data.Crowdfundings);
+                setApplications(res.data.posts);
                 setLoading(false);
             }
         });
@@ -164,12 +161,15 @@ const CrowdfundingPosts = () => {
                                         <br />
                                         <br />
 
-                                        <FacultyActions
-                                            position={"center"}
-                                            applicationData={application}
-                                            setLoading={setLoading}
-                                            id={application._id}
-                                        />
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            style={{ backgroundColor: "#f44336", color: "white" }}
+
+
+                                        >
+                                            {application.status}
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -226,4 +226,4 @@ const CrowdfundingPosts = () => {
     );
 };
 
-export default CrowdfundingPosts;
+export default CrowdfundingUserPosts;
