@@ -148,6 +148,7 @@ const NewApplication = () => {
   const handleFormSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
+
     if (isFormValid()) {
       let formData = new FormData();
       formData.append("title", application.title);
@@ -170,7 +171,7 @@ const NewApplication = () => {
           history.push("/student/applications/displayAll");
         }
       });
-    }
+    } setLoading(false);
   };
 
   return loading ? (

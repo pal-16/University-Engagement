@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestOrders = ({ className, setCounter, ...rest }) => {
+const UserDetails= ({ className, setCounter, ...rest }) => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   
@@ -104,7 +104,7 @@ const LatestOrders = ({ className, setCounter, ...rest }) => {
                 </TableCell>
               
                 <TableCell style={{ fontSize: "1.1rem", textAlign: "center" }}>
-                 {"Palak Mantry"}
+                 {detailList.name}
                 </TableCell>
               </TableRow>
               <TableRow >
@@ -171,8 +171,8 @@ const LatestOrders = ({ className, setCounter, ...rest }) => {
   );
 };
 
-LatestOrders.propTypes = {
+UserDetails.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestOrders;
+export default UserDetails

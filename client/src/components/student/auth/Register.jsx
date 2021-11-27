@@ -73,7 +73,8 @@ let currentYear = new Date().getFullYear();
 
 const Register = () => {
   const classes = useStyles();
-  const { loading } = useAuthState();
+  //const { loading } = useAuthState();
+  const [loading, setLoading] = useState(false);
   const dispatch = useAuthDispatch();
   const history = useHistory();
   const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
@@ -197,6 +198,7 @@ const Register = () => {
     event.preventDefault();
     if (isFormValid()) {
       register({ dispatch, user: student, userType: "student" }).then((res) => {
+        setLoading(false);
         if (res.error) {
           setSeverity("error");
           setMessage(res.error);
@@ -207,13 +209,12 @@ const Register = () => {
           setIsRegistered(true);
 
           history.push("/student/login");
-
           setSeverity("success");
           setMessage("You have successfully registered.");
           setOpen(true);
         }
       });
-    }
+    } setLoading(false);
   };
 
   return loading ? (
