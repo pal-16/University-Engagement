@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     <Paper elevation={0} square className={classes.paper}>
       <Typography variant="body1">
-        Copyright © Microsoft Engage 2021. All rights reserved.
+        Developed by Palak Mantry during the Microsoft Engage 2021 Program
       </Typography>
     </Paper>
   );

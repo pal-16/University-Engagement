@@ -20,7 +20,7 @@ exports.rejectApplication=async(req, res)=>{
       application.status = "Rejected";
       await application.save();
       let info = await transporter.sendMail({
-        from: 'mantrypalak@gmail.com',
+        from: 'universityengagement2021@gmail.com',
         to: student.email,
         subject: 'Faculty Acceptance',
         html: '<h1>Faculty has verified your application and the application has been rejected</h1>'

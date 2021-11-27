@@ -179,12 +179,13 @@ const Header = () => {
                     Applications
                   </Typography>
                 </Button> : ""}
-              <Dropdown
-                className={`${classes.navButton} ${classes.button}`}
-                placeholder="Profile"
-                value={"Profile"}
-                onClick={() => navigationHandler(`/${userType}/profile`)}
-              />
+              {userType == "student" ?
+                <Dropdown
+                  className={`${classes.navButton} ${classes.button}`}
+                  placeholder="Profile"
+                  value={"Profile"}
+                  onClick={() => navigationHandler(`/${userType}/profile`)}
+                /> : ""}
               <Button
                 onClick={handleLogout}
                 color="inherit"
