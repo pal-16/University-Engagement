@@ -30,7 +30,6 @@ export const getProjects = async ({ token }) => {
       }
     });
 
-    console.log(res.data);
     return {
       data: res.data,
       status: res.status
@@ -51,7 +50,6 @@ export const getUserProjects = async ({ id, token }) => {
       }
     });
 
-    console.log(res.data);
     return {
       data: res.data,
       status: res.status
@@ -95,7 +93,6 @@ export const commentProject = async ({ id, token,body }) => {
       }
     });
 
-    console.log(res.data);
     return {
       data: res.data,
       status: res.status
@@ -111,14 +108,12 @@ export const commentProject = async ({ id, token,body }) => {
 
 export const getProjectDetails= async ({ id,token }) => {
   try {
-    console.log("Sent a required")
     const res = await axios.get(BASE_URL + `/projects/${id}/getDetail`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    console.log(res.data);
     return {
       data: res.data,
       status: res.status

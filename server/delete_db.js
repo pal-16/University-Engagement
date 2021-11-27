@@ -10,9 +10,9 @@ const Crowdfunding = require('./src/models/Crowdfunding');
 
 const app = require('./src/app');
 
-Student.deleteMany().then(()=>{
-    console.log("Students Deleted");
-});
+// Student.deleteMany().then(()=>{
+//     console.log("Students Deleted");
+// });
 
 Crowdfunding.deleteMany().then(()=>{
     console.log("Crowdfunding Deleted");
@@ -31,9 +31,9 @@ Transaction.deleteMany().then(()=>{
     console.log("Transaction Deleted");
 });
 
-Faculty.deleteMany().then(()=>{
-    console.log("Faculty Deleted");
-});
+// Faculty.deleteMany().then(()=>{
+//     console.log("Faculty Deleted");
+// });
 
 Application.deleteMany().then(()=>{
     console.log("Application Deleted");

@@ -20,7 +20,6 @@ const axios = require("axios");
       i += usersWithRank.length - 1;
     }
     await users.save();
-    console.log(users);
       return res.status(200).json({ applications });
     } catch (e) {
       return res.status(500).json({ error: e.message });

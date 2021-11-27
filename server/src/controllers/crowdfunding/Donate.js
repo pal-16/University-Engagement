@@ -6,7 +6,6 @@ const axios = require("axios");
 
 exports.donateCoins=async(req, res)=>{
     try {
-      console.log(req.body);
         let post = await Crowdfunding.findById(req.body.postID);
         if (!post) {
           return res.status(404).json({ error: "Invalid Post ID" });
@@ -19,12 +18,9 @@ exports.donateCoins=async(req, res)=>{
               if (!student) {
                 return res.status(404).json({ error: "Invalid Student ID" });
               }
-              // 2 = 2+ 10
+            
               var extra = "not exceeded";
               post.currentAmount=post.currentAmount+req.body.donateAmount;
-              console.log(post.currentAmount);
-              console.log(post.amountNeeded);
-              console.log(extra);
               if(post.currentAmount>post.amountNeeded){
                 post.status="Completed";
                
@@ -36,7 +32,6 @@ exports.donateCoins=async(req, res)=>{
               student.coins=student.coins-req.body.donateAmount+(post.currentAmount-post.amountNeeded);
               else
               student.coins=student.coins-req.body.donateAmount;
-              console.log(extra);
               await post.save();
               await student.save();
       

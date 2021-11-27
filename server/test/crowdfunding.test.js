@@ -11,13 +11,7 @@ const Project = require('../src/models/Project');
 const Crowdfunding = require('../src/models/Crowdfunding');
 
 // create post
-
-// view all posts
-
-// donate
-
-
-describe("Crowdfunding Test Routes", () => {
+describe("Create Crowdfunding Post", () => {
 
     var token="";
     var studentID="";
@@ -58,7 +52,7 @@ describe("Crowdfunding Test Routes", () => {
      describe("POST /api/crowdfundings/new", () => {
       
   
-        it("returns 200 when all details are not given", (done) => {
+        it("returns 201 when new crowdfunding post is created", (done) => {
           const achievement = {
              userID: studentID,
              title: "palak-1",
@@ -78,8 +72,8 @@ describe("Crowdfunding Test Routes", () => {
         });
 });      
    
-                    
-describe("Crowdfunding Test Routes", () => {
+// view all posts            
+describe("View all crowdfunding posts", () => {
 
                         var token="";
                         var studentID="";
@@ -117,7 +111,7 @@ describe("Crowdfunding Test Routes", () => {
     describe("POST /api/crowdfundings/getAll", () => {
       
   
-        it("returns 200 when all details are given", (done) => {
+        it("returns 200 to fetch all posts", (done) => {
         
             chai
                 .request(app)
@@ -131,7 +125,9 @@ describe("Crowdfunding Test Routes", () => {
         });
 });
 
-describe("Crowdfunding Test Routes", () => {
+
+// donate   
+describe("Donate to a Crowdfunding Post", () => {
 
         var token="";
         var studentID="";
@@ -166,16 +162,16 @@ describe("Crowdfunding Test Routes", () => {
       
          afterEach(( done) => {
             Student.deleteMany().then(()=>{
-             
+             Crowdfunding.deleteMany().then(()=>{
                   done();
-            
+             });
               });
         })
       
     describe("POST /api/crowdfundings/donate", () => {
       
   
-        it("returns 200 when all details are given", (done) => {
+        it("returns 200 when all details of donating are given", (done) => {
              achievement = {
                 postID: postID,
                 senderID: studentID,

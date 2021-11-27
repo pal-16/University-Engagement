@@ -2,7 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Paper, Typography, Divider } from "@material-ui/core";
 import constants from "../../constants";
-
+import Destinations from "./Landing/Destinations";
+import Hero from "./Landing/Home";
+import Welcome from "./Landing/Welcome";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh",
@@ -36,13 +38,15 @@ const Landing = () => {
     >
       <Grid container spacing={3}>
         <Grid item xs={12} className={classes.item}>
-          <Typography variant="h4">Microsoft Engage 2021</Typography>
+          <Welcome />
+          <Hero />
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
-            <strong>A one stop solution for Institutions for engagement and opportunities!</strong>
           </Typography>
         </Grid>
       </Grid>
+
+
     </Box>
   );
 };

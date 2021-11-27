@@ -27,6 +27,7 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import { v4 as uuidv4 } from 'uuid';
+import validator from 'validator'
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh"
@@ -67,7 +68,8 @@ const NewProject = () => {
     description: "",
     projectDomain: "",
     semester: "",
-    tags: []
+    tags: [],
+    link: ""
 
   });
 
@@ -77,8 +79,17 @@ const NewProject = () => {
     description: "",
     projectDomain: "",
     semester: "",
-    tags: []
+    tags: [],
+    link: ""
   });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
+
+
+  const handleTitle = (e) => setTitle(e.target.value);
+  const handleDescription = (e) => setDescription(e.target.value);
+  const handleLink = (e) => setLink(e.target.value);
 
   const handleApplication = (e) => {
     setApplication((prevApplication) => ({
@@ -90,41 +101,51 @@ const NewProject = () => {
 
   const isFormValid = () => {
     let formIsValid = true;
-    updateErrors({
-      title: "",
-      description: "",
-      projectDomain: "",
-      semester: "",
-      tags: []
-    });
-    if (!application.title.length) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        title: "* Please enter a valid title"
-      }));
-      formIsValid = false;
-    }
-    if (!application.description.length) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        description: "* Please enter a valid description"
-      }));
-      formIsValid = false;
-    }
-    if (!application.projectDomain.length) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        projectDomain: "* Please select a domain"
-      }));
-      formIsValid = false;
-    }
-    if (!application.semester.length) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        semester: "* Please select a domain"
-      }));
-      formIsValid = false;
-    }
+    // updateErrors({
+    //   title: "",
+    //   description: "",
+    //   projectDomain: "",
+    //   semester: "",
+    //   tags: [],
+    //   link: ""
+    // });
+    // if (title == "") {
+    //   console.log("Yes");
+    //   updateErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     title: "* Please enter a valid title"
+    //   }));
+    //   formIsValid = false;
+    // }
+    // if (!description) {
+    //   updateErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     description: "* Please enter a valid description"
+    //   }));
+    //   formIsValid = false;
+    // }
+    // if (!application.projectDomain) {
+    //   updateErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     projectDomain: "* Please select a domain"
+    //   }));
+    //   formIsValid = false;
+    // }
+    // console.log(validator.isURL(application.link))
+    // if (!(validator.isURL(link))) {
+    //   updateErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     link: "* Please select a valid URL"
+    //   }));
+    //   formIsValid = false;
+    // }
+    // if (!application.semester) {
+    //   updateErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     semester: "* Please select a domain"
+    //   }));
+    //   formIsValid = false;
+    // }
 
 
     return formIsValid;
@@ -134,12 +155,14 @@ const NewProject = () => {
     setLoading(true);
     event.preventDefault();
     console.log("InputFields", inputFields);
+
     if (isFormValid()) {
       let formData = new FormData();
       formData.append("title", application.title);
       formData.append("description", application.description);
       formData.append("projectDomain", application.projectDomain);
       formData.append("semester", application.semester);
+
       //  formData.append("file", file);]
       var Tags = [];
       for (var m in inputFields) {
@@ -163,10 +186,11 @@ const NewProject = () => {
           setSeverity("success");
           setMessage("Project added to the college database");
           setOpen(true);
-          history.push("/student");
+          history.push("/student/projects/displayAll");
         }
       });
     }
+
   };
 
   const [inputFields, setInputFields] = useState([
@@ -211,7 +235,7 @@ const NewProject = () => {
     >
       <Paper elevation={3} className={classes.paper}>
         <div style={{ marginTop: "24px" }}>
-          <Typography variant="h5">New Achievement</Typography>
+          <Typography variant="h5">New Project</Typography>
         </div>
         <form className={classes.form} noValidate>
           <div className={classes.formInner}>
@@ -228,6 +252,15 @@ const NewProject = () => {
               required={true}
               onChange={handleApplication}
               error={errors.description}
+              multiline={true}
+              maxRows={Infinity}
+            />
+            <FormField
+              label="GitHub Link"
+              name="link"
+              required={true}
+              onChange={handleApplication}
+              error={errors.link}
               multiline={true}
               maxRows={Infinity}
             />

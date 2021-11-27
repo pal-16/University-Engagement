@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
+import { FaComment, FaThumbsUp, FaUser, FaTag } from "react-icons/fa";
 import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -21,6 +21,8 @@ import Spinner from "../../components/common/Spinner";
 import ApplicationItem from "../applications/ApplicationItem";
 import Comments from './sections/Comments'
 //import StatusChip from "./StatusChip";
+import moment from 'moment';
+
 import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -185,21 +187,22 @@ const ProjectDetail = (props) => {
             <br />
             <Card className={classes.card} variant="outlined">
                 <CardHeader title={projectData.title} align="center" />
-                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "350px" }}>
-                    Created By {projectData.userID.name} |    Created at {projectData.createdAt}
+                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "469px" }}>
+                    Created By {projectData.userID.name} at {moment(projectData.createdAt).format('YYYY-MM-DD')}
                 </Typography>
                 <hr />
                 <CardContent>
                     <Typography color="textSecondary" variant="substitle3">
                         <b> Description </b>   {projectData.description}
                     </Typography>
+                    <br />
                     <Typography color="textSecondary" variant="substitle3">
                         <b> Developed during </b> : {projectData.semester}
                     </Typography>
 
 
                     <div className={classes.btns}>
-                        {projectData.tags.map(name => <Button color="primary" variant="contained" key={name}> {name} </Button>)}
+                        {projectData.tags.map(name => <Button color="primary" variant="contained" key={name}><FaTag></FaTag> {name} </Button>)}
                     </div>
 
 

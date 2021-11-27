@@ -94,7 +94,8 @@ exports.getStudent = async (req, res) => {
       department: student.department,
       year: student.admissionYear,
       degree: student.degree,
-      coins:student.coins
+      coins:student.coins,
+      branch:student.department
       
     });
   } catch (e) {

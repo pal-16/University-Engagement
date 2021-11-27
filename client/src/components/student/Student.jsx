@@ -7,11 +7,11 @@ import ApplicationsList from "../applications/ApplicationsList";
 import ApplicationDetail from "../applications/ApplicationDetail";
 import StudentActions from "../applications/StudentActions";
 import NewApplication from "../applications/NewApplication";
-import DashboardLayout from "../../components/common/Dashboard";
+//import DashboardLayout from "../../components/common/Dashboard";
 import CreatePost from "../crowdfunding/CreatePost";
 import CrowdfundingPosts from "../crowdfunding/DisplayPosts";
 import CrowdfundingUserPosts from "../crowdfunding/UserPosts";
-
+import DashboardLayout from "../DashboardLayout/index";
 import NewProject from "../project/NewProject";
 import DisplayProjects from "../project/DisplayProject";
 import ProjectDetail from "../project/ProjectDetail";

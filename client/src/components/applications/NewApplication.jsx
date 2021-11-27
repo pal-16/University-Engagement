@@ -88,10 +88,7 @@ const NewApplication = () => {
 
   useEffect(() => {
     setLoading(true);
-    getStudentRank({ id: userID, token }).then((res) => {
-      console.log("Student Rank")
-      console.log(res.data);
-    })
+
     getFacultyList({ token }).then((res) => {
       if (res.error) {
       } else {

@@ -15,7 +15,7 @@ export const login = async ({
       email,
       password
     });
-
+console.log(res);
    
     dispatch({
       type: AUTH_SUCCESS,

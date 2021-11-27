@@ -31,7 +31,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import FacultyActions from "./DonorActions";
 import { getUserPosts } from "../../actions/crowdfundingActions";
-
+import moment from 'moment';
 const useStyles = makeStyles((theme) => ({
     container: {
         minHeight: "80vh",
@@ -57,7 +57,27 @@ const useStyles = makeStyles((theme) => ({
     },
     selected: {}
 }));
+const ReadMore = ({ children }) => {
+    const text = children;
+    const [isReadMore, setIsReadMore] = useState(true);
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore);
+    };
+    return (
+        <p className="text">
+            {text.length > 350 ? (isReadMore ? text.slice(0, 350) : text) : text}
+            {text.length > 350 ? <span onClick={toggleReadMore} className="read-or-hide">
+                <h3 style={{ color: "black" }}> {isReadMore ? "...read more" : " show less"} </h3>
+            </span> : ""}
+        </p>
+    );
+};
 
+const Mailto = ({ email, subject, body, children }) => {
+    return (
+        <a style={{ color: "white" }} href={`mailto:${email}?subject=${encodeURIComponent(subject) || ''}&body=${encodeURIComponent(body) || ''}`}>{children}</a>
+    );
+};
 const CrowdfundingUserPosts = () => {
     const history = useHistory();
     const classes = useStyles();
@@ -78,7 +98,6 @@ const CrowdfundingUserPosts = () => {
             } else {
                 console.log(res.data);
 
-                // console.log(res.data.Crowdfundings);
                 setApplications(res.data.posts);
                 setLoading(false);
             }
@@ -138,15 +157,15 @@ const CrowdfundingUserPosts = () => {
                         {applications.map((application) => (
 
                             <Grid item xs={12} sm={6} key={application._id}>
-                                <Card className={classes.card}>
+                                <Card className={classes.card} style={{ height: "100%" }}>
                                     <CardHeader title={application.title} align="center" />
-                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "45px" }}>
-                                        Created By {application.userID.name} |    Created at {application.createdAt}
+                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "205px" }}>
+                                        Created  at {moment(application.createdAt).format('YYYY-MM-DD')}
                                     </Typography>
                                     <hr />
                                     <CardContent>
                                         <Typography color="primary" variant="subtitle4">
-                                            <b>    Description   </b>: {application.description}
+                                            <b>    Description   </b>:  <ReadMore>{application.description}</ReadMore>
                                         </Typography>
                                         <br />
                                         <br />
@@ -160,16 +179,31 @@ const CrowdfundingUserPosts = () => {
                                         </Typography>
                                         <br />
                                         <br />
+                                        {
+                                            application.status == "Completed" ? <><Button
+                                                variant="contained"
+                                                color="primary"
+                                                style={{ backgroundColor: theme.palette.primary.main, color: "white" }}
 
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            style={{ backgroundColor: "#f44336", color: "white" }}
+
+                                            >Completed </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    style={{ backgroundColor: theme.palette.primary.main, color: "white", marginLeft: "30px" }}
 
 
-                                        >
-                                            {application.status}
-                                        </Button>
+
+                                                ><Mailto email="director@vjti.ac.in" subject="Conversion of university coins" body="Please find attached a request to convert coins for a cause">
+                                                        Ask for conversion
+                                                    </Mailto></Button> </> : <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        style={{ backgroundColor: theme.palette.primary.main, color: "white" }}
+                                                    >Pending </Button>
+                                        }
+
+
                                     </CardContent>
                                 </Card>
                             </Grid>

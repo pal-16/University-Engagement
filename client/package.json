@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
@@ -19,10 +20,14 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
+    "sass": "^1.43.5",
+    "typewriter-effect": "^2.18.2",
+    "validator": "^13.7.0",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },

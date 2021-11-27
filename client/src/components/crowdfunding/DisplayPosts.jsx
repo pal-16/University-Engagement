@@ -29,9 +29,10 @@ import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import FacultyActions from "./DonorActions";
+import DonorActions from "./DonorActions";
 import { getPosts } from "../../actions/crowdfundingActions";
-
+import moment from 'moment';
+import { getUser } from "../../actions/authActions";
 const useStyles = makeStyles((theme) => ({
     container: {
         minHeight: "80vh",
@@ -58,6 +59,21 @@ const useStyles = makeStyles((theme) => ({
     selected: {}
 }));
 
+const ReadMore = ({ children }) => {
+    const text = children;
+    const [isReadMore, setIsReadMore] = useState(true);
+    const toggleReadMore = () => {
+        setIsReadMore(!isReadMore);
+    };
+    return (
+        <p className="text">
+            {text.length > 350 ? (isReadMore ? text.slice(0, 350) : text) : text}
+            {text.length > 350 ? <span onClick={toggleReadMore} className="read-or-hide">
+                <h3 style={{ color: "black" }}> {isReadMore ? "...read more" : " show less"} </h3>
+            </span> : ""}
+        </p>
+    );
+};
 const CrowdfundingPosts = () => {
     const history = useHistory();
     const classes = useStyles();
@@ -68,7 +84,7 @@ const CrowdfundingPosts = () => {
     const [applications, setApplications] = useState([]);
     //   const [filteredApplications, setFilteredApplications] = useState([]);
     const [statusFilter, setStatusFilter] = useState("All");
-
+    const [userCoins, setUserCoins] = useState("");
     useEffect(() => {
         setLoading(true);
         getPosts({ token, userType }).then((res) => {
@@ -83,7 +99,11 @@ const CrowdfundingPosts = () => {
                 setApplications(temp);
                 // console.log(res.data.Crowdfundings);
                 //  setApplications(res.data.Crowdfundings);
-                setLoading(false);
+
+                getUser({ id: userID, token, userType: "student" }).then((fetchedStudents) => {
+                    setUserCoins(fetchedStudents.data["coins"]);
+                    setLoading(false);
+                });
             }
         });
     }, [token, userID, userType]);
@@ -141,15 +161,15 @@ const CrowdfundingPosts = () => {
                         {applications.map((application) => (
 
                             <Grid item xs={12} sm={6} key={application._id}>
-                                <Card className={classes.card}>
+                                <Card className={classes.card} style={{ height: "100%" }} >
                                     <CardHeader title={application.title} align="center" />
-                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "45px" }}>
-                                        Created By {application.userID.name} |    Created at {application.createdAt}
+                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "155px" }}>
+                                        Created By {application.userID.name} at {moment(application.createdAt).format('YYYY-MM-DD')}
                                     </Typography>
                                     <hr />
                                     <CardContent>
                                         <Typography color="primary" variant="subtitle4">
-                                            <b>    Description   </b>: {application.description}
+                                            <b>    Description   </b>:    <ReadMore>{application.description}</ReadMore>
                                         </Typography>
                                         <br />
                                         <br />
@@ -164,11 +184,12 @@ const CrowdfundingPosts = () => {
                                         <br />
                                         <br />
 
-                                        <FacultyActions
+                                        <DonorActions
                                             position={"center"}
                                             applicationData={application}
                                             setLoading={setLoading}
                                             id={application._id}
+                                            userCoins={userCoins}
                                         />
                                     </CardContent>
                                 </Card>

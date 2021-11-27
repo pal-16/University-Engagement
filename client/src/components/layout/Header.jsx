@@ -68,7 +68,7 @@ const Header = () => {
       navigationHandler(`/${userType}/applications/displayAll`)
     } else if (route == "Submit an achievement") {
       navigationHandler(`/${userType}/applications/new`)
-    } else if (route == "View my achievements") {
+    } else if (route == "View my acheivements") {
       navigationHandler(`/${userType}/applications/displayAll`)
     } else if (route == "Create a post") {
       navigationHandler(`/${userType}/crowdfundings/new`)
@@ -145,26 +145,40 @@ const Header = () => {
           {isAuthenticated ? (
 
             <div>
+              {userType == "student" ?
+                <Dropdown
+                  placeholder="Crowdfunding"
+                  value={"Crowdfunding"}
+                  onChange={(val) => dropdownHandler(val)}
+                  options={["Create a post", "Crowdfunding Feed", "View my posts"]}
+                /> : <p></p>}
+              {userType == "student" ?
+                <Dropdown
+                  placeholder="Projects"
+                  value={"Projects"}
+                  onChange={(val) => dropdownHandler(val)}
+                  options={["Upload project", "Projects Feed", "View my projects"]}
+                /> : ""}
+              {userType == "student" ?
+                <Dropdown
 
-              <Dropdown
-                placeholder="Crowdfunding"
-                value={"Crowdfunding"}
-                onChange={(val) => dropdownHandler(val)}
-                options={["Create a post", "Crowdfunding Feed", "View my posts"]}
-              />
-              <Dropdown
-                placeholder="Projects"
-                value={"Projects"}
-                onChange={(val) => dropdownHandler(val)}
-                options={["Upload project", "Project Feed", "View my projects"]}
-              />
-              <Dropdown
-
-                placeholder="Acheivements"
-                value={"Achievements"}
-                onChange={(val) => dropdownHandler(val)}
-                options={["Submit an achievement", "View my acheivements", "Achievements Wall"]}
-              />
+                  placeholder="Acheivements"
+                  value={"Achievements"}
+                  onChange={(val) => dropdownHandler(val)}
+                  options={["Submit an achievement", "View my acheivements", "Achievements Wall"]}
+                /> : ""}
+              {userType == "faculty" ?
+                <Button
+                  onClick={() => navigationHandler("/faculty/applications")}
+                  color="inherit"
+                  disableRipple
+                  disableFocusRipple
+                  className={classes.button} style={{ paddingBottom: "15px" }}
+                >
+                  <Typography variant="body1" noWrap>
+                    Applications
+                  </Typography>
+                </Button> : ""}
               <Dropdown
                 className={`${classes.navButton} ${classes.button}`}
                 placeholder="Profile"
@@ -182,61 +196,6 @@ const Header = () => {
                 </Typography>
               </Button>
 
-              {/* <Button
-    onClick={() => navigationHandler(`/${userType}/profile`)}
-    color="inherit"
-    className={`${classes.navButton} ${classes.button}`}
-    disableRipple
-    disableFocusRipple
-  >
-    <Typography variant="body1" noWrap>
-      Profile
-    </Typography>
-  </Button> */}
-              {/* <Button
-    onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
-    color="inherit"
-    className={`${classes.navButton} ${classes.button}`}
-    disableRipple
-    disableFocusRipple
-  >
-    <Typography variant="body1" noWrap>
-      Applications
-    </Typography>
-  </Button>
-  <Button
-    onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
-    color="inherit"
-    className={`${classes.navButton} ${classes.button}`}
-    disableRipple
-    disableFocusRipple
-  >
-    <Typography variant="body1" noWrap>
-      Crowdfunding
-    </Typography>
-  </Button>
-  <Button
-    onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
-    color="inherit"
-    className={`${classes.navButton} ${classes.button}`}
-    disableRipple
-    disableFocusRipple
-  >
-    <Typography variant="body1" noWrap>
-      Projects
-    </Typography>
-  </Button> */}
-              {/* <Button
-    onClick={handleLogout}
-    color="inherit"
-    className={`${classes.navButton} ${classes.button}`}
-    disableRipple
-    disableFocusRipple
-  >
-    <Typography variant="body1" noWrap>
-      Logout
-    </Typography>
-  </Button> */}
             </div>
           ) : (
             <div>

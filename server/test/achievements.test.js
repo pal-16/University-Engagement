@@ -8,7 +8,7 @@ const Student = require('../src/models/Student');
 const Faculty = require('../src/models/Faculty');
 const Application = require('../src/models/Application');
 
-describe("Achievements Test Routes", () => {
+describe("Create Achievement", () => {
 
   var token="";
   var studentID="";
@@ -16,9 +16,7 @@ describe("Achievements Test Routes", () => {
   const userType="student";
   var achievement={};
 
-// 0. Create Application
-// app.post("/api/applications/apply",auth.loginRequired,uploader.single("file"),ApplicationController.create.applyForReward);
-  
+// Create Application  
   beforeEach((done) => {
       Student.create({
           studentID:"181071111",
@@ -61,29 +59,6 @@ describe("Achievements Test Routes", () => {
  
    describe("POST /api/applications/new", () => {
     
-//       it("Achievement Submitted successfully for faculty to verify", (done) => {
-
-//         achievement = {
-//             studentID: studentID,
-//             facultyID: facultyID,
-//             title: "CF 1",
-//             description: "Achievement Creation",
-//         };   
-//           chai
-//               .request(app)
-//               .post("/api/applications/apply")
-//               .set('Authorization', `Bearer ${token}`)
-//               .send({ ...achievement })
-//               .end((err, res) => {
-             
-//                   expect(err).to.be.null;
-//                   expect(res.status).to.be.equal(201);
-//                   // expect(res.body).to.be.an("object");
-//                   // expect(res.body).to.have.property("product");
-//                   done();
-//               });
-//       });
-
       it("returns 400 when all details are not given", (done) => {
         const incompleteAchievement = {
             studentID: studentID,
@@ -108,11 +83,9 @@ describe("Achievements Test Routes", () => {
 });
 
 
-// 1. Get Student Applications
-// app.get("/api/student/:id/applications",auth.loginRequired,ApplicationController.retrieve.getStudentApplications);
+// Get Student Applications
  
-
-describe("Achievements Test Routes 2", () => {
+describe("Get Student Application Achievements", () => {
 
     var token="";
     var studentID="";
@@ -169,10 +142,9 @@ describe("Achievements Test Routes 2", () => {
 });  
 
 
-// 3. Get Faculty Applications
-//  app.get("/api/faculty/:id/applications",auth.loginRequired,ApplicationController.retrieve.getFacultyApplications);
+// Get Faculty Applications
  
-describe("Achievements Test Routes 3", () => {
+describe("Get achievements submitted to a faculty", () => {
 
     var token="";
     var studentID="";
@@ -228,11 +200,8 @@ describe("Achievements Test Routes 3", () => {
 
 
 
-// 2. View Application Detail
-// app.get("/api/applications/:id",auth.loginRequired,ApplicationController.retrieve.getApplication);
-
-
-describe("Achievements Test Routes 4", () => {
+// View Application Detail, Approve, Reject
+describe("View Achievement Details, accordingly Approve or Reject", () => {
 
     var token="";
     var studentID="";
@@ -241,8 +210,6 @@ describe("Achievements Test Routes 4", () => {
     const userType="student";
     var achievement={};
   
-  // 0. Create Application
-  // app.post("/api/applications/apply",auth.loginRequired,uploader.single("file"),ApplicationController.create.applyForReward);
     
     beforeEach((done) => {
         Student.create({
@@ -337,7 +304,7 @@ reward:30
 
     describe("POST /api/applications/id/approve", () => {
       
-        it("returns 200 when application ID is wrong", (done) => {
+        it("returns 500 when application ID is wrong", (done) => {
          const applicationToApprove={
 facultyID: facultyID,
 reward:30
@@ -383,8 +350,3 @@ reward:30
   
   
 
-// 4. Approve application
-// app.post("/api/applications/:id/approve",auth.loginRequired,ApplicationController.approve.approveApplication);
-
-// 5. Reject Application
-//app.post("/api/applications/:id/reject",auth.loginRequired,ApplicationController.reject.rejectApplication);

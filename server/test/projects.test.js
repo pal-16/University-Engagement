@@ -9,7 +9,8 @@ const Faculty = require('../src/models/Faculty');
 const Application = require('../src/models/Application');
 const Project = require('../src/models/Project');
 
-describe("ppppAchievements Test Routes", () => {
+// Create Project
+describe("Create Project ", () => {
 
   var token="";
   var studentID="";
@@ -17,8 +18,6 @@ describe("ppppAchievements Test Routes", () => {
   const userType="student";
   var achievement={};
 
-// 0. Create Application
-// app.post("/api/applications/apply",auth.loginRequired,uploader.single("file"),ApplicationController.create.applyForReward);
   
   beforeEach((done) => {
       Student.create({
@@ -98,11 +97,8 @@ describe("ppppAchievements Test Routes", () => {
 });
 
 
-// 1. Get Student Applications
-// app.get("/api/student/:id/applications",auth.loginRequired,ApplicationController.retrieve.getStudentApplications);
- 
-
-describe("Get details", () => {
+// Get Projects
+ describe("Get All Project", () => {
 
     var token="";
     var studentID="";
@@ -139,7 +135,7 @@ describe("Get details", () => {
     })
   
    
-     describe("POST /api/student/projects/getAll", () => {
+     describe("GET /api/student/projects/getAll", () => {
 
         it("display projects", (done) => {
 
@@ -162,8 +158,6 @@ describe("Get details", () => {
 
 
 // 2. View Application Detail
-// app.get("/api/applications/:id",auth.loginRequired,ApplicationController.retrieve.getApplication);
-
 
 describe("project", () => {
 
@@ -215,9 +209,9 @@ describe("project", () => {
     })
   
    
-     describe("POST /api/applications/id/getDetail", () => {
+     describe("GET /api/projects/id/getDetail", () => {
       
-        it("returns 200 to fetch all details of an application", (done) => {
+        it("returns 200 to fetch all details of a project", (done) => {
          
             chai
                 .request(app)
@@ -292,7 +286,7 @@ describe("project like", () => {
      describe("POST /api/applications/id/like", () => {
       
       
-                                it("Like", (done) => {
+                                it("Like a project", (done) => {
                                 
                                 
                                     chai
@@ -314,7 +308,7 @@ describe("project like", () => {
 });
 
 
-describe("project comment", () => {
+describe("Like and Comment on a project", () => {
 
     var token="";
     var studentID="";
@@ -366,7 +360,7 @@ describe("project comment", () => {
      describe("POST /api/applications/id/comment", () => {
      
     
-                                it("comment", (done) => {
+                                it("Comment on a project", (done) => {
                                 
                                     newComment={
                                         'commentText': "Palak is doing good",

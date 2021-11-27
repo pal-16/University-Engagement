@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import {
@@ -23,8 +23,8 @@ import {
     donate
 } from "../../actions/crowdfundingActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
-
-
+import { getUser } from "../../actions/authActions";
+import Spinner from "../common/Spinner";
 const useStyles = makeStyles((theme) => ({
     formControl: {
         marginTop: "20px",
@@ -33,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DonorActions = (props) => {
+    console.log(props);
     const history = useHistory();
     const classes = useStyles();
     const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
     const [donateAmount, setDonateAmount] = useState("");
-
     const [errors, updateErrors] = useState({
 
         donateAmount: ""
@@ -50,7 +50,8 @@ const DonorActions = (props) => {
     };
     const [isVerified, setIsVerified] = useState(false);
     const [verificationSuccess, setVerificationSuccess] = useState(false);
-    const { userID, token, userCoins } = useAuthState();
+    const { userID, token } = useAuthState();
+
 
     const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(true);
@@ -67,7 +68,7 @@ const DonorActions = (props) => {
             }));
             return;
 
-        } else if (+donateAmount > userCoins) {
+        } else if (+donateAmount > props.userCoins) {
             updateErrors((prevErrors) => ({
                 ...prevErrors,
                 donateAmount: "You do not have sufficient balance. Kindly reduce the donation amount"
@@ -89,7 +90,6 @@ const DonorActions = (props) => {
                 setOpen(true);
                 return;
             } else {
-
 
 
                 history.replace(`/student/crowdfundings/displayAll`);
@@ -114,7 +114,7 @@ const DonorActions = (props) => {
                 <DialogTitle>Contribute to the following post</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Your current balance is {userCoins}
+                        Your current balance is {props.userCoins}
                     </DialogContentText>
                     <FormControl
                         variant="outlined"

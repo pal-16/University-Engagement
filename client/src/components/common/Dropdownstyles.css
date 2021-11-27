@@ -5,6 +5,7 @@
     font-size: 30px;
     color:white;
 
+
   }
   
   .dropdown-toggler {
@@ -20,6 +21,7 @@
   }
   
   .dropdown-menu {
+    z-index: 2;
     list-style: none;
     padding-left: 0;
     padding-top: 10px;
@@ -31,6 +33,7 @@
   }
   
   .dropdown-menu-item {
+    z-index: 4;
       position:relative;
     width: 250px;
     background: #f7f7f7;

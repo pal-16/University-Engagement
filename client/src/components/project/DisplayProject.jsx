@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
+import { FaComment, FaThumbsUp, FaUser, FaTag } from "react-icons/fa";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
     Button,
@@ -31,6 +31,8 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { getProjects } from "../../actions/projectActions";
+import moment from 'moment';
+
 const useStyles = makeStyles((theme) => ({
     btns: {
         '& > *': {
@@ -164,7 +166,7 @@ const DisplayProjects = () => {
                 >
 
 
-                    {/* <select options={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                    <select options={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                         <option value="All">Domains</option>
                         <option value="Web Development">Web Development</option>
                         <option value="App Development">App Development</option>
@@ -178,7 +180,11 @@ const DisplayProjects = () => {
                         <option value="Semester 2">2</option>
                         <option value="Semester 3">3</option>
                         <option value="Semester 4">4</option>
-                    </select> */}
+                        <option value="Semester 5">5</option>
+                        <option value="Semester 6">6</option>
+                        <option value="Semester 7">7</option>
+                        <option value="Semester 8">8</option>
+                    </select>
                 </Grid>
 
             </Grid>
@@ -194,8 +200,8 @@ const DisplayProjects = () => {
                         >
                             <Card className={classes.card} variant="outlined">
                                 <CardHeader title={application.title} align="center" />
-                                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "350px" }}>
-                                    Created By {application.userID.name} |    Created at {application.createdAt}
+                                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "469px" }}>
+                                    Created By {application.userID.name}  at {moment(application.createdAt).format('YYYY-MM-DD')}
                                 </Typography>
 
                                 <CardContent>
@@ -222,7 +228,7 @@ const DisplayProjects = () => {
                                     <br />
 
                                     <div className={classes.btns}>
-                                        {application.tags.map(name => <Button color="primary" variant="contained" key={name}> {name} </Button>)}
+                                        {application.tags.map(name => <Button color="primary" variant="contained" key={name} ><FaTag></FaTag>{name} </Button>)}
                                     </div>
 
 

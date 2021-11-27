@@ -95,7 +95,7 @@ const FacultyActions = (props) => {
       } else {
         history.replace(`/faculty/applications/${props.applicationData._id}`);
         setSeverity("success");
-        setMessage("Application approved. Reward will be mined shortly.");
+        setMessage("Application approved");
         setOpen(true);
       }
       props.setLoading(false);
