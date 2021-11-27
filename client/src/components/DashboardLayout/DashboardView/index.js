@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Grid, makeStyles } from "@material-ui/core";
 import Total from "./Total";
 import { ContactSupport, PeopleOutlined } from "@material-ui/icons";
-import LatestOrders from "./LatestOrders";
+import UserDetails from "./UserDetails";
 import Page from "../Page";
 import { useAuthState } from "../../../context/AuthContext";
 import { getStudentRank } from "../../../actions/applicationActions";
@@ -38,7 +38,7 @@ const Dashboard = ({  }) => {
   
         <Grid container spacing={3}>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <LatestOrders  />
+            <UserDetails />
           </Grid>
           <Grid item lg={4} sm={6} xl={3} xs={12} container spacing={3}>
           <Grid item xs={12}>

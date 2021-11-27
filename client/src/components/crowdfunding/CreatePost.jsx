@@ -148,7 +148,7 @@ const CreatePost = () => {
                     history.push("/student/crowdfundings/displayAll");
                 }
             });
-        }
+        } setLoading(false);
     };
 
     return loading ? (

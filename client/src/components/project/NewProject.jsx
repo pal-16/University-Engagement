@@ -82,14 +82,7 @@ const NewProject = () => {
     tags: [],
     link: ""
   });
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [link, setLink] = useState("");
 
-
-  const handleTitle = (e) => setTitle(e.target.value);
-  const handleDescription = (e) => setDescription(e.target.value);
-  const handleLink = (e) => setLink(e.target.value);
 
   const handleApplication = (e) => {
     setApplication((prevApplication) => ({
@@ -101,51 +94,50 @@ const NewProject = () => {
 
   const isFormValid = () => {
     let formIsValid = true;
-    // updateErrors({
-    //   title: "",
-    //   description: "",
-    //   projectDomain: "",
-    //   semester: "",
-    //   tags: [],
-    //   link: ""
-    // });
-    // if (title == "") {
-    //   console.log("Yes");
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     title: "* Please enter a valid title"
-    //   }));
-    //   formIsValid = false;
-    // }
-    // if (!description) {
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     description: "* Please enter a valid description"
-    //   }));
-    //   formIsValid = false;
-    // }
-    // if (!application.projectDomain) {
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     projectDomain: "* Please select a domain"
-    //   }));
-    //   formIsValid = false;
-    // }
-    // console.log(validator.isURL(application.link))
-    // if (!(validator.isURL(link))) {
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     link: "* Please select a valid URL"
-    //   }));
-    //   formIsValid = false;
-    // }
-    // if (!application.semester) {
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     semester: "* Please select a domain"
-    //   }));
-    //   formIsValid = false;
-    // }
+    updateErrors({
+      title: "",
+      description: "",
+      projectDomain: "",
+      semester: "",
+      tags: [],
+      link: ""
+    });
+    if (!application.title) {
+      console.log("Yes");
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        title: "* Please enter a valid title"
+      }));
+      formIsValid = false;
+    }
+    if (!application.description) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        description: "* Please enter a valid description"
+      }));
+      formIsValid = false;
+    }
+    if (!application.projectDomain) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        projectDomain: "* Please select a domain"
+      }));
+      formIsValid = false;
+    }
+    if (!(validator.isURL(application.link))) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        link: "* Please select a valid URL"
+      }));
+      formIsValid = false;
+    }
+    if (!application.semester) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        semester: "* Please select a domain"
+      }));
+      formIsValid = false;
+    }
 
 
     return formIsValid;
@@ -190,7 +182,7 @@ const NewProject = () => {
         }
       });
     }
-
+    setLoading(false);
   };
 
   const [inputFields, setInputFields] = useState([
