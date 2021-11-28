@@ -48,16 +48,19 @@ For configuring the codebase, please refer to [SETUP Guide](https://github.com/p
 
 
 # Video Demo
-[![Video Demo](https://github.com/pal-16/University-Engagement/blob/main/assets/videodemo.png)](https://www.youtube.com/watch?v=aRw9GA34GrQ&t=39s)
+[![Video Demo](https://github.com/pal-16/University-Engagement/blob/main/readme-assets/videodemo.webp)](https://www.youtube.com/watch?v=aRw9GA34GrQ&t=39s)
 
 ## Screenshots and Working
 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/achievement.JPG" width=700 height = 400> 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/crowdfunding-2.JPG"  width=700  height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/crowdfunding.JPG"  width=700 height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/ProfilePage.JPG"  width=700  height = 400/> 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/projectdetail.JPG"  width=700  height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/project.JPG"   width=700 height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/mainpage.webp"   width=700 height = 400/>
+
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement.webp" width=700 height = 400> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding-2.webp"  width=700  height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding.webp"  width=700 height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/ProfilePage.webp"  width=700  height = 400/> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/projectdetail.webp"  width=700  height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/project.webp"   width=700 height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/email.webp"   width=700 height = 400/>
 
 
 

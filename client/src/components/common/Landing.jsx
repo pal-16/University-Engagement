@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Box, Grid, Paper, Typography, Divider, useMediaQuery } from "@material-ui/core";
-import constants from "../../constants";
+import { Box, Grid, Typography, Divider, useMediaQuery } from "@material-ui/core";
 import HomeCard from "./Landing/HomeCards";
 import Hero from "./Landing/Home";
 import Welcome from "./Landing/Welcome";
@@ -31,7 +30,25 @@ const Landing = () => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(isSmallScreen);
+
+
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  //choose the screen size 
+  const handleResize = () => {
+    if (window.innerWidth < 720) {
+      setIsMobile(true)
+    } else {
+      setIsMobile(false)
+    }
+  }
+
+  // create an event listener
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  })
+
   return (
     <Box
       className={classes.root}
@@ -42,7 +59,8 @@ const Landing = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} className={classes.item}>
           <Welcome />
-          {isSmallScreen.toString == "true" ? <div></div> : <Hero />}
+
+          {isMobile === true ? "" : <Hero />}
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
             <HomeCard />
