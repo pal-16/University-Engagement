@@ -18,7 +18,7 @@ $ cd server
 $ npm i
 ```
 
-5. Place the .env file in server and client directory
+5. Place the .env file in server and client directory from the link https://drive.google.com/drive/u/0/folders/1TrQiyilTaaQ4Y3i7g9RbQB1k9CV02uBz with the name as ".env"
 > `.env` is ignored by `git`, which you can see in `.gitignore`, and so, it's safe!
 
 6. Start the development servers
