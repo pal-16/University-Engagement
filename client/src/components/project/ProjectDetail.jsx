@@ -20,7 +20,10 @@ import CardMedia from "@material-ui/core/CardMedia";
 import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
-
+    card: {
+        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.7)",
+        backgroundColor: "#fafafa",
+    },
 
     btns: {
         '& > *': {
@@ -154,28 +157,33 @@ const ProjectDetail = (props) => {
 
             <br />
             <Card className={classes.card} variant="outlined">
-                <CardMedia style={{ height: "300px" }} image={projectData.files[0]} />
+
 
                 <CardHeader title={projectData.title} align="center" />
                 <div style={{ width: "100%", textAlign: "center" }}>
 
-                    <Typography color="textSecondary" variant="subtitle4" >
+                    <Typography color="textSecondary" variant="subtitle3" >
                         Created By {projectData.userID.name} at {moment(projectData.createdAt).format('YYYY-MM-DD')}
                     </Typography>
                 </div>
                 <hr />
                 <CardContent>
-                    <Typography color="textSecondary" variant="substitle3">
-                        <b> Description </b>   {projectData.description}
+                    <Typography color="textSecondary" variant="subtitle3">
+                        <b> Description </b> :  {projectData.description}
                     </Typography>
                     <br />
-                    <Typography color="textSecondary" variant="substitle3">
+                    <Typography color="textSecondary" variant="subtitle3">
                         <b> Developed during </b> : {projectData.semester}
                     </Typography>
 
 
                     <div className={classes.btns}>
-                        {projectData.tags.map(name => <Button color="primary" variant="contained" key={name}><FaTag></FaTag> {name} </Button>)}
+                        {projectData.tags.map(name => <Button color="primary" variant="contained" key={name}><FaTag></FaTag> &nbsp; &nbsp;{name} </Button>)}
+                        <Button color="secondary" variant="contained" onClick={() => {
+                            window.open(projectData.link, "_blank");
+                        }} >
+                            Fork this project on GitHub
+                        </Button>
                     </div>
 
 
@@ -184,14 +192,10 @@ const ProjectDetail = (props) => {
             </Card>
 
             <Button color="primary" onClick={like == false ? handleAlreadyLiked : handleLike}>
-                Like  <FaThumbsUp></FaThumbsUp> <p style={{ marginLeft: "10px" }}> </p> {projectData.like.length}
+                <FaThumbsUp ></FaThumbsUp>&nbsp; {projectData.like.length}
             </Button>
 
-            <Button color="secondary" variant="contained" onClick={() => {
-                window.open(projectData.link, "_blank");
-            }} style={{ marginLeft: "50px" }} c>
-                Fork this project on GitHub
-            </Button>
+
             <Comments className="comments-container" CommentLists={CommentLists} projectID={projectData._id} refreshFunction={updateComment} />
 
         </>

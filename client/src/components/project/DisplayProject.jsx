@@ -192,7 +192,7 @@ const DisplayProjects = () => {
                             >
 
                                 <Card className={classes.card} variant="outlined" style={{ height: "100%" }}>
-                                    <CardMedia style={{ height: "200px" }} image={application.files[0]} />
+                                    <CardMedia style={{ height: "150px" }} image={application.files[0]} />
                                     <CardHeader title={application.title} align="center" />
 
                                     <CardContent>
@@ -200,13 +200,18 @@ const DisplayProjects = () => {
                                         {/* <Typography color="textSecondary" variant="substitle3">
                                             <b> Description </b> :  {application.description.slice(0, 250)}<b>{"...Read More"}</b>
                                         </Typography> */}
-                                        <Typography color="textSecondary" variant="substitle3">
+
+                                        <Typography color="white" variant="substitle2">
                                             <b> Project Domain </b> : {application.projectDomain}
                                         </Typography>
                                         <br />
 
-                                        <Typography color="textSecondary" variant="substitle3">
-                                            <b> Developed during </b> : {application.semester}
+                                        <Typography color="white" variant="substitle2"
+                                        >
+                                            <b> Developed during </b> :
+                                        </Typography>
+                                        <Typography color="white" variant="substitle2"
+                                        > {application.semester}
                                         </Typography>
 
 
@@ -216,13 +221,14 @@ const DisplayProjects = () => {
 
 
                                         <Typography color="textSecondary" variant="h5">
-                                            <FaComment></FaComment>{application.comments.length}  <FaThumbsUp></FaThumbsUp>{application.like.length}
+                                            <FaComment></FaComment>{application.comments.length} &nbsp; <FaThumbsUp></FaThumbsUp>{application.like.length}
                                         </Typography>
 
                                         <br />
 
                                         <div className={classes.btns} >
-                                            {application.tags.map(name => <Button color="primary" variant="contained" key={name}  ><FaTag></FaTag>{name} </Button>)}
+                                            {application.tags.map(name => <Button color="primary" variant="contained" key={name}  ><FaTag></FaTag>&nbsp; &nbsp;{name} </Button>)}
+                                            <Button color="primary" variant="contained"  ><FaTag></FaTag>&nbsp; &nbsp;{application.projectDomain} </Button>
                                         </div>
 
                                     </CardContent>

@@ -72,7 +72,7 @@ const Hero = ({
                     <div
                         style={{
                             backgroundImage: `linear-gradient(#00000081, #00000081),
-		url("https://images.edexlive.com/uploads/user/imagelibrary/2021/6/11/original/crowdfunding-3158320_1280.png")`,
+		url("https://image.freepik.com/free-photo/hand-putting-mix-coins-seed-clear-bottle-copyspace-business-investment-growth-concept_1423-104.jpg")`,
                         }}
                         className={styles.caption}
                     >

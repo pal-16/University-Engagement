@@ -324,7 +324,7 @@ exports.applyForReward=async(req, res)=>{
                 
           <div style="color: #000000; line-height: 160%; text-align: center; word-wrap: break-word;">
             <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 22px; line-height: 35.2px;">Hello ${faculty.name}</span></p>
-        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 18px; line-height: 28.8px;">${student.name} has submitted an achievement application for you to approve. Please verify the the same and accordingly allot coins.  <br /></span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 18px; line-height: 28.8px;">Student has submitted an achievement application for you to approve. Please verify the the same and accordingly allot coins.  <br /></span></p>
           </div>
        
         

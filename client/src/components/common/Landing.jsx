@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Paper, Typography, Divider } from "@material-ui/core";
 import constants from "../../constants";
-import Destinations from "./Landing/Destinations";
+import HomeCard from "./Landing/HomeCards";
 import Hero from "./Landing/Home";
 import Welcome from "./Landing/Welcome";
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +42,7 @@ const Landing = () => {
           <Hero />
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
-            <Destinations />
+            <HomeCard />
           </Typography>
         </Grid>
       </Grid>
