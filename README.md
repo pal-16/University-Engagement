@@ -11,7 +11,8 @@ password: 12345678
 email: dscvjti@gmail.com
 password:12345678
 
-- Env available at the following link: https://docs.google.com/document/d/1Os4hrkQN5u3tmfLSp0PaFD3xeBxKiBWs5E2PPkRzGCU/edit?usp=sharing
+
+For configuring the codebase, please refer SETUP.md
 
 
 
