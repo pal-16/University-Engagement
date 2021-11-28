@@ -1,6 +1,7 @@
 import React from "react";
 import Typewriter from "typewriter-effect";
 import "./Welcome.scss";
+import Main from '../../../assets/main.webp';
 
 const Welcome = (props) => {
     const executeScroll = () => props.scrollToRef.current.scrollIntoView();
@@ -21,7 +22,7 @@ const Welcome = (props) => {
                     </div>
 
                     <div className="welcome-slideshow">
-                        <img className="slideshow" src={"https://blog.acromedia.com/hubfs/Blog%20Images/%28Acro%20Blog%29%20Coding%20Standards%20and%20Development%20-%201.0%20-%20mh.jpg"} alt="Slideshow" />
+                        <img className="slideshow" src={Main} alt="Slideshow" />
                     </div>
                 </div>
             </div>
