@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import {
@@ -10,21 +10,15 @@ import {
     DialogContentText,
     DialogActions,
     FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    FormHelperText,
-    ListSubheader
+
 } from "@material-ui/core";
-import { Clear, CheckCircle } from "@material-ui/icons";
+import { CheckCircle } from "@material-ui/icons";
 import { useAuthState } from "../../context/AuthContext";
 import FormField from "../common/FormField";
 import {
     donate
 } from "../../actions/crowdfundingActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
-import { getUser } from "../../actions/authActions";
-import Spinner from "../common/Spinner";
 const useStyles = makeStyles((theme) => ({
     formControl: {
         marginTop: "20px",

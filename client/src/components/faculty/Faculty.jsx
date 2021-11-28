@@ -6,7 +6,6 @@ import ProtectedRoute from "../../components/common/ProtectedRoute";
 import ApplicationDetail from "../applications/ApplicationDetail";
 import FacultyActions from "../applications/FacultyActions";
 import ApplicationsList from "../applications/ApplicationsList";
-import DashboardLayout from "../../components/common/Dashboard";
 const Faculty = () => {
   return (
     <Switch>
@@ -14,12 +13,7 @@ const Faculty = () => {
         <Login userType="faculty" name="Faculty" />
       </Route>
       <Route path="/faculty/register" component={Register} />
-      <ProtectedRoute
-        exact
-        path="/faculty/profile"
-        component={DashboardLayout}
-        userType={"faculty"}
-      />
+
       <ProtectedRoute
         exact
         path="/faculty/applications"

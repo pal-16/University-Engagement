@@ -159,12 +159,13 @@ const NewApplication = () => {
       formData.append("facultyID", application.faculty);
 
       createApplication({ body: formData, token }).then((res) => {
-        setLoading(false);
+
         if (res.error) {
           setSeverity("error");
           setMessage(res.error);
           setOpen(true);
         } else {
+          setLoading(false);
           setSeverity("success");
           setMessage("Application submitted successfully");
           setOpen(true);

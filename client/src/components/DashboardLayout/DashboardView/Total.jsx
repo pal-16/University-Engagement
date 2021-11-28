@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
 import PropTypes from "prop-types";
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   Grid,
   Typography,
   makeStyles,
-  Button,
   CardHeader,
   Divider
 } from "@material-ui/core";
 import { FaTrophy } from "react-icons/fa";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import { useAuthState } from "../../../context/AuthContext";
 import Spinner from "../../common/Spinner";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +33,6 @@ const Total = ({
   ...rest
 }) => {
   const classes = useStyles();
-  const { token } = useAuthState();
-
-  const [count, setCount] = useState(0);
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

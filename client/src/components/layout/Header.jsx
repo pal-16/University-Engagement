@@ -58,25 +58,23 @@ const Header = () => {
 
   const dropdownHandler = (route) => {
     console.log(route);
-    if (route == "Projects Feed") {
+    if (route === "Projects Feed") {
       navigationHandler(`/${userType}/projects/displayAll`)
-    } else if (route == "View my projects") {
-      navigationHandler(`/${userType}/projects/displayUserProjects`)
-    } else if (route == "Upload project") {
+    } else if (route === "Upload project") {
       navigationHandler(`/${userType}/projects/new`)
-    } else if (route == "Achievements Wall") {
+    } else if (route === "Achievements Wall") {
       navigationHandler(`/${userType}/applications/displayAll`)
-    } else if (route == "Submit an achievement") {
+    } else if (route === "Submit an achievement") {
       navigationHandler(`/${userType}/applications/new`)
-    } else if (route == "View my acheivements") {
+    } else if (route === "View my acheivements") {
       navigationHandler(`/${userType}/applications/displayAll`)
-    } else if (route == "Create a post") {
+    } else if (route === "Create a post") {
       navigationHandler(`/${userType}/crowdfundings/new`)
-    } else if (route == "Crowdfunding Feed") {
+    } else if (route === "Crowdfunding Feed") {
       navigationHandler(`/${userType}/crowdfundings/displayAll`)
-    } else if (route == "View my posts") {
+    } else if (route === "View my posts") {
       navigationHandler(`/${userType}/crowdfundings/displayUserPosts`)
-    } else if (route == "Profile") {
+    } else if (route === "Profile") {
       navigationHandler(`/${userType}/profile`)
     } else {
       handleLogout();
@@ -145,29 +143,29 @@ const Header = () => {
           {isAuthenticated ? (
 
             <div>
-              {userType == "student" ?
+              {userType === "student" ?
                 <Dropdown
                   placeholder="Crowdfunding"
                   value={"Crowdfunding"}
                   onChange={(val) => dropdownHandler(val)}
                   options={["Create a post", "Crowdfunding Feed", "View my posts"]}
                 /> : <p></p>}
-              {userType == "student" ?
+              {userType === "student" ?
                 <Dropdown
                   placeholder="Projects"
                   value={"Projects"}
                   onChange={(val) => dropdownHandler(val)}
-                  options={["Upload project", "Projects Feed", "View my projects"]}
+                  options={["Upload project", "Projects Feed"]}
                 /> : ""}
-              {userType == "student" ?
+              {userType === "student" ?
                 <Dropdown
 
                   placeholder="Acheivements"
                   value={"Achievements"}
                   onChange={(val) => dropdownHandler(val)}
-                  options={["Submit an achievement", "View my acheivements", "Achievements Wall"]}
+                  options={["Submit an achievement", "View my acheivements"]}
                 /> : ""}
-              {userType == "faculty" ?
+              {userType === "faculty" ?
                 <Button
                   onClick={() => navigationHandler("/faculty/applications")}
                   color="inherit"
@@ -179,7 +177,7 @@ const Header = () => {
                     Applications
                   </Typography>
                 </Button> : ""}
-              {userType == "student" ?
+              {userType === "student" ?
                 <Dropdown
                   className={`${classes.navButton} ${classes.button}`}
                   placeholder="Profile"

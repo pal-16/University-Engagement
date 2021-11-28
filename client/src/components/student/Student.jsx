@@ -16,7 +16,6 @@ import NewProject from "../project/NewProject";
 import DisplayProjects from "../project/DisplayProject";
 import ProjectDetail from "../project/ProjectDetail";
 import DonorActions from "../crowdfunding/DonorActions";
-import DisplayUserProjects from "../project/UserProjects";
 
 const Student = () => {
   return (
@@ -85,12 +84,7 @@ const Student = () => {
         component={() => <  ProjectDetail />}
         userType={"student"}
       />
-      <ProtectedRoute
-        exact
-        path="/student/projects/displayUserProjects"
-        component={() => <  DisplayUserProjects />}
-        userType={"student"}
-      />
+
 
     </Switch>
   );

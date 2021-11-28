@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from "react";
-import clsx from "clsx";
-import { format } from "date-fns";
-
 import PropTypes from "prop-types";
 import Spinner from "../../common/Spinner";
 
 import {
   Box,
-  Button,
-  Card,
-  CardHeader,
   Divider,
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
-  TableSortLabel,
   TableContainer,
-  Tooltip,
-  makeStyles,Typography 
+  makeStyles
 } from "@material-ui/core";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
-import axios from "axios";
+
 import { useAuthState } from "../../../context/AuthContext";
 import { getUser } from "../../../actions/authActions";
-import { getStudentRank } from "../../../actions/applicationActions";
+
 
 
 const useStyles = makeStyles(() => ({
@@ -38,13 +28,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const UserDetails= ({ className, setCounter, ...rest }) => {
-  const classes = useStyles();
+
   const [isLoading, setIsLoading] = useState(false);
   
   const { userType, userID, token } = useAuthState();
   const [detailList, setDetailList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [rank, setRank] = useState("");
+ 
   useEffect(() => {
     setLoading(true);
     if (userType === "student") {

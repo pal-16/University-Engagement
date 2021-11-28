@@ -20,15 +20,13 @@ import { Clear, CheckCircle } from "@material-ui/icons";
 import { useAuthState } from "../../context/AuthContext";
 
 import {
-  KeyboardDatePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import FormField from "../common/FormField";
 import {
   approveApplication,
-  rejectApplication,
-  verifyApplication
+  rejectApplication
 } from "../../actions/applicationActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
 import constants from "../../constants";
@@ -59,8 +57,8 @@ const FacultyActions = (props) => {
       reward: ""
     });
   };
-  const [isVerified, setIsVerified] = useState(false);
-  const [verificationSuccess, setVerificationSuccess] = useState(false);
+
+
   const { userID, token } = useAuthState();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
@@ -229,22 +227,11 @@ const FacultyActions = (props) => {
                   onChange={(e) => setReward(e.target.value)}
                   error={errors.reward}
                   value={reward}
-                  disabled={!verificationSuccess}
+
                 />
               )}
             </>
-            {/* {isVerified &&
-              (verificationSuccess ? (
-                <DialogContentText>
-                  Verification Successful. This application has not been
-                  previously rewarded.
-                </DialogContentText>
-              ) : (
-                <DialogContentText>
-                  Verification Failed. This application has already been
-                  rewarded. Kindly reject this application
-                </DialogContentText>
-              ))} */}
+
           </DialogContent>
           <DialogActions>
             {/* <Button variant="contained" color="primary" onClick={handleVerify}>

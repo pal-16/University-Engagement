@@ -1,14 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
     Box,
     Typography,
-    Grid,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    FormHelperText,
     Button,
     Paper
 } from "@material-ui/core";
@@ -20,11 +14,6 @@ import {
     createPost,
 } from "../../actions/crowdfundingActions";
 import { useAuthState } from "../../context/AuthContext";
-import {
-    KeyboardDatePicker,
-    MuiPickersUtilsProvider
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: "80vh"
