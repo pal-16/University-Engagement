@@ -1,10 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box, Grid, Paper, Typography, Divider } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Box, Grid, Paper, Typography, Divider, useMediaQuery } from "@material-ui/core";
 import constants from "../../constants";
 import HomeCard from "./Landing/HomeCards";
 import Hero from "./Landing/Home";
 import Welcome from "./Landing/Welcome";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh",
@@ -28,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Landing = () => {
   const classes = useStyles();
-
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(isSmallScreen);
   return (
     <Box
       className={classes.root}
@@ -39,7 +42,7 @@ const Landing = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} className={classes.item}>
           <Welcome />
-          <Hero />
+          {isSmallScreen.toString == "true" ? <div></div> : <Hero />}
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
             <HomeCard />
