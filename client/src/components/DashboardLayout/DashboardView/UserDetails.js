@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Spinner from "../../common/Spinner";
-
 import {
   Box,
   Divider,
@@ -13,8 +11,6 @@ import {
   makeStyles
 } from "@material-ui/core";
 
-import { useAuthState } from "../../../context/AuthContext";
-import { getUser } from "../../../actions/authActions";
 
 
 
@@ -27,54 +23,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const UserDetails= ({ className, setCounter, ...rest }) => {
+const UserDetails= ({ detailList,className, setCounter, ...rest }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   
-  const { userType, userID, token } = useAuthState();
-  const [detailList, setDetailList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  
  
-  useEffect(() => {
-    setLoading(true);
-    if (userType === "student") {
-   
-      getUser({ id: userID, token, userType }).then((fetchedStudents) => {
-        console.log(fetchedStudents);
-        const details = [
-          fetchedStudents.data["name"],
-          fetchedStudents.data["studentID"],
-          fetchedStudents.data["email"],
-          fetchedStudents.data["department"],
-          fetchedStudents.data["degree"],
-          fetchedStudents.data["year"],
-          fetchedStudents.data["coins"],
-        ];
-        console.log(details);
-        setDetailList(fetchedStudents.data);
-        setLoading(false);
-      });
-    } else {
-      getUser({ id: userID, token, userType }).then((fetchedFaculty) => {
-        const details = [
-          fetchedFaculty.data["name"],
-          fetchedFaculty.data["facultyID"],
-          fetchedFaculty.data["email"],
-          fetchedFaculty.data["department"],
-          fetchedFaculty.data["position"],
-          fetchedFaculty.data["description"]
-        ];
-        setDetailList(details);
-        setLoading(false);
-      });
-    }
-  }, [token, userID, userType]);
+  
 
- 
-
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return  (
   <>
     
       <Divider />

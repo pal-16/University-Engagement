@@ -5,8 +5,6 @@ const app = require('../src/app');
 chai.use(chaiHttp);
 const {signToken} = require('../src/utilities/auth');
 const Student = require('../src/models/Student');
-const Faculty = require('../src/models/Faculty');
-const Application = require('../src/models/Application');
 const Project = require('../src/models/Project');
 
 // Create Project
@@ -51,7 +49,7 @@ describe("Create Project ", () => {
  
    describe("POST /api/projects/new", () => {
     
-      it("Create a project", (done) => {
+      it("Returns 400 when all the details not given to create a project", (done) => {
 
         project = {
             userID: studentID,
@@ -67,7 +65,7 @@ describe("Create Project ", () => {
               .end((err, res) => {
              
                   expect(err).to.be.null;
-                  expect(res.status).to.be.equal(201);
+                  expect(res.status).to.be.equal(400);
                   // expect(res.body).to.be.an("object");
                   // expect(res.body).to.have.property("product");
                   done();
@@ -137,7 +135,7 @@ describe("Create Project ", () => {
    
      describe("GET /api/student/projects/getAll", () => {
 
-        it("display projects", (done) => {
+        it("returns 200 after fetching all projects", (done) => {
 
               chai
                   .request(app)
@@ -168,8 +166,7 @@ describe("project", () => {
     const userType="student";
     var achievement={};
   
-  // 0. Create Application
-  // app.post("/api/applications/apply",auth.loginRequired,uploader.single("file"),ApplicationController.create.applyForReward);
+  // 0. Create Project
     
     beforeEach((done) => {
         Student.create({
@@ -211,7 +208,7 @@ describe("project", () => {
    
      describe("GET /api/projects/id/getDetail", () => {
       
-        it("returns 200 to fetch all details of a project", (done) => {
+        it("returns 200 to fetch all details of a given project", (done) => {
          
             chai
                 .request(app)
@@ -286,7 +283,7 @@ describe("project like", () => {
      describe("POST /api/applications/id/like", () => {
       
       
-                                it("Like a project", (done) => {
+                                it("returns 200 after liking a project", (done) => {
                                 
                                 
                                     chai
@@ -316,8 +313,6 @@ describe("Like and Comment on a project", () => {
     const userType="student";
     var newComment={};
   
-  // 0. Create Application
-  // app.post("/api/applications/apply",auth.loginRequired,uploader.single("file"),ApplicationController.create.applyForReward);
     
     beforeEach((done) => {
         Student.create({
@@ -360,7 +355,7 @@ describe("Like and Comment on a project", () => {
      describe("POST /api/applications/id/comment", () => {
      
     
-                                it("Comment on a project", (done) => {
+                                it("returns 200 after commenting on a project", (done) => {
                                 
                                     newComment={
                                         'commentText': "Palak is doing good",

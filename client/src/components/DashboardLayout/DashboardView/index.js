@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {  Grid, makeStyles } from "@material-ui/core";
 import Total from "./Total";
-import { ContactSupport, PeopleOutlined } from "@material-ui/icons";
 import UserDetails from "./UserDetails";
 import { useAuthState } from "../../../context/AuthContext";
 import { getStudentRank } from "../../../actions/applicationActions";
@@ -13,23 +12,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Dashboard = ({  }) => {
+const MainDashboard = ({ detailList }) => {
   
   const [rank, setRank] = useState("");
   const [loading, setLoading] = useState(true);
   const { userType, userID, token,userCoins } = useAuthState();
+  console.log("=======");
+  console.log(userCoins);
+var usercoins=userCoins;
   useEffect(() => {
     setLoading(true);
     if (userType === "student") {
       getStudentRank({ id: userID, token }).then((res) => {
-        console.log(res);
+
         console.log(res.data);
         setRank(res.data);
       })
     }
     setLoading(false);
   }, [token, userID, userType]);
-  
+  if(usercoins==="undefined")
+  usercoins=0;
   return loading ? (
     <Spinner />
   ) :
@@ -37,35 +40,26 @@ const Dashboard = ({  }) => {
   
         <Grid container spacing={3}>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <UserDetails />
+            <UserDetails detailList={detailList}/>
           </Grid>
           <Grid item lg={4} sm={6} xl={3} xs={12} container spacing={3}>
           <Grid item xs={12}>
               <Total
                 
                 counter={rank}
-                apiRoute="/queries/getCount"
+              
                 cardTitle="Institute Rank"
-                Icon={ContactSupport}
+             
               />
             <Grid item xs={12}>
               <Total
                
-                counter={userCoins}
-                apiRoute="/admin/getCountUsers"
+                counter={usercoins}
+         
                 cardTitle="Coins Achieved"
-                Icon={PeopleOutlined}
+             
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <Total
-                
-                counter={4}
-                apiRoute="/queries/getCount"
-                cardTitle="Project Score"
-                Icon={ContactSupport}
-              />
-            </Grid> */}
            
             </Grid>
           </Grid>
@@ -75,4 +69,4 @@ const Dashboard = ({  }) => {
   
 };
 
-export default Dashboard;
+export default MainDashboard;

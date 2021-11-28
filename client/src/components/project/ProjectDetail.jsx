@@ -151,52 +151,7 @@ const ProjectDetail = (props) => {
         <Spinner />
     ) : (
         <>
-            {/* {/* <Box
-                className={classes.root}
-                display="flex"
-                flexDirection="column"
-                justifyContent="start"
 
-            >
-                <Paper elevation={isSmallScreen ? 0 : 3} className={classes.paper}>
-                    <Typography variant="h6">
-                        {"Project Details".toLocaleUpperCase()}
-                    </Typography>
-                    <Grid
-                        container
-                        spacing={isSmallScreen ? 0 : 3}
-                        className={classes.grid}
-                    >
-                        <Grid
-                            item
-                            xs={12}
-                            md={6}
-                            className={!isSmallScreen ? classes.separator : ""}
-                            style={{ paddingRight: "30px" }}
-                        >
-
-
-
-                            <ApplicationItem
-                                label="Title"
-                                value={projectData.title}
-                            />
-
-                            <ApplicationItem
-                                label="Description"
-                                value={projectData.description}
-                            />
-
-                            <ApplicationItem
-                                label="Domain of Achievement"
-                                value={projectData.projectDomain}
-                            />
-
-                        </Grid>
-                    </Grid>
-                </Paper>
-
-            </Box> */}
             <br />
             <Card className={classes.card} variant="outlined">
                 <CardMedia style={{ height: "300px" }} image={projectData.files[0]} />

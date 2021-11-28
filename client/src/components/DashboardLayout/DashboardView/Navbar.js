@@ -19,7 +19,7 @@ import {
   Linkedin,
   Twitter
 } from "react-feather";
-import NavItem from "./NavItem";
+
 import { useAuthState } from "../../../context/AuthContext";
 const items = [
   {
@@ -38,6 +38,37 @@ const items = [
 
 
 const useStyles = makeStyles((theme) => ({
+  
+  item: {
+    display: "flex",
+    paddingTop: 0,
+    paddingBottom: 0
+  },
+  button: {
+    color: theme.palette.text.secondary,
+    fontWeight: theme.typography.fontWeightMedium,
+    justifyContent: "flex-start",
+    letterSpacing: 0,
+    padding: "10px 8px",
+    textTransform: "none",
+    width: "100%"
+  },
+  icon: {
+    marginRight: theme.spacing(1),
+    color:  theme.palette.primary.main
+  },
+  title: {
+    marginRight: "auto"
+  },
+  active: {
+    color: theme.palette.primary.main,
+    "& $title": {
+      fontWeight: theme.typography.fontWeightMedium
+    },
+    "& $icon": {
+      color: theme.palette.primary.main
+    }
+  },
   mobileDrawer: {
     width: 256,
     backgroundColor: "white"
@@ -58,30 +89,51 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NavBar = ({ onMobileClose, openMobile, setContents }) => {
+const NavBar = ({ detailList,onMobileClose, openMobile, setContents }) => {
   const classes = useStyles();
   const { user } = useAuthState();
 const theme=useTheme();
+console.log("=============");
+console.log(detailList);
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <Box alignItems="center" display="flex" flexDirection="column" p={2}>
         <Avatar className={classes.avatar} src={User}  />
         <Typography className={classes.name} color="textPrimary" variant="h5">
-          Student
+        {detailList.name}
         </Typography>
       </Box>
       <Divider />
       <Box p={2}>
-        <List>
-          {items.map((item, idx) => (
-            <NavItem
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              index={idx}
-              setContents={setContents}
-            />
-          ))}
+        <List> 
+             <Button
+               activeClassName={classes.active}
+               className={classes.button}
+               href={detailList.github}
+             >
+               { <GitHub className={classes.icon} size="20" />}
+               <span className={classes.title}>Github</span>
+             </Button>
+                
+             <Button
+               activeClassName={classes.active}
+               className={classes.button}
+               href={detailList.linkedin}
+             >
+             { <Linkedin className={classes.icon} size="20" />} 
+               <span className={classes.title}>LinkedIn</span>
+             </Button>
+                
+             <Button
+               activeClassName={classes.active}
+               className={classes.button}
+               href={detailList.twitter}
+             >
+               { <Twitter className={classes.icon} size="20" />}
+               <span className={classes.title}>Twitter</span>
+             </Button>
+         
+
         </List>
       </Box>
       <Box flexGrow={1} />

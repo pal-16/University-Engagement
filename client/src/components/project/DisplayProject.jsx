@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(1),
         },
-        marginTop: "5px"
+        marginTop: "2px",
+
     },
     container: {
         minHeight: "80vh",
@@ -86,7 +87,7 @@ const DisplayProjects = () => {
     }, [token, userID, userType]);
     useEffect(() => {
 
-        console.log(statusFilter);
+
         if (statusFilter === "All" && semesterFilter === "All") {
             setFilteredApplications(applications);
         } else {
@@ -182,9 +183,9 @@ const DisplayProjects = () => {
             </Grid>
             <div>
 
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     {filteredApplications.map((application) => (
-                        <Grid item xs={12} sm={4} key={application._id}>
+                        <Grid item xs={12} sm={6} key={application._id}>
                             <Link
                                 to={`/student/projects/${application._id}`}
                                 className={classes.titleLink}
@@ -196,11 +197,14 @@ const DisplayProjects = () => {
 
                                     <CardContent>
                                         <Divider variant="fullWidth" className={classes.divider} />
+                                        {/* <Typography color="textSecondary" variant="substitle3">
+                                            <b> Description </b> :  {application.description.slice(0, 250)}<b>{"...Read More"}</b>
+                                        </Typography> */}
                                         <Typography color="textSecondary" variant="substitle3">
-                                            <b> Description </b> :  {application.description.slice(0, 250)}<b>{".....Read More"}</b>
+                                            <b> Project Domain </b> : {application.projectDomain}
                                         </Typography>
                                         <br />
-                                        <br />
+
                                         <Typography color="textSecondary" variant="substitle3">
                                             <b> Developed during </b> : {application.semester}
                                         </Typography>
@@ -212,13 +216,13 @@ const DisplayProjects = () => {
 
 
                                         <Typography color="textSecondary" variant="h5">
-                                            <FaComment></FaComment>{application.comments.length}   <FaThumbsUp></FaThumbsUp>{application.like.length}
+                                            <FaComment></FaComment>{application.comments.length}  <FaThumbsUp></FaThumbsUp>{application.like.length}
                                         </Typography>
 
                                         <br />
 
-                                        <div className={classes.btns}>
-                                            {application.tags.map(name => <Button color="primary" variant="contained" key={name} ><FaTag></FaTag>{name} </Button>)}
+                                        <div className={classes.btns} >
+                                            {application.tags.map(name => <Button color="primary" variant="contained" key={name}  ><FaTag></FaTag>{name} </Button>)}
                                         </div>
 
                                     </CardContent>

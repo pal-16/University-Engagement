@@ -113,9 +113,19 @@ const Header = () => {
             <p>Profile</p>
           </MenuItem>
           <MenuItem
-            onClick={() => navigationHandler(`/${userType}/applications`)}
+            onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
           >
             <p>Applications</p>
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
+          >
+            <p>Crowdfunding</p>
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
+          >
+            <p>Projects</p>
           </MenuItem>
 
           <MenuItem onClick={handleLogout}>
@@ -136,109 +146,109 @@ const Header = () => {
     </Menu>
   );
   return (
-    <div className={classes.grow}>
+    <div className={classes.grow} >
+
       <AppBar position="static">
         <Toolbar>
+          <Button
+            color="inherit"
+            disableRipple
+            disableFocusRipple
+            className={classes.button}
 
-          {isAuthenticated ? (
+            onClick={() => navigationHandler("/")}
+          >
+            <SchoolRoundedIcon />
+            <Typography variant="h6" noWrap style={{ color: "white", marginLeft: "10px" }}>
+              Microsoft Engage
+            </Typography>
+          </Button>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            {isAuthenticated ? (
 
-            <div>
-              {userType === "student" ?
-                <Dropdown
-                  placeholder="Crowdfunding"
-                  value={"Crowdfunding"}
-                  onChange={(val) => dropdownHandler(val)}
-                  options={["Create a post", "Crowdfunding Feed", "View my posts"]}
-                /> : <p></p>}
-              {userType === "student" ?
-                <Dropdown
-                  placeholder="Projects"
-                  value={"Projects"}
-                  onChange={(val) => dropdownHandler(val)}
-                  options={["Upload project", "Projects Feed"]}
-                /> : ""}
-              {userType === "student" ?
-                <Dropdown
+              <div>
+                {userType === "student" ?
+                  <Dropdown
+                    placeholder="Crowdfunding"
+                    value={"Crowdfunding"}
+                    onChange={(val) => dropdownHandler(val)}
+                    options={["Create a post", "Crowdfunding Feed", "View my posts"]}
+                  /> : <p></p>}
+                {userType === "student" ?
+                  <Dropdown
+                    placeholder="Projects"
+                    value={"Projects"}
+                    onChange={(val) => dropdownHandler(val)}
+                    options={["Upload project", "Projects Feed"]}
+                  /> : ""}
+                {userType === "student" ?
+                  <Dropdown
 
-                  placeholder="Acheivements"
-                  value={"Achievements"}
-                  onChange={(val) => dropdownHandler(val)}
-                  options={["Submit an achievement", "View my acheivements"]}
-                /> : ""}
-              {userType === "faculty" ?
+                    placeholder="Acheivements"
+                    value={"Achievements"}
+                    onChange={(val) => dropdownHandler(val)}
+                    options={["Submit an achievement", "View my acheivements"]}
+                  /> : ""}
+                {userType === "faculty" ?
+                  <Button
+                    onClick={() => navigationHandler("/faculty/applications")}
+                    color="inherit"
+                    disableRipple
+                    disableFocusRipple
+                    className={classes.button} style={{ paddingBottom: "15px" }}
+                  >
+                    <Typography variant="body1" noWrap>
+                      Applications
+                    </Typography>
+                  </Button> : ""}
+                {userType === "student" ?
+                  <Dropdown
+                    className={`${classes.navButton} ${classes.button}`}
+                    placeholder="Profile"
+                    value={"Profile"}
+                    onClick={() => navigationHandler(`/${userType}/profile`)}
+                  /> : ""}
                 <Button
-                  onClick={() => navigationHandler("/faculty/applications")}
+                  onClick={handleLogout}
+                  color="inherit"
+                  className={`${classes.navButton} ${classes.button}`}
+                  disableRipple
+                  disableFocusRipple >
+                  <Typography variant="body1" noWrap style={{ paddingBottom: "8px" }} >
+                    Logout
+                  </Typography>
+                </Button>
+
+              </div>
+            ) : (
+              <div>
+                <Button
+                  onClick={() => navigationHandler("/student/login")}
+                  color="inherit"
+                  className={`${classes.navButton} ${classes.button}`}
+                  disableRipple
+                  disableFocusRipple
+                >
+                  <Typography variant="body1" noWrap>
+                    Student
+                  </Typography>
+                </Button>
+                <Button
+                  onClick={() => navigationHandler("/faculty/login")}
                   color="inherit"
                   disableRipple
                   disableFocusRipple
-                  className={classes.button} style={{ paddingBottom: "15px" }}
+                  className={classes.button}
                 >
                   <Typography variant="body1" noWrap>
-                    Applications
+                    Faculty
                   </Typography>
-                </Button> : ""}
-              {userType === "student" ?
-                <Dropdown
-                  className={`${classes.navButton} ${classes.button}`}
-                  placeholder="Profile"
-                  value={"Profile"}
-                  onClick={() => navigationHandler(`/${userType}/profile`)}
-                /> : ""}
-              <Button
-                onClick={handleLogout}
-                color="inherit"
-                className={`${classes.navButton} ${classes.button}`}
-                disableRipple
-                disableFocusRipple >
-                <Typography variant="body1" noWrap style={{ paddingBottom: "8px" }} >
-                  Logout
-                </Typography>
-              </Button>
-
-            </div>
-          ) : (
-            <div>
-              <Button
-                onClick={() => navigationHandler("/student/login")}
-                color="inherit"
-                className={`${classes.navButton} ${classes.button}`}
-                disableRipple
-                disableFocusRipple
-              >
-                <Typography variant="body1" noWrap>
-                  Student
-                </Typography>
-              </Button>
-              <Button
-                onClick={() => navigationHandler("/faculty/login")}
-                color="inherit"
-                disableRipple
-                disableFocusRipple
-                className={classes.button}
-              >
-                <Typography variant="body1" noWrap>
-                  Faculty
-                </Typography>
-              </Button>
-            </div>
-          )}
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-
-            <Button
-              color="inherit"
-              disableRipple
-              disableFocusRipple
-              className={classes.button}
-
-              onClick={() => navigationHandler("/")}
-            >
-              <SchoolRoundedIcon />
-              <Typography variant="h6" noWrap style={{ color: "white", marginLeft: "10px" }}>
-                Microsoft Engage
-              </Typography>
-            </Button>
+                </Button>
+              </div>
+            )}
           </div>
+
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -253,7 +263,12 @@ const Header = () => {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-    </div >
+
+
+
+    </div>
+
+
   );
 };
 

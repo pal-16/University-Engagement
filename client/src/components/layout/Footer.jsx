@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    minHeight: "4vh",
+    minHeight: "6vh",
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(1),
     display: "flex",

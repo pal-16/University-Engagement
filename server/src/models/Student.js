@@ -33,6 +33,21 @@ const student = new mongoose.Schema({
     enum: ["BTech", "MTech", "MCA", "Diploma"],
     required: true
   },
+  github: {
+    type: String,
+    default: "www.github.com",
+    required: true
+  },
+  linkedin: {
+    type: String,
+    default: "www.linkedin.com",
+    required: true
+  },
+  twitter: {
+    type: String,
+    default: "www.twitter.com",
+    required: true
+  },
   admissionYear: {
     type: Number,
     required: true
