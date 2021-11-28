@@ -235,7 +235,7 @@ const NewProject = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={3} className={classes.paper} style={{ marginTop: "24px", marginBottom: "24px" }}>
         <div style={{ marginTop: "24px" }}>
           <Typography variant="h5">New Project</Typography>
         </div>

@@ -26,7 +26,7 @@ import FormField from "../../../components/common/FormField";
 import constants from "../../../constants";
 import { register } from "../../../actions/authActions";
 import { REQUEST_AUTH } from "../../../reducers/types";
-
+import validator from 'validator'
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh",
@@ -82,7 +82,10 @@ const Register = () => {
     password: "",
     department: "",
     degree: "",
-    admissionYear: ""
+    admissionYear: "",
+    github: "",
+    linkedin: "",
+    twitter: ""
   });
 
   const [errors, updateErrors] = useState({
@@ -93,7 +96,10 @@ const Register = () => {
     confirmPassword: "",
     department: "",
     degree: "",
-    admissionYear: ""
+    admissionYear: "",
+    github: "",
+    linkedin: "",
+    twitter: ""
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -123,7 +129,10 @@ const Register = () => {
       confirmPassword: "",
       department: "",
       degree: "",
-      admissionYear: ""
+      admissionYear: "",
+      github: "",
+      linkedin: "",
+      twitter: ""
     });
     if (student.studentID.length !== 9) {
       updateErrors((prevErrors) => ({
@@ -145,6 +154,27 @@ const Register = () => {
         ...prevErrors,
         email: "* Email can't be Empty"
       }));
+    }
+    if (!validator.isURL(student.github)) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        link: "* Please enter a valid URL"
+      }));
+      formIsValid = false;
+    }
+    if (!validator.isURL(student.linkedin)) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        link: "* Please enter a valid URL"
+      }));
+      formIsValid = false;
+    }
+    if (!validator.isURL(student.twitter)) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        link: "* Please enter a valid URL"
+      }));
+      formIsValid = false;
     }
     if (student.password.length < 8) {
       formIsValid = false;
@@ -250,52 +280,7 @@ const Register = () => {
                 onChange={handleStudent}
                 error={errors.email}
               />
-              <FormField
-                label="Password"
-                name="password"
-                required={true}
-                onChange={handleStudent}
-                error={errors.password}
-                InputProps={{
-                  type: showPassword ? "text" : "password",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={toggleShowPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-              <FormField
-                label="Confirm Password"
-                name="confirmPassword"
-                required={true}
-                onChange={handleConfirmPassword}
-                error={errors.confirmPassword}
-                InputProps={{
-                  type: showConfirmPassword ? "text" : "password",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={toggleShowConfirmPassword}
-                        edge="end"
-                      >
-                        {showConfirmPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
+
               <Grid container spacing={1}>
                 <Grid item xs={12} md={6}>
                   <FormControl
@@ -376,7 +361,70 @@ const Register = () => {
                   <FormHelperText>{errors.department}</FormHelperText>
                 </FormControl>
               </Grid>
-
+              <FormField
+                label="GitHub"
+                name="github"
+                onChange={handleStudent}
+                error={errors.github}
+              />
+              <FormField
+                label="LinkedIn"
+                name="linkedin"
+                onChange={handleStudent}
+                error={errors.linkedin}
+              />
+              <FormField
+                label="Twitter"
+                name="twitter"
+                onChange={handleStudent}
+                error={errors.twitter}
+              />
+              <FormField
+                label="Password"
+                name="password"
+                required={true}
+                onChange={handleStudent}
+                error={errors.password}
+                InputProps={{
+                  type: showPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <FormField
+                label="Confirm Password"
+                name="confirmPassword"
+                required={true}
+                onChange={handleConfirmPassword}
+                error={errors.confirmPassword}
+                InputProps={{
+                  type: showConfirmPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowConfirmPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
 
               <Button
                 onClick={handleFormSubmit}

@@ -42,6 +42,7 @@ const Landing = () => {
           <Hero />
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
+            <Destinations />
           </Typography>
         </Grid>
       </Grid>

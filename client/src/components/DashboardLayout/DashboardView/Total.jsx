@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Total = ({
   className,
-  apiRoute,
   cardTitle,
   Icon,
   counter,
@@ -35,9 +34,7 @@ const Total = ({
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
 
-  }, []);
 
   return (
     <Card style={{ marginTop: '20px' }}>
@@ -69,9 +66,7 @@ const Total = ({
 
 Total.propTypes = {
   className: PropTypes.string,
-  apiRoute: PropTypes.string.isRequired,
   cardTitle: PropTypes.string.isRequired,
-  Icon: PropTypes.node.isRequired,
   counter: PropTypes.number.isRequired
 };
 

@@ -58,7 +58,7 @@ const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberme, setRememberme] = useState(false);
+  const [rememberme, setRememberme] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleEmail = (e) => setEmail(e.target.value);
@@ -178,18 +178,7 @@ const Login = (props) => {
                 )
               }}
             />
-            <FormControlLabel
-              style={{ marginBottom: "5px" }}
-              control={
-                <Checkbox
-                  value="remember"
-                  color="primary"
-                  checked={rememberme}
-                  onChange={handleRememberme}
-                />
-              }
-              label="Remember Me"
-            />
+
             <div>
               <Button
                 onClick={handleFormSubmit}

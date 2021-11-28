@@ -6,7 +6,7 @@ const axios = require("axios");
 
 exports.createProject=async(req, res)=>{
     try {
-      console.log(req.body);
+  
       if (!req.file) {
         return res.status(400).json({
           error: "No file uploaded"

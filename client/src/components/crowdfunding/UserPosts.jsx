@@ -43,7 +43,11 @@ const useStyles = makeStyles((theme) => ({
             color: "white"
         }
     },
-    selected: {}
+    selected: {},
+    card: {
+        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.8)",
+        backgroundColor: "#fafafa",
+    }
 }));
 const ReadMore = ({ children }) => {
     const text = children;

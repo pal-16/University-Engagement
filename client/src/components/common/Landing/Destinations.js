@@ -6,15 +6,16 @@ import './index.css';
 const Destinations = () => {
   return (
     <section className='destinations'>
-      <h3>Now available in 46 countries!</h3>
-      <div className='grid'>
+      <h3>Explore with the portal!</h3>
+      <div className='grid' style={{textAlign:"left"}}>
         <div>
           <img src={image1} alt='destination-1' />
           <h3>Fly to Aruba</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Dignissimos, ab nesciunt? Molestias rem qui sequi!
-          </p>
+        
+           <li> Lorem ipsum dolor sit amet</li>
+             <li> consectetur adipisicing elit.</li>
+         <li>   Dignissimos, ab nesciunt? Molestias rem qui sequi! </li>
+         
         </div>
 
         <div>
