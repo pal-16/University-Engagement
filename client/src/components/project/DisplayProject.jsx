@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
             color: "white"
         }
     },
+    card: {
+        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
+        backgroundColor: "#fafafa",
+    },
     selected: {}
 }));
 
@@ -190,63 +194,62 @@ const DisplayProjects = () => {
             </Grid>
             <div>
 
+                <Grid container spacing={2}>
+                    {filteredApplications.map((application) => (
+                        <Grid item xs={12} sm={6} key={application._id}>
+                            <Link
+                                to={`/student/projects/${application._id}`}
+                                className={classes.titleLink}
+                            >
+                                <CardMedia style={{ height: "200px" }} image={application.files[0]} />
+                                <Card className={classes.card} variant="outlined">
+                                    <CardHeader title={application.title} align="center" />
+
+                                    <CardContent>
+                                        <Divider variant="fullWidth" className={classes.divider} />
+                                        <Typography color="textSecondary" variant="substitle3">
+                                            <b> Description </b>   {application.description}
+                                        </Typography>
+                                        <br />
+                                        <br />
+                                        <Typography color="textSecondary" variant="substitle3">
+                                            <b> Developed during </b> : {application.semester}
+                                        </Typography>
 
 
-                {filteredApplications.map((application) => (
-                    <>
-                        <Link
-                            to={`/student/projects/${application._id}`}
-                            className={classes.titleLink}
-                        >
-                            <Card className={classes.card} variant="outlined">
-                                <CardHeader title={application.title} align="center" />
-                                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "469px" }}>
-                                    Created By {application.userID.name}  at {moment(application.createdAt).format('YYYY-MM-DD')}
-                                </Typography>
-
-                                <CardContent>
-                                    <Divider variant="fullWidth" className={classes.divider} />
-                                    <Typography color="textSecondary" variant="substitle3">
-                                        <b> Description </b>   {application.description}
-                                    </Typography>
-                                    <br />
-                                    <br />
-                                    <Typography color="textSecondary" variant="substitle3">
-                                        <b> Developed during </b> : {application.semester}
-                                    </Typography>
-
-
-                                    <br />
-                                    <br />
+                                        <br />
+                                        <br />
 
 
 
-                                    <Typography color="textSecondary" variant="h5">
-                                        <FaComment></FaComment>{application.comments.length}   <FaThumbsUp></FaThumbsUp>{application.like.length}
-                                    </Typography>
+                                        <Typography color="textSecondary" variant="h5">
+                                            <FaComment></FaComment>{application.comments.length}   <FaThumbsUp></FaThumbsUp>{application.like.length}
+                                        </Typography>
 
-                                    <br />
+                                        <br />
 
-                                    <div className={classes.btns}>
-                                        {application.tags.map(name => <Button color="primary" variant="contained" key={name} ><FaTag></FaTag>{name} </Button>)}
-                                    </div>
+                                        <div className={classes.btns}>
+                                            {application.tags.map(name => <Button color="primary" variant="contained" key={name} ><FaTag></FaTag>{name} </Button>)}
+                                        </div>
 
 
-                                    {/* <FacultyActions
+                                        {/* <FacultyActions
                                             position={isSmallScreen ? "center" : "start"}
                                             applicationData={application}
                                             setLoading={setLoading}
                                             id={application._id}
                                         /> */}
-                                </CardContent>
-                            </Card>
-                        </Link>
-                        <br />
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                            <br />
 
-                    </>
+                        </Grid>
 
-                ))}
 
+                    ))}
+
+                </Grid>
 
 
             </div>

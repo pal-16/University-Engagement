@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     width: 256,
     top: 64,
     zIndex: 1,
-    height: "calc(100% - 64px)",
+    height: 500,
     backgroundColor: "white"
   },
   avatar: {

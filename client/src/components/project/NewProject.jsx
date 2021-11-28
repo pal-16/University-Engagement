@@ -69,7 +69,8 @@ const NewProject = () => {
     projectDomain: "",
     semester: "",
     tags: [],
-    link: ""
+    link: "",
+    file: ""
 
   });
 
@@ -80,7 +81,8 @@ const NewProject = () => {
     projectDomain: "",
     semester: "",
     tags: [],
-    link: ""
+    link: "",
+    file: ""
   });
 
 
@@ -138,6 +140,13 @@ const NewProject = () => {
       }));
       formIsValid = false;
     }
+    if (!file) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        file: "* Please select a file"
+      }));
+      formIsValid = false;
+    }
 
 
     return formIsValid;
@@ -154,21 +163,22 @@ const NewProject = () => {
       formData.append("description", application.description);
       formData.append("projectDomain", application.projectDomain);
       formData.append("semester", application.semester);
+      formData.append("file", file);
 
-      //  formData.append("file", file);]
       var Tags = [];
       for (var m in inputFields) {
         console.log(inputFields[m]['tags']);
         Tags.push(inputFields[m]['tags']);
 
       }
+      // Tags.push(application.projectDomain)
+      // console.log(Tags);
       formData.append("userID", userID);
       formData.append("tags", Tags);
-
       application.userID = userID;
       application.tags = Tags;
       console.log(Tags);
-      createProject({ body: application, token }).then((res) => {
+      createProject({ body: formData, token }).then((res) => {
         setLoading(false);
         if (res.error) {
           setSeverity("error");
