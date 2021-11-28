@@ -53,7 +53,7 @@ exports.applyForReward=async(req, res)=>{
         $push: { applications: application }
       });
       let info = await transporter.sendMail({
-        from: 'universityengagement2021@gmail.com',
+        from: 'mantrypalak@gmail.com',
         to: faculty.email,
         subject: 'Student Submitted An Application',
         html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -22,10 +22,12 @@ import ApplicationItem from "../applications/ApplicationItem";
 import Comments from './sections/Comments'
 //import StatusChip from "./StatusChip";
 import moment from 'moment';
-
+import CardMedia from "@material-ui/core/CardMedia";
 import "./styles.css";
 
 const useStyles = makeStyles((theme) => ({
+
+
     btns: {
         '& > *': {
             margin: theme.spacing(1),
@@ -75,7 +77,14 @@ const ProjectDetail = (props) => {
     const { id } = useParams();
     const { userID, token } = useAuthState();
     const Actions = props.actions;
+    const [like, setLike] = useState(true);
 
+    const handleAlreadyLiked = async () => {
+        setSeverity("error");
+        setMessage("You have already liked");
+        setOpen(true);
+        return;
+    }
     const handleLike = async () => {
 
         likeProject({
@@ -128,6 +137,16 @@ const ProjectDetail = (props) => {
 
                 console.log(res.data);
                 setProjectData(res.data);
+
+                for (let i = 0; i < res.data.like.length; i++) {
+
+                    if (userID.toString == res.data.like[i].toString) {
+                        setLike(false);
+                        break;
+                    }
+                }
+
+                console.log(like);
                 setCommentLists(res.data.comments)
                 setLoading(false);
             }
@@ -186,6 +205,8 @@ const ProjectDetail = (props) => {
             </Box> */}
             <br />
             <Card className={classes.card} variant="outlined">
+                <CardMedia style={{ height: "300px" }} image={projectData.files[0]} />
+
                 <CardHeader title={projectData.title} align="center" />
                 <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "469px" }}>
                     Created By {projectData.userID.name} at {moment(projectData.createdAt).format('YYYY-MM-DD')}
@@ -206,19 +227,17 @@ const ProjectDetail = (props) => {
                     </div>
 
 
-                    {/* <FacultyActions
-                                            position={isSmallScreen ? "center" : "start"}
-                                            applicationData={application}
-                                            setLoading={setLoading}
-                                            id={application._id}
-                                        /> */}
+
                 </CardContent>
             </Card>
-            <Button color="primary" onClick={handleLike}>
+
+            <Button color="primary" onClick={like == false ? handleAlreadyLiked : handleLike}>
                 Like  <FaThumbsUp></FaThumbsUp> <p style={{ marginLeft: "10px" }}> </p> {projectData.like.length}
             </Button>
 
-            <Button color="secondary" variant="contained" onClick={handleLike} style={{ marginLeft: "50px" }} c>
+            <Button color="secondary" variant="contained" onClick={() => {
+                window.open(projectData.link, "_blank");
+            }} style={{ marginLeft: "50px" }} c>
                 Fork this project on GitHub
             </Button>
             <Comments className="comments-container" CommentLists={CommentLists} projectID={projectData._id} refreshFunction={updateComment} />

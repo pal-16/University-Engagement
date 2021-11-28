@@ -85,13 +85,13 @@ const UserDetails= ({ className, setCounter, ...rest }) => {
   return isLoading ? (
     <Spinner />
   ) : (
-    <Card  style={{marginTop:'20px'}}>
+  <>
     
       <Divider />
       
         <Box>
        
-        <TableContainer component={Box}>
+        <TableContainer component={Box} style={{marginTop:'20px'}}>
         <Table>
          
           <TableBody>
@@ -166,8 +166,8 @@ const UserDetails= ({ className, setCounter, ...rest }) => {
         </Table>
       </TableContainer>
       </Box>
-    
-    </Card>
+   </> 
+  
   );
 };
 
