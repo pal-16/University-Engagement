@@ -1,16 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { FaComment, FaThumbsUp, FaUser, FaTag } from "react-icons/fa";
+import { FaThumbsUp, FaTag } from "react-icons/fa";
 import CardHeader from "@material-ui/core/CardHeader";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import {
     Button,
-    Box,
-    Grid,
     Typography,
-    Divider,
-    Paper,
     useMediaQuery
 } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
@@ -18,9 +14,7 @@ import { SnackbarContext } from "../../context/SnackbarContext";
 import { getProjectDetails, likeProject } from "../../actions/projectActions";
 import { useAuthState } from "../../context/AuthContext";
 import Spinner from "../../components/common/Spinner";
-import ApplicationItem from "../applications/ApplicationItem";
 import Comments from './sections/Comments'
-//import StatusChip from "./StatusChip";
 import moment from 'moment';
 import CardMedia from "@material-ui/core/CardMedia";
 import "./styles.css";
@@ -208,9 +202,12 @@ const ProjectDetail = (props) => {
                 <CardMedia style={{ height: "300px" }} image={projectData.files[0]} />
 
                 <CardHeader title={projectData.title} align="center" />
-                <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "469px" }}>
-                    Created By {projectData.userID.name} at {moment(projectData.createdAt).format('YYYY-MM-DD')}
-                </Typography>
+                <div style={{ width: "100%", textAlign: "center" }}>
+
+                    <Typography color="textSecondary" variant="subtitle4" >
+                        Created By {projectData.userID.name} at {moment(projectData.createdAt).format('YYYY-MM-DD')}
+                    </Typography>
+                </div>
                 <hr />
                 <CardContent>
                     <Typography color="textSecondary" variant="substitle3">

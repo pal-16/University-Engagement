@@ -3,6 +3,7 @@ const Student = require("../../models/Student");
 const Faculty = require("../../models/Faculty");
 const Transaction = require("../../models/Transaction");
 const transporter= require('../../config/mail');
+
   exports.approveApplication=async(req, res)=>{
     try {
       let application = await Application.findById(req.params.id);
@@ -20,7 +21,7 @@ const transporter= require('../../config/mail');
         return res.status(404).json({ error: "Invalid Student ID" });
       }
       const total = req.body.reward+student.coins;
-  
+      
       const newTransaction = new Transaction({
         senderID: req.body.facultyID,
         senderType: "faculty",
@@ -32,7 +33,7 @@ const transporter= require('../../config/mail');
       let info = await transporter.sendMail({
         from: 'mantrypalak@gmail.com',
         to: student.email,
-        subject: 'Faculty Acceptance',
+        subject: 'Update on the achievement submitted to University Engage Portal',
         html: `<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
         <head>
@@ -144,7 +145,7 @@ const transporter= require('../../config/mail');
           <div style="width: 100% !important;">
           <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
           
-      
+        
         
           <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
           </div>
@@ -193,7 +194,7 @@ const transporter= require('../../config/mail');
               <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
                 
           <div style="color: #000000; line-height: 140%; text-align: left; word-wrap: break-word;">
-            <p style="font-size: 14px; line-height: 140%; text-align: center;">CAMPUS ENGAGEMENT</p>
+            <p style="font-size: 14px; line-height: 140%; text-align: center;">UNIVERSITY ENGAGEMENT</p>
           </div>
         
               </td>
@@ -256,23 +257,23 @@ const transporter= require('../../config/mail');
             </tr>
           </tbody>
         </table>
-
+        
         <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 31px;font-family:'Cabin',sans-serif;" align="left">
+        <tbody>
+        <tr>
+        <td style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 31px;font-family:'Cabin',sans-serif;" align="left">
         
-  <div style="color: #e5eaf5; line-height: 140%; text-align: center; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 28px; line-height: 39.2px;"><strong><span style="line-height: 39.2px; font-size: 28px;"> On Your Achievement </span></strong></span></p>
-  </div>
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+        <div style="color: #e5eaf5; line-height: 140%; text-align: center; word-wrap: break-word;">
+        <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 28px; line-height: 39.2px;"><strong><span style="line-height: 39.2px; font-size: 28px;"> On Your Achievement </span></strong></span></p>
+        </div>
         
-     
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        
+        
+        
           <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
           </div>
         </div>
@@ -300,10 +301,10 @@ const transporter= require('../../config/mail');
               <td style="overflow-wrap:break-word;word-break:break-word;padding:33px 55px;font-family:'Cabin',sans-serif;" align="left">
                 
           <div style="color: #000000; line-height: 160%; text-align: center; word-wrap: break-word;">
-            <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 22px; line-height: 35.2px;">Hello Student </span></p>
-        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 18px; line-height: 28.8px;"> Faculty has verified your achievement and you have been alloted coins! <br /></span></p>
+            <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 22px; line-height: 35.2px;">Hello ${student.name} </span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 18px; line-height: 28.8px;"> The achievement submitted by you at the University Engage Portal has now been verified and approved by a Faculty. You have been accordingly alloted <b>${req.body.reward}</b> coins. Thank you for sharing your achievement with us, we hope you make good use of the university coins alloted to you. <br /></span></p>
           </div>
-       
+        
         
               </td>
             </tr>
@@ -337,7 +338,7 @@ const transporter= require('../../config/mail');
                 
           <div style="color: #000000; line-height: 160%; text-align: center; word-wrap: break-word;">
             <p style="line-height: 160%; font-size: 14px;"><span style="font-size: 18px; line-height: 28.8px;">Thanks,</span></p>
-        <p style="line-height: 160%; font-size: 14px;"><span style="font-size: 18px; line-height: 28.8px;">Campus Engagement Team</span></p>
+        <p style="line-height: 160%; font-size: 14px;"><span style="font-size: 18px; line-height: 28.8px;">University Engagement Team</span></p>
         <p style="line-height: 160%; font-size: 14px;">&nbsp;</p>
           </div>
         
@@ -367,16 +368,7 @@ const transporter= require('../../config/mail');
           <div style="width: 100% !important;">
           <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
           
-        <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-          <tbody>
-            <tr>
-              <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
-                
         
-              </td>
-            </tr>
-          </tbody>
-        </table>
         
           <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
           </div>

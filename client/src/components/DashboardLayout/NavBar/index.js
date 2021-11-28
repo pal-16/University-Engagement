@@ -14,19 +14,13 @@ import {
   useTheme
 } from "@material-ui/core";
 import {
-  BarChart as BarChartIcon,
-  ShoppingBag as ShoppingBagIcon,
-  Users as UsersIcon,
-  HelpCircle as HelpCircleIcon,
   User,
-  Database,
   GitHub,
   Linkedin,
   Twitter
 } from "react-feather";
 import NavItem from "./NavItem";
 import { useAuthState } from "../../../context/AuthContext";
-import { fixControlledValue } from "antd/lib/input/Input";
 const items = [
   {
     icon: GitHub,

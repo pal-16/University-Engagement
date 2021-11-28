@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
@@ -7,29 +7,17 @@ import {
     Box,
     Typography,
     Divider,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Grid,
     useMediaQuery
 } from "@material-ui/core";
 import {
-    AccessTimeOutlined,
-    CheckCircle,
-    ClearOutlined,
     Add
 } from "@material-ui/icons";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import Spinner from "../../components/common/Spinner";
 import { useAuthState } from "../../context/AuthContext";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import FacultyActions from "./DonorActions";
 import { getUserPosts } from "../../actions/crowdfundingActions";
 import moment from 'moment';
 const useStyles = makeStyles((theme) => ({
@@ -159,9 +147,12 @@ const CrowdfundingUserPosts = () => {
                             <Grid item xs={12} sm={6} key={application._id}>
                                 <Card className={classes.card} style={{ height: "100%" }}>
                                     <CardHeader title={application.title} align="center" />
-                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "205px" }}>
-                                        Created  at {moment(application.createdAt).format('YYYY-MM-DD')}
-                                    </Typography>
+                                    <div style={{ width: "100%", textAlign: "center" }}>
+
+                                        <Typography color="textSecondary" variant="subtitle4" >
+                                            Created  at {moment(application.createdAt).format('YYYY-MM-DD')}
+                                        </Typography>
+                                    </div>
                                     <hr />
                                     <CardContent>
                                         <Typography color="primary" variant="subtitle4">
@@ -213,49 +204,6 @@ const CrowdfundingUserPosts = () => {
             </div>
 
 
-            {/* <TableContainer component={Box}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell style={{ textAlign: "center" }}>
-                                <Typography variant="h6">Title</Typography>
-                            </TableCell>
-                            {!isSmallScreen && (
-                                <TableCell style={{ textAlign: "center" }}>
-                                    <Typography variant="h6">Domain of Achievement</Typography>
-                                </TableCell>
-                            )}
-                            <TableCell style={{ textAlign: "center" }}>
-                                <Typography variant="h6">Application Status</Typography>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredApplications.map((application) => (
-                            <TableRow key={application._id}>
-                                <TableCell style={{ fontSize: "1.1rem", textAlign: "center" }}>
-                                    <Link
-                                        to={`/${userType}/applications/${application._id}`}
-                                        className={classes.titleLink}
-                                    >
-                                        {application.title}
-                                    </Link>
-                                </TableCell>
-                                {!isSmallScreen && (
-                                    <TableCell
-                                        style={{ fontSize: "1.1rem", textAlign: "center" }}
-                                    >
-                                        {application.domainAchievement}
-                                    </TableCell>
-                                )}
-                                <TableCell style={{ fontSize: "1.1rem", textAlign: "center" }}>
-                                    <StatusChip status={application.status} />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer> */}
         </Box >
     );
 };

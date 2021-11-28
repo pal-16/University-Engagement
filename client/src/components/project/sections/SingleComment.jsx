@@ -1,13 +1,10 @@
 import { commentProject } from "../../../actions/projectActions";
 import moment from 'moment';
-import { FaComment, FaThumbsUp, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { SnackbarContext } from "../../../context/SnackbarContext";
 import { useAuthState } from "../../../context/AuthContext";
-import { useHistory } from "react-router-dom";
 import React, { useState, useContext } from 'react'
-import { Comment, Avatar, Button, Input, Tooltip, List } from 'antd';
-import Axios from 'axios';
-import { useSelector } from 'react-redux';
+import { Comment, Button, Input, Tooltip } from 'antd';
 const { TextArea } = Input;
 
 

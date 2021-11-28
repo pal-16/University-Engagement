@@ -2,10 +2,8 @@
 import { SnackbarContext } from "../../../context/SnackbarContext";
 import { useAuthState } from "../../../context/AuthContext";
 import { useHistory } from "react-router-dom";
-import React, { useState, useEffect, useContext } from 'react'
-import { Button, Input, Comment, Avatar, Tooltip, List } from 'antd';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
+import React, { useState, useContext } from 'react'
+import { Button, Input, List } from 'antd';
 import SingleComment from './SingleComment';
 import { commentProject } from "../../../actions/projectActions";
 const { TextArea } = Input;

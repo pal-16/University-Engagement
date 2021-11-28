@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, makeStyles } from "@material-ui/core";
+import {  Grid, makeStyles } from "@material-ui/core";
 import Total from "./Total";
 import { ContactSupport, PeopleOutlined } from "@material-ui/icons";
 import UserDetails from "./UserDetails";
-import Page from "../Page";
 import { useAuthState } from "../../../context/AuthContext";
 import { getStudentRank } from "../../../actions/applicationActions";
 import Spinner from "../../common/Spinner"
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = ({  }) => {
-  const classes = useStyles();
+  
   const [rank, setRank] = useState("");
   const [loading, setLoading] = useState(true);
   const { userType, userID, token,userCoins } = useAuthState();

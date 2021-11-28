@@ -7,28 +7,18 @@ import {
     Box,
     Typography,
     Divider,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Grid,
     useMediaQuery
 } from "@material-ui/core";
 import {
-    AccessTimeOutlined,
-    CheckCircle,
-    ClearOutlined,
+
     Add
 } from "@material-ui/icons";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import Spinner from "../../components/common/Spinner";
 import { useAuthState } from "../../context/AuthContext";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import DonorActions from "./DonorActions";
 import { getPosts } from "../../actions/crowdfundingActions";
 import moment from 'moment';
@@ -55,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: theme.palette.primary.main,
             color: "white"
         }
+    },
+    card: {
+        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.8)",
+        backgroundColor: "#fafafa",
     },
     selected: {}
 }));
@@ -163,9 +157,11 @@ const CrowdfundingPosts = () => {
                             <Grid item xs={12} sm={6} key={application._id}>
                                 <Card className={classes.card} style={{ height: "100%" }} >
                                     <CardHeader title={application.title} align="center" />
-                                    <Typography color="textSecondary" variant="subtitle4" style={{ marginLeft: "155px" }}>
-                                        Created By {application.userID.name} at {moment(application.createdAt).format('YYYY-MM-DD')}
-                                    </Typography>
+                                    <div style={{ width: "100%", textAlign: "center" }}>
+                                        <Typography color="textSecondary" variant="subtitle4" >
+                                            Created By {application.userID.name} at {moment(application.createdAt).format('YYYY-MM-DD')}
+                                        </Typography>
+                                    </div>
                                     <hr />
                                     <CardContent>
                                         <Typography color="primary" variant="subtitle4">

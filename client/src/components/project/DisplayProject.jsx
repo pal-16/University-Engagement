@@ -1,37 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { FaComment, FaThumbsUp, FaUser, FaTag } from "react-icons/fa";
+import { FaComment, FaThumbsUp, FaTag } from "react-icons/fa";
 import CardHeader from "@material-ui/core/CardHeader";
 import {
     Button,
     Box,
     Typography,
     Divider,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Grid,
     useMediaQuery
 } from "@material-ui/core";
 import {
-    AccessTimeOutlined,
-    CheckCircle,
-    ClearOutlined,
     Add
 } from "@material-ui/icons";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import Spinner from "../../components/common/Spinner";
 import { useAuthState } from "../../context/AuthContext";
-import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import { getProjects } from "../../actions/projectActions";
-import moment from 'moment';
+
 
 const useStyles = makeStyles((theme) => ({
     btns: {
@@ -63,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     card: {
-        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
+        boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.7)",
         backgroundColor: "#fafafa",
     },
     selected: {}
@@ -78,7 +67,6 @@ const DisplayProjects = () => {
     const { userID, token, userType } = useAuthState();
     const [loading, setLoading] = useState(false);
     const [applications, setApplications] = useState([]);
-    //   const [filteredApplications, setFilteredApplications] = useState([]);
     const [statusFilter, setStatusFilter] = useState("All");
     const [filteredApplications, setFilteredApplications] = useState([]);
 
@@ -99,16 +87,16 @@ const DisplayProjects = () => {
     useEffect(() => {
 
         console.log(statusFilter);
-        if (statusFilter === "All" && semesterFilter == "All") {
+        if (statusFilter === "All" && semesterFilter === "All") {
             setFilteredApplications(applications);
         } else {
             let temp = applications.filter((a) => {
-                if (statusFilter == "All")
-                    return a.semester == semesterFilter;
-                else if (semesterFilter == "All")
-                    return a.projectDomain == statusFilter;
+                if (statusFilter === "All")
+                    return a.semester === semesterFilter;
+                else if (semesterFilter === "All")
+                    return a.projectDomain === statusFilter;
                 else
-                    return a.projectDomain == statusFilter && a.semester == semesterFilter;
+                    return a.projectDomain === statusFilter && a.semester === semesterFilter;
             });
             console.log(temp);
             setFilteredApplications(temp);
@@ -196,19 +184,20 @@ const DisplayProjects = () => {
 
                 <Grid container spacing={2}>
                     {filteredApplications.map((application) => (
-                        <Grid item xs={12} sm={6} key={application._id}>
+                        <Grid item xs={12} sm={4} key={application._id}>
                             <Link
                                 to={`/student/projects/${application._id}`}
                                 className={classes.titleLink}
                             >
-                                <CardMedia style={{ height: "200px" }} image={application.files[0]} />
-                                <Card className={classes.card} variant="outlined">
+
+                                <Card className={classes.card} variant="outlined" style={{ height: "100%" }}>
+                                    <CardMedia style={{ height: "200px" }} image={application.files[0]} />
                                     <CardHeader title={application.title} align="center" />
 
                                     <CardContent>
                                         <Divider variant="fullWidth" className={classes.divider} />
                                         <Typography color="textSecondary" variant="substitle3">
-                                            <b> Description </b>   {application.description}
+                                            <b> Description </b> :  {application.description.slice(0, 250)}<b>{".....Read More"}</b>
                                         </Typography>
                                         <br />
                                         <br />
@@ -232,13 +221,6 @@ const DisplayProjects = () => {
                                             {application.tags.map(name => <Button color="primary" variant="contained" key={name} ><FaTag></FaTag>{name} </Button>)}
                                         </div>
 
-
-                                        {/* <FacultyActions
-                                            position={isSmallScreen ? "center" : "start"}
-                                            applicationData={application}
-                                            setLoading={setLoading}
-                                            id={application._id}
-                                        /> */}
                                     </CardContent>
                                 </Card>
                             </Link>
