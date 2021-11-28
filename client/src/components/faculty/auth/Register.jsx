@@ -112,7 +112,7 @@ const Register = () => {
       department: "",
       position: ""
     });
-    if (faculty.facultyID.length !== 9) {
+    if (!faculty.facultyID) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
         facultyID: "* Please enter a valid faculty ID"

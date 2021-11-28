@@ -35,18 +35,15 @@ const student = new mongoose.Schema({
   },
   github: {
     type: String,
-    default: "www.github.com",
-    required: true
+    default: "www.github.com"
   },
   linkedin: {
     type: String,
-    default: "www.linkedin.com",
-    required: true
+    default: "www.linkedin.com"
   },
   twitter: {
     type: String,
-    default: "www.twitter.com",
-    required: true
+    default: "www.twitter.com"
   },
   admissionYear: {
     type: Number,

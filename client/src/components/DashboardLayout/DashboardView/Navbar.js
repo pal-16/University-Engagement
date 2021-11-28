@@ -106,6 +106,7 @@ console.log(detailList);
       <Divider />
       <Box p={2}>
         <List> 
+          {detailList.github!="" &&
              <Button
                activeClassName={classes.active}
                className={classes.button}
@@ -114,8 +115,9 @@ console.log(detailList);
                { <GitHub className={classes.icon} size="20" />}
                <span className={classes.title}>Github</span>
              </Button>
-                
-             <Button
+              }
+         
+         {detailList.github!="" && <Button
                activeClassName={classes.active}
                className={classes.button}
                href={detailList.linkedin}
@@ -123,7 +125,8 @@ console.log(detailList);
              { <Linkedin className={classes.icon} size="20" />} 
                <span className={classes.title}>LinkedIn</span>
              </Button>
-                
+}
+{detailList.github!="" &&
              <Button
                activeClassName={classes.active}
                className={classes.button}
@@ -132,6 +135,7 @@ console.log(detailList);
                { <Twitter className={classes.icon} size="20" />}
                <span className={classes.title}>Twitter</span>
              </Button>
+}
          
 
         </List>

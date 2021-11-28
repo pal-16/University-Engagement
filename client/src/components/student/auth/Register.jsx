@@ -134,10 +134,10 @@ const Register = () => {
       linkedin: "",
       twitter: ""
     });
-    if (student.studentID.length !== 9) {
+    if (!student.studentID) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        studentID: "* Please enter a valid student ID"
+        studentID: "* Please enter a student ID"
       }));
       formIsValid = false;
     }
@@ -155,24 +155,24 @@ const Register = () => {
         email: "* Email can't be Empty"
       }));
     }
-    if (!validator.isURL(student.github)) {
+    if (student.github != "" && !validator.isURL(student.github)) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        link: "* Please enter a valid URL"
+        github: "* Please enter a valid URL"
       }));
       formIsValid = false;
     }
-    if (!validator.isURL(student.linkedin)) {
+    if (student.linkedin != "" && !validator.isURL(student.linkedin)) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        link: "* Please enter a valid URL"
+        linkedin: "* Please enter a valid URL"
       }));
       formIsValid = false;
     }
-    if (!validator.isURL(student.twitter)) {
+    if (student.twitter != "" && !validator.isURL(student.twitter)) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        link: "* Please enter a valid URL"
+        twitter: "* Please enter a valid URL"
       }));
       formIsValid = false;
     }
@@ -218,6 +218,7 @@ const Register = () => {
   };
 
   const handleFormSubmit = (event) => {
+    setLoading(true);
     dispatch({ type: REQUEST_AUTH });
     event.preventDefault();
     if (isFormValid()) {
@@ -229,13 +230,10 @@ const Register = () => {
           setOpen(true);
         } else {
 
-
-          setIsRegistered(true);
-
-          history.push("/student/login");
           setSeverity("success");
           setMessage("You have successfully registered.");
           setOpen(true);
+          history.push(`/`);
         }
       });
     } setLoading(false);
