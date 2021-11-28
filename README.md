@@ -1,7 +1,7 @@
 
 # Microsoft Engage 2021 Submission
 
-A full stack web application portal that targets to foster student and faculty engagement via helping students getting recognized for their acheivements, giving back to the college community via crowdfunding and showcasing our creative projects and referring to our peer's and seniors work. 
+A full stack web application portal that targets to foster student and faculty engagement via helping students getting recognized for their acheivements by the faculty for their achievements, giving back to the college community via crowdfunding, showcasing our creative projects, interacting with peer's and referring to their work.
 
 
 # Deployed Website Link
