@@ -1,31 +1,63 @@
 
-Microsoft Engage 2021 Submission
+# Microsoft Engage 2021 Submission
 
-The portal targets to foster student and faculty engagement and broader university community during pandemic via helping students getting recognized for their acheivements, giving back to the college community via crowdfunding and showcasing our creative projects and referring to our peer's and seniors work. 
-
-Note for the easy access of evaluators: 
-- Website Deployed at https://university-engagement.herokuapp.com/
-
-- Student Credential:
-email: pamantry_b18@ce.vjti.ac.in
-password: 12345678
-
-- Faculty Credential:
-email: mantrypalak@gmail.com
-password:12345678
+A full stack web application portal that targets to foster student and faculty engagement via helping students getting recognized for their acheivements, giving back to the college community via crowdfunding and showcasing our creative projects and referring to our peer's and seniors work. 
 
 
+# Deployed Website Link
+
+https://university-engagement.herokuapp.com/
+
+Credentials for the easily accessing the website: 
+
+
+| User       | Email           | Password  |
+| ------------- |:-------------:| -----:|
+| Student      | pamantry_b18@ce.vjti.ac.in | 12345678 |
+| Faculty      | mantrypalak@gmail.com     |  12345678 |
+
+However for receiving email notifications, please try signing up via your gmail account.
+
+
+# Setup
 For configuring the codebase, please refer to [SETUP Guide](https://github.com/pal-16/University-Engagement/blob/main/SETUP.md) to get started with local deployment
 
 # Tech Stack
 
 - Frontend : React
-
 - Backend : Node.js, Express
-
 - Database: MongoDB, Firebase
-
 - Testing: Mocha, Chai
+- Deployment: GitHub Actions, Heroku
+
+# Features Offered
+- Authentication using JWT for student and faculty
+- Submit an achievement to be verified by faculty
+- Filter Applications by their status (Pending, Accepted, Rejected)
+- Get notified via email about the creation and status of application
+- Once the application is approved, get coins allotted for your achievement
+- Based on total coins achieved, get allotted an Institute Rank
+- Faculty can Approve or reject by donating university coins
+- Submit a request for the need of money for a genuine cause
+- Students who gained coins through their achievements  donate coins provided having sufficient coin balance
+- Once Crowdfunding is complete, the coins can be converted to equivalent money by sending a mail to the head of the university through the website
+- Submit a project with all the relevant details asked
+- Filter Projects by their semester and domain 
+- Like and Comment on a project
+- View Project feed sorted by most Liked Projects 
+
+
+# Video Demo
+[![Video Demo](https://github.com/pal-16/University-Engagement/blob/main/assets/videodemo.png)](https://www.youtube.com/watch?v=aRw9GA34GrQ&t=39s)
+
+## Screenshots and Working
+
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/achievement.JPG" width=700 height = 400> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/crowdfunding-2.JPG"  width=700  height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/crowdfunding.JPG"  width=700 height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/ProfilePage.JPG"  width=700  height = 400/> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/projectdetail.JPG"  width=700  height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/assets/project.JPG"   width=700 height = 400/>
 
 
 
