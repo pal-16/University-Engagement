@@ -8,7 +8,7 @@ A full stack web application portal that targets to foster student and faculty e
 
 https://university-engagement.herokuapp.com/
 
-Credentials for the easily accessing the website: 
+Credentials for easily accessing the website: 
 
 
 | User       | Email           | Password  |
