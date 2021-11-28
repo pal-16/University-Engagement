@@ -1,7 +1,7 @@
 Microsoft Engage 2021 Submission
 
 Note for the easy access of evaluators: 
-- Website Deployed at http://university-engagement.herokuapp.com/
+- Website Deployed at https://university-engagement.herokuapp.com/
 
 - Student Credential:
 email: mantrypalak@gmail.com
