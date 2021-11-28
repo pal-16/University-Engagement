@@ -7,11 +7,11 @@ Note for the easy access of evaluators:
 - Website Deployed at https://university-engagement.herokuapp.com/
 
 - Student Credential:
-email: mantrypalak@gmail.com
+email: pamantry_b18@ce.vjti.ac.in
 password: 12345678
 
 - Faculty Credential:
-email: dscvjti@gmail.com
+email: mantrypalak@gmail.com
 password:12345678
 
 
