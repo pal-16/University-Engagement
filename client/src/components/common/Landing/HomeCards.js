@@ -1,12 +1,21 @@
 import React from 'react'
 import './index.css';
+
+import Card1 from '../../../assets/card-1.webp';
+import Card2 from '../../../assets/card-2.webp';
+import Card3 from '../../../assets/card-3.webp';
+
+
 const HomeCard = () => {
+
+  
   return (
+
     <section className='destinations'>
       <h3>Features offered by the portal</h3>
       <div className='grid' style={{textAlign:"left"}}>
         <div>
-          <img  style={{ height:"200px" }} src={"https://image.freepik.com/free-vector/competition-winner-holding-golden-trophy-medal-leadership-achievement_335657-3020.jpg"} alt='destination-1' />
+          <img  style={{ height:"200px" }} src={Card1} alt='Achievement' />
           <h3>Achievements</h3>
         
            <li>Student can submit an achievement with a valid proof </li>
@@ -18,7 +27,7 @@ const HomeCard = () => {
         </div>
 
         <div>
-          <img  style={{ height:"200px" }} src={"https://image.freepik.com/free-vector/tiny-people-saving-money-piggy-bank-isolated-flat-illustration_74855-11124.jpg"} alt='destination-2' />
+          <img  style={{ height:"200px" }} src={Card2} alt='Crowdfunding' />
           <h3>Crowdfunding</h3>
          
             <li>Raise a request through the portal</li>
@@ -28,7 +37,7 @@ const HomeCard = () => {
         </div>
 
         <div>
-          <img  style={{ height:"200px" }} src={"https://image.freepik.com/free-vector/devops-team-abstract-concept-vector-illustration-software-development-team-member-agile-workflow-devops-team-model-it-teamwork-project-management-integrated-practice-abstract-metaphor_335657-2299.jpg"} alt='destination-3' />
+          <img  style={{ height:"200px" }} src={Card3} alt='Projects' />
           <h3>Project</h3>
         
           <li>Submit a project with all the relevant references</li>

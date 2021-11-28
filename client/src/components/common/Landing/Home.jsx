@@ -1,46 +1,13 @@
 import styles from './Hero.module.scss';
+// import Home1 from '../../../assets/home-1.webp';
+// import Home2 from '../../../assets/home-2.webp';
+// import Home3 from '../../../assets/home-3.webp';
 
 const Hero = ({
-    imgName,
-    title,
-    subtitleList,
-    isHome,
-    backgroundPosition = 'center',
+
 }) => {
     return (
         <>
-            {/* <div
-                style={{
-                    backgroundImage: `linear-gradient(
-                            to bottom,
-                            rgba(0, 0, 0, 0.5),
-                            rgba(0, 0, 0, 0.5),
-                            rgba(0, 0, 0, 0.5)), url("https://thumbs.dreamstime.com/z/community-engagement-concept-community-engagement-concept-colleagues-communicate-each-other-discuss-details-project-226446266.jpg")`,
-                    backgroundPosition: backgroundPosition,
-                }}
-                className={styles.hero}
-            >
-                <div className={styles.heroHead}>{title}</div> */}
-            {/* <div className={styles.heroSub}>
-                    {subtitleList.map((heroTag, index) => {
-                        return subtitleList.length !== index + 1 ? (
-                            <span key={`hero_${index}`}>
-                                {heroTag}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
-                            </span>
-                        ) : (
-                            <span key={`hero_${index}`}>{heroTag}</span>
-                        );
-                    })}
-                </div> */}
-            {/* <a href='#is'>
-                    <div className={styles.scrollIndicator}></div>
-                </a>
-                {isHome && (
-                    <a href='#notifs' className={styles.notif}>
-
-                    </a>
-                )}
-            </div> */}
             {
                 <div className={styles.is} id='is'>
                     <div
