@@ -1,8 +1,8 @@
 
 # Microsoft Engage 2021 Submission
 
-A full stack web application portal that targets to foster student and faculty engagement via helping students getting recognized for their acheivements by the faculty for their achievements, giving back to the college community via crowdfunding, showcasing our creative projects, interacting with peer's and referring to their work.
-
+A full stack web application that targets to foster student and faculty engagement via helping students getting recognized for their acheivements by the faculty, giving back to the college community via crowdfunding, showcasing creative projects, interacting with peer's and referring to their work,
+thus leading to a healthy competitive environment.
 
 # Deployed Website Link
 
@@ -39,28 +39,60 @@ For configuring the codebase, please refer to [SETUP Guide](https://github.com/p
 - Based on total coins achieved, get allotted an Institute Rank
 - Faculty can Approve or reject by donating university coins
 - Submit a request for the need of money for a genuine cause
-- Students who gained coins through their achievements  donate coins provided having sufficient coin balance
+- Students who gained coins through their achievements, can donate coins provided they have sufficient coin balance
 - Once Crowdfunding is complete, the coins can be converted to equivalent money by sending a mail to the head of the university through the website
-- Submit a project with all the relevant details asked
+- Submit a project with all the relevant details asked for creating a customized institute project datastore
 - Filter Projects by their semester and domain 
 - Like and Comment on a project
 - View Project feed sorted by most Liked Projects 
 
 
-# Video Demo
+## Video Demo (YouTube Link)
 [![Video Demo](https://github.com/pal-16/University-Engagement/blob/main/readme-assets/videodemo.webp)](https://www.youtube.com/watch?v=aRw9GA34GrQ&t=39s)
 
 ## Screenshots and Working
 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/mainpage.webp"   width=700 height = 400/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/main.webp"   width=700 height = 400/>
+Login and Regsitration implemented using JWT
+<br>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/register.webp"   width=700 height = 300/>
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/login.webp"   width=700 height = 300/>
+<br>
+Creating an achievement where one uploads proof of the same and select a faculty who can verify and allot coins
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement-1.webp" width=700 height = 400> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement-2.webp" width=700 height = 400> 
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement-3.webp" width=700 height = 400> 
+<br>
 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement.webp" width=700 height = 400> 
+After confirming all details of the achievement the faculty can approve or reject
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/achievement-4.webp" width=700 height = 400> 
+<br>
+Email Notifications using Nodemailer about the status and creation of achievement application
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/email.webp"  width=700  height = 400/>
+<br>
+Coins achieved determines the institute rank on profile page
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/profile.webp" width=700 height = 400> 
+<br>
+Allow individuals in need to raise money from the members of the institution
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding-1.webp"  width=700  height = 400/>
+<br>
+Students with suffficient coin balance can donate, if they donate more than the post required then exceeding amount gets credited back
 <img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding-2.webp"  width=700  height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding.webp"  width=700 height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/ProfilePage.webp"  width=700  height = 400/> 
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/projectdetail.webp"  width=700  height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/project.webp"   width=700 height = 400/>
-<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/email.webp"   width=700 height = 400/>
+<br>
+
+Once crowdfunding is complete, send a mail to the head of the institution via the portal for conversion of coins
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/crowdfunding-3.webp"  width=700 height = 400/>
+
+Showcase your projects thus creating institute specific project datastore linked to GitHub
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/project-1.webp"  width=700  height = 400/>
+
+Project feed with tags associated sorted by most liked posts first and extensive filtering options available
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/project-2.webp"  width=700  height = 400/>
+
+Like, Comment on a project and thus interact with peers
+<img src="https://github.com/pal-16/University-Engagement/blob/main/readme-assets/project-3.webp"   width=700 height = 400/>
+
+
 
 
 
