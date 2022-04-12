@@ -15,8 +15,6 @@ export const login = async ({
       email,
       password
     });
-console.log(res);
-   
     dispatch({
       type: AUTH_SUCCESS,
       payload: { ...res.data, rememberme, userType }
@@ -34,10 +32,29 @@ console.log(res);
   }
 };
 
-export const register = async ({ dispatch, user, userType }) => {
+export const sendOTP = ({ dispatch, email, type }) => {
+  dispatch({ type: "REQUEST_AUTH" });
+  return axios
+    .post(BASE_URL + `/sendOtp${type}`, { email: email })
+    .then((res) => {
+      return {
+        data: res.data,
+        status: res.status
+      };
+    })
+    .catch((err) => {
+      dispatch({ type: AUTH_ERROR, error: err });
+      return {
+        error: err.response.data.error,
+        status: err.response.status
+      };
+    });
+};
+
+export const register = async ({ dispatch, body, userType }) => {
   try {
     const res = await axios.post(BASE_URL + `/${userType}/register`, {
-      ...user
+      ...body
     });
     dispatch({
       type: AUTH_SUCCESS,

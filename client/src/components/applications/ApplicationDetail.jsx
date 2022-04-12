@@ -11,7 +11,7 @@ import {
 import { useParams, useHistory } from "react-router-dom";
 import { getApplicationDetails } from "../../actions/applicationActions";
 import { useAuthState } from "../../context/AuthContext";
-import Spinner from "../../components/common/Spinner";
+import Spinner from "../Spinner";
 import ApplicationItem from "./ApplicationItem";
 import StatusChip from "./StatusChip";
 
@@ -65,6 +65,10 @@ const ApplicationDetail = (props) => {
     facultyID: "",
     title: "",
     description: "",
+    organisedBy: "",
+    startDate: "",
+    endDate: "",
+    doi: "",
     reward: 0,
     status: "",
     domainAchievement: "",
@@ -141,7 +145,37 @@ const ApplicationDetail = (props) => {
               label="Rewards Received"
               value={`${applicationData.reward} VJ Coins`}
             />
-
+            {applicationData.domainAchievement === "Research Paper" ? (
+              <>
+                <ApplicationItem
+                  label="Published By"
+                  value={applicationData.organisedBy}
+                />
+                <ApplicationItem
+                  label="Published On"
+                  value={applicationData.startDate.split("T")[0]}
+                />
+                <ApplicationItem
+                  label="Publication DOI"
+                  value={applicationData.doi}
+                />
+              </>
+            ) : (
+              <>
+                <ApplicationItem
+                  label="Organised By"
+                  value={applicationData.organisedBy}
+                />
+                <ApplicationItem
+                  label="Start Date"
+                  value={applicationData.startDate.split("T")[0]}
+                />
+                <ApplicationItem
+                  label="End Date"
+                  value={applicationData.endDate.split("T")[0]}
+                />
+              </>
+            )}
           </Grid>
           <Grid item xs={12} md={6} style={{ paddingRight: "30px" }}>
             <Box className={classes.item}>

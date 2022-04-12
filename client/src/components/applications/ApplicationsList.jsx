@@ -22,7 +22,7 @@ import {
   Add
 } from "@material-ui/icons";
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
-import Spinner from "../../components/common/Spinner";
+import Spinner from "../Spinner";
 import { useAuthState } from "../../context/AuthContext";
 import StatusChip from "./StatusChip";
 import { getApplications } from "../../actions/applicationActions";
@@ -58,12 +58,11 @@ const ApplicationsList = () => {
   const classes = useStyles();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const { userID, token, userType, userCoins } = useAuthState();
+  const { userID, token, userType } = useAuthState();
   const [loading, setLoading] = useState(false);
   const [applications, setApplications] = useState([]);
   const [filteredApplications, setFilteredApplications] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
-
 
   useEffect(() => {
     setLoading(true);
@@ -86,11 +85,7 @@ const ApplicationsList = () => {
       });
       setFilteredApplications(temp);
     }
-
-
   }, [statusFilter, applications]);
-
-
 
   return loading ? (
     <Spinner />

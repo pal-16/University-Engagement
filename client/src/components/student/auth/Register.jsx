@@ -7,26 +7,26 @@ import {
   Button,
   Paper,
   FormControl,
+  FormControlLabel,
+  Checkbox,
   InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   IconButton,
   FormHelperText,
-  Grid,
-
+  Grid
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
-import Spinner from "../../common/Spinner";
 import { Link } from "react-router-dom";
-import { useAuthDispatch } from "../../../context/AuthContext";
 import { SnackbarContext } from "../../../context/SnackbarContext";
-import FormField from "../../../components/common/FormField";
+import { useAuthDispatch } from "../../../context/AuthContext";
+import FormField from "../../../components/FormField";
 import constants from "../../../constants";
-import { register } from "../../../actions/authActions";
+import { sendOTP } from "../../../actions/authActions";
 import { REQUEST_AUTH } from "../../../reducers/types";
-import validator from 'validator'
+import OtpPage from "../../common/inputOtp";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "80vh",
@@ -67,14 +67,11 @@ let currentYear = new Date().getFullYear();
 
 const Register = () => {
   const classes = useStyles();
-  //const { loading } = useAuthState();
-  const [loading, setLoading] = useState(false);
   const dispatch = useAuthDispatch();
-  const history = useHistory();
-  const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
   const theme = useTheme();
+  const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const [formData, setFormData] = useState(null);
   const [student, setStudent] = useState({
     studentID: "",
     name: "",
@@ -83,9 +80,9 @@ const Register = () => {
     department: "",
     degree: "",
     admissionYear: "",
-    github: "",
-    linkedin: "",
-    twitter: ""
+    customPublicKey: "",
+    pin: "",
+    passphrase: ""
   });
 
   const [errors, updateErrors] = useState({
@@ -97,20 +94,30 @@ const Register = () => {
     department: "",
     degree: "",
     admissionYear: "",
-    github: "",
-    linkedin: "",
-    twitter: ""
+    customPublicKey: "",
+    pin: "",
+    passphrase: ""
   });
+
+  const branchMap = {
+    BTech: constants.BTECH,
+    MTech: constants.MTECH,
+    MCA: constants.MCA,
+    Diploma: constants.DIPLOMA
+  };
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
+  const [showPin, setShowPin] = useState(false);
+  const [hasPubKey, setHasPubKey] = useState(false);
 
   const handleConfirmPassword = (e) => setConfirmPassword(e.target.value);
   const toggleShowPassword = () => setShowPassword(!showPassword);
   const toggleShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
+  const toggleShowPin = () => setShowPin(!showPin);
+  const handleHasPubKey = (e) => setHasPubKey(e.target.checked);
 
   const handleStudent = (e) => {
     setStudent((prevStudent) => ({
@@ -130,14 +137,14 @@ const Register = () => {
       department: "",
       degree: "",
       admissionYear: "",
-      github: "",
-      linkedin: "",
-      twitter: ""
+      customPublicKey: "",
+      pin: "",
+      passphrase: ""
     });
-    if (!student.studentID) {
+    if (student.studentID.length !== 9) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        studentID: "* Please enter a student ID"
+        studentID: "* Please enter a valid student ID"
       }));
       formIsValid = false;
     }
@@ -154,27 +161,12 @@ const Register = () => {
         ...prevErrors,
         email: "* Email can't be Empty"
       }));
-    }
-    if (student.github != "" && !validator.isURL(student.github)) {
+    } else if (!student.email.includes(".vjti.ac.in")) {
+      formIsValid = false;
       updateErrors((prevErrors) => ({
         ...prevErrors,
-        github: "* Please enter a valid URL"
+        email: "* Please use VJTI Email ID only"
       }));
-      formIsValid = false;
-    }
-    if (student.linkedin != "" && !validator.isURL(student.linkedin)) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        linkedin: "* Please enter a valid URL"
-      }));
-      formIsValid = false;
-    }
-    if (student.twitter != "" && !validator.isURL(student.twitter)) {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        twitter: "* Please enter a valid URL"
-      }));
-      formIsValid = false;
     }
     if (student.password.length < 8) {
       formIsValid = false;
@@ -211,39 +203,62 @@ const Register = () => {
       }));
       formIsValid = false;
     }
-
-
+    if (hasPubKey && !student.customPublicKey.length) {
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        customPublicKey: "* Please enter a valid public key"
+      }));
+      formIsValid = false;
+    }
+    if (!hasPubKey) {
+      if (
+        student.pin.length !== 4 ||
+        isNaN(student.pin) ||
+        +student.pin < 1000 ||
+        +student.pin > 9999
+      ) {
+        updateErrors((prevErrors) => ({
+          ...prevErrors,
+          pin: "* Please enter a valid 4-digit pin"
+        }));
+        formIsValid = false;
+      }
+      if (student.passphrase.length < 12) {
+        updateErrors((prevErrors) => ({
+          ...prevErrors,
+          passphrase: "* Passphrase should be at least 12 characters long"
+        }));
+        formIsValid = false;
+      }
+    }
 
     return formIsValid;
   };
 
   const handleFormSubmit = (event) => {
-    setLoading(true);
     dispatch({ type: REQUEST_AUTH });
     event.preventDefault();
     if (isFormValid()) {
-      register({ dispatch, user: student, userType: "student" }).then((res) => {
-        setLoading(false);
-        if (res.error) {
-          setSeverity("error");
-          setMessage(res.error);
-          setOpen(true);
-        } else {
-
-          setSeverity("success");
-          setMessage("You have successfully registered.");
-          setOpen(true);
-          history.push(`/`);
+      sendOTP({ dispatch, email: student.email, type: "Register" }).then(
+        (res) => {
+          if (res.status === 200) {
+            setFormData({
+              student,
+              hash: res.data.hash
+            });
+          } else {
+            setSeverity("error");
+            setMessage(res.error);
+            setOpen(true);
+          }
         }
-      });
-    } setLoading(false);
+      );
+    }
   };
-
-  return loading ? (
-    <Spinner />
+  return formData ? (
+    <OtpPage type="Register" values={formData} />
   ) : (
     <React.Fragment>
-
       <Box
         className={classes.root}
         display="flex"
@@ -278,7 +293,52 @@ const Register = () => {
                 onChange={handleStudent}
                 error={errors.email}
               />
-
+              <FormField
+                label="Password"
+                name="password"
+                required={true}
+                onChange={handleStudent}
+                error={errors.password}
+                InputProps={{
+                  type: showPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <FormField
+                label="Confirm Password"
+                name="confirmPassword"
+                required={true}
+                onChange={handleConfirmPassword}
+                error={errors.confirmPassword}
+                InputProps={{
+                  type: showConfirmPassword ? "text" : "password",
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={toggleShowConfirmPassword}
+                        edge="end"
+                      >
+                        {showConfirmPassword ? (
+                          <Visibility />
+                        ) : (
+                          <VisibilityOff />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
               <Grid container spacing={1}>
                 <Grid item xs={12} md={6}>
                   <FormControl
@@ -335,95 +395,89 @@ const Register = () => {
                     <FormHelperText>{errors.admissionYear}</FormHelperText>
                   </FormControl>
                 </Grid>
-                <FormControl
-                  variant="outlined"
-                  required
-                  className={classes.formControl}
-                  error={errors.department.length !== 0}
-                >
-                  <InputLabel id="department-label">Department</InputLabel>
-                  <Select
-                    labelId="department-label"
-                    id="department"
-                    name="department"
-                    value={student.department}
-                    onChange={handleStudent}
-                    label="Department"
-                  >
-                    {constants.BRANCHES.map((branch) => (
-                      <MenuItem key={branch} value={branch}>
-                        {branch}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <FormHelperText>{errors.department}</FormHelperText>
-                </FormControl>
+                {student.degree && (
+                  <>
+                    <FormControl
+                      variant="outlined"
+                      required
+                      className={classes.formControl}
+                      error={errors.department.length !== 0}
+                    >
+                      <InputLabel id="department-label">Branch</InputLabel>
+                      <Select
+                        labelId="department-label"
+                        id="department"
+                        name="department"
+                        value={student.department}
+                        onChange={handleStudent}
+                        label="Branch"
+                      >
+                        {branchMap[student.degree].map((branch) => (
+                          <MenuItem key={branch} value={branch}>
+                            {branch}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>{errors.department}</FormHelperText>
+                    </FormControl>
+                  </>
+                )}
               </Grid>
-              <FormField
-                label="GitHub"
-                name="github"
-                onChange={handleStudent}
-                error={errors.github}
+              <FormControlLabel
+                style={{ marginBottom: "10px", color: "#757575" }}
+                control={
+                  <Checkbox
+                    value="hasPubKey"
+                    color="primary"
+                    checked={hasPubKey}
+                    onChange={handleHasPubKey}
+                  />
+                }
+                label="Do you have a public key? (If you don't, enter a pin and passphrase below to generate a new public key-pair for yourself)"
               />
-              <FormField
-                label="LinkedIn"
-                name="linkedin"
-                onChange={handleStudent}
-                error={errors.linkedin}
-              />
-              <FormField
-                label="Twitter"
-                name="twitter"
-                onChange={handleStudent}
-                error={errors.twitter}
-              />
-              <FormField
-                label="Password"
-                name="password"
-                required={true}
-                onChange={handleStudent}
-                error={errors.password}
-                InputProps={{
-                  type: showPassword ? "text" : "password",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={toggleShowPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-              <FormField
-                label="Confirm Password"
-                name="confirmPassword"
-                required={true}
-                onChange={handleConfirmPassword}
-                error={errors.confirmPassword}
-                InputProps={{
-                  type: showConfirmPassword ? "text" : "password",
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={toggleShowConfirmPassword}
-                        edge="end"
-                      >
-                        {showConfirmPassword ? (
-                          <Visibility />
-                        ) : (
-                          <VisibilityOff />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  )
-                }}
-              />
-
+              {!hasPubKey && (
+                <React.Fragment>
+                  <FormField
+                    label="Pin (4-digit number)"
+                    name="pin"
+                    required={true}
+                    onChange={handleStudent}
+                    error={errors.pin}
+                    InputProps={{
+                      type: showPin ? "text" : "password",
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle pin visibility"
+                            onClick={toggleShowPin}
+                            edge="end"
+                          >
+                            {showPin ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <FormField
+                    label="Encryption Passphrase (12 - 24 characters)"
+                    name="passphrase"
+                    required={true}
+                    onChange={handleStudent}
+                    error={errors.passphrase}
+                  />
+                </React.Fragment>
+              )}
+              {hasPubKey && (
+                <FormField
+                  label="Public Key"
+                  name="customPublicKey"
+                  required={true}
+                  onChange={handleStudent}
+                  error={errors.customPublicKey}
+                  multiline={true}
+                  maxRows={Infinity}
+                />
+              )}
               <Button
                 onClick={handleFormSubmit}
                 size="large"
@@ -449,6 +503,6 @@ const Register = () => {
       </Box>
     </React.Fragment>
   );
-}
+};
 
 export default Register;

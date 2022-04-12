@@ -33,17 +33,23 @@ const student = new mongoose.Schema({
     enum: ["BTech", "MTech", "MCA", "Diploma"],
     required: true
   },
-  github: {
+  publicKey: {
     type: String,
-    default: "www.github.com"
+    default: "" // remove this after connecting to vj chain
   },
-  linkedin: {
+  credentialsURL: {
     type: String,
-    default: "www.linkedin.com"
+    default: ""
   },
-  twitter: {
-    type: String,
-    default: "www.twitter.com"
+  rank: {
+    type: Number,
+    required: false,
+    default: 0
+  },
+  coinsAchieved: {
+    type: Number,
+    required: false,
+    default: 0
   },
   admissionYear: {
     type: Number,
@@ -54,48 +60,6 @@ const student = new mongoose.Schema({
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "application"
-      }
-    ],
-    default: []
-  },
-  coins:{
-    type: Number,
-    required: false,
-    default: 0
-  },
-  rank:{
-    type: Number,
-    required: false,
-    default: 0
-  },
-  totalCoinsAchieved:{
-    type: Number,
-    required: false,
-    default: 0
-  },
-  transfer: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "transaction"
-      }
-    ],
-    default: []
-  },
-  crowdfunding: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "crowdfunding"
-      }
-    ],
-    default: []
-  },
-  project: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "project"
       }
     ],
     default: []

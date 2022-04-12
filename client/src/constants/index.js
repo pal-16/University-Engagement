@@ -1,35 +1,67 @@
 const constants = {
-  DOMAINTAGS:[
-    "Web Development",
-    "App Development",
-    "Machine Learning",
-    "Blockchain",
-    "Cloud Computing",
-    "Cybersecurity",
-    "Others"
+  FACULTY_EMAILS:["director@vjti.ac.in",
+   "faculty@ce.vjti.ac.in",
+   "pamantry_b18@ce.vjti.ac.in",
+   "msdesai_b18@ce.vjti.ac.in"
   ],
-  SEMESTER:[
-        "Semester 1",
-        "Semester 2",
-        "Semester 3",
-        "Semester 4",
-        "Semester 5",
-        "Semester 6",
-        "Semester 7",
-        "Semester 8"
+  BTECH: [
+    "BTech Computer Engineering",
+    "BTech Information Technology",
+    "BTech Electronics Engineering",
+    "BTech Electronics & Telecommunication Engineering",
+    "BTech Mechanical Engineering",
+    "BTech Civil Engineering",
+    "BTech Textile Technology",
+    "BTech Production Engineering"
   ],
-  BRANCHES: [
-    "Computer Engineering",
-    "Information Technology",
-    "Electronics",
-    "EXTC",
-    "Mechanical Engineering",
-    "Civil Engineering",
-    "Textile Engineering",
-    "Production Engineering"
+
+  MTECH: [
+    "MTech Computer Engineering",
+    "MTech Computer Engineering (NIMS)",
+    "MTech Computer Engineering (SE)",
+    "MTech Electrical Engineering (Control Systems)",
+    "MTech Electrical Engineering (Power Systems)",
+    "MTech Electronics Engineering",
+    "MTech Electronics & Telecommunication Engineering",
+    "MTech Mechanical Engineering (Machine Design)",
+    "MTech Mechanical Engineering (Automobile Engineering)",
+    "MTech Mechanical Engineering (CAD/CAM and Automation)",
+    "MTech Mechanical Engineering (Thermal Engineering)",
+    "MTech Production Engineering (Production Technology)",
+    "MTech Production Engineering (Project Management)",
+    "MTech Civil Engineering (Structural Engineering)",
+    "MTech Civil Engineering (Environmental Engineering)",
+    "MTech Civil Engineering (Construction Management)",
+    "MTech Textile Technology"
   ],
+
+  MCA: ["MCA"],
+
+  DIPLOMA: [
+    "Diploma in Electrical Engineering",
+    "Diploma in Electronics Engineering",
+    "Diploma in Mechanical Engineering",
+    "Diploma in Civil Engineering",
+    "Diploma in Textile Manufacturing",
+    "Diploma in Chemical Engineering"
+  ],
+
   DEGREE: ["BTech", "MTech", "MCA", "Diploma"],
   DOMAINS: ["Hackathon", "Competition", "Research Paper", "Other"],
+  DEPARTMENTS: [
+    "Civil & Environmental Engineering",
+    "Computer Engineering and Information Technology",
+    "Electrical Engineering",
+    "Mechanical Engineering",
+    "Production Engineering",
+    "Structural Engineering",
+    "Textile Manufacturing",
+    "Humanities & Management",
+    "Mathematics",
+    "Physics",
+    "Technical & Applied Chemistry",
+    "MCA"
+  ],
   STEPS: {
     STUDENTS: [
       "Register yourself with your public key or generate a new key pair",

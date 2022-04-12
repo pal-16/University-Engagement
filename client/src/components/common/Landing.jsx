@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Box, Grid, Typography, Divider, useMediaQuery } from "@material-ui/core";
-import HomeCard from "./Landing/HomeCards";
-import Hero from "./Landing/Home";
-import Welcome from "./Landing/Welcome";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, Grid, Paper, Typography, Divider } from "@material-ui/core";
+import constants from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,26 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Landing = () => {
   const classes = useStyles();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-
-
-  const [isMobile, setIsMobile] = useState(false)
-
-  //choose the screen size 
-  const handleResize = () => {
-    if (window.innerWidth < 720) {
-      setIsMobile(true)
-    } else {
-      setIsMobile(false)
-    }
-  }
-
-  // create an event listener
-  useEffect(() => {
-    window.addEventListener("resize", handleResize)
-  })
 
   return (
     <Box
@@ -58,17 +36,62 @@ const Landing = () => {
     >
       <Grid container spacing={3}>
         <Grid item xs={12} className={classes.item}>
-          <Welcome />
-
-          {isMobile === true ? "" : <Hero />}
+          <Typography variant="h4">VJTI CENTRAL</Typography>
           <Divider style={{ marginBottom: "16px" }} />
           <Typography>
-            <HomeCard />
+            <strong>VJTI Central</strong> is platform where students can
+            showcase their academic and extracurricular achievements to earn{" "}
+            <strong>VJ Coins</strong>. If you won a Hackathon, a Coding
+            Competiton, Published a Research Paper or Served as a Leader of a
+            College Community, then you can submit an application to receive VJ
+            Coins. All applications are <strong>verified</strong> by a faculty
+            chosen by the student who is applying.
+            <br />
+            <br />
+            VJTI Central leverages the <strong>VJTI Blockchain</strong> for coin
+            transactions and provides a Blockchain based solution for rewarding
+            extracurricular achievements.
           </Typography>
         </Grid>
+        <Grid item xs={12} className={classes.item}>
+          <Grid container spacing={3} justifyContent="space-around">
+            <Grid item xs={12} md={5} className={classes.item}>
+              <Paper elevation={3} className={classes.paper}>
+                <Typography
+                  variant="h5"
+                  style={{ textAlign: "center", width: "100%" }}
+                >
+                  For Students
+                </Typography>
+                <ul style={{ textAlign: "left" }}>
+                  {constants.STEPS.STUDENTS.map((point, index) => (
+                    <li key={index} className={classes.point}>
+                      <p>{point}</p>
+                    </li>
+                  ))}
+                </ul>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={5} className={classes.item}>
+              <Paper elevation={3} className={classes.paper}>
+                <Typography
+                  variant="h5"
+                  style={{ textAlign: "center", width: "100%" }}
+                >
+                  For Faculty
+                </Typography>
+                <ul style={{ textAlign: "left" }}>
+                  {constants.STEPS.FACULTY.map((point, index) => (
+                    <li key={index} className={classes.point}>
+                      <p>{point}</p>
+                    </li>
+                  ))}
+                </ul>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
-
-
     </Box>
   );
 };

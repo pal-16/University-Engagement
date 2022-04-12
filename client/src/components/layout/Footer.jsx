@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    minHeight: "6vh",
+    minHeight: "4vh",
     backgroundColor: theme.palette.primary.main,
     padding: theme.spacing(1),
     display: "flex",
@@ -20,7 +20,7 @@ const Footer = () => {
   return (
     <Paper elevation={0} square className={classes.paper}>
       <Typography variant="body1">
-        Developed by Palak Mantry during the Microsoft Engage 2021 Program
+        Copyright © 2021 VJTI Mumbai. All rights reserved.
       </Typography>
     </Paper>
   );

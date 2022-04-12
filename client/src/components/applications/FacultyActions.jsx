@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import {
@@ -19,17 +19,16 @@ import {
 import { Clear, CheckCircle } from "@material-ui/icons";
 import { useAuthState } from "../../context/AuthContext";
 
-import {
-  MuiPickersUtilsProvider
-} from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import FormField from "../common/FormField";
+import FormField from "../FormField";
 import {
   approveApplication,
   rejectApplication
 } from "../../actions/applicationActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
 import constants from "../../constants";
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -42,10 +41,7 @@ const FacultyActions = (props) => {
   const history = useHistory();
   const classes = useStyles();
   const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
-  const [title, setTitle] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
   const [reward, setReward] = useState("");
-
   const [errors, updateErrors] = useState({
     title: "",
     date: "",
@@ -58,8 +54,7 @@ const FacultyActions = (props) => {
     });
   };
 
-
-  const { userID, token } = useAuthState();
+  const { token } = useAuthState();
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => {
@@ -80,10 +75,7 @@ const FacultyActions = (props) => {
     approveApplication({
       id: props.applicationData._id,
       token,
-      title,
-      reward: +reward,
-      facultyID: userID,
-      date: selectedDate.toLocaleDateString("en-GB")
+      reward: +reward
     }).then((res) => {
       if (res.error) {
         setSeverity("error");
@@ -93,7 +85,7 @@ const FacultyActions = (props) => {
       } else {
         history.replace(`/faculty/applications/${props.applicationData._id}`);
         setSeverity("success");
-        setMessage("Application approved");
+        setMessage("Application approved. Reward will be mined shortly.");
         setOpen(true);
       }
       props.setLoading(false);
@@ -111,14 +103,18 @@ const FacultyActions = (props) => {
   };
 
   return (
+
     <React.Fragment>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Dialog open={isOpen} onClose={handleClose}>
           <DialogTitle>Approve/Reject Application</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Please select a reward from below if you want to approve the
-              application.
+              Please{" "}
+              {props.applicationData.domainAchievement !== "Other"
+                ? "select a reward from below"
+                : "enter a reward below"}{" "}
+              if you want to approve the application.
             </DialogContentText>
             <>
               {props.applicationData.domainAchievement !== "Other" ? (
@@ -227,16 +223,11 @@ const FacultyActions = (props) => {
                   onChange={(e) => setReward(e.target.value)}
                   error={errors.reward}
                   value={reward}
-
                 />
               )}
             </>
-
           </DialogContent>
           <DialogActions>
-            {/* <Button variant="contained" color="primary" onClick={handleVerify}>
-              Verify
-            </Button> */}
             <Button
               variant="contained"
               color="default"
@@ -262,7 +253,7 @@ const FacultyActions = (props) => {
         </Dialog>
       </MuiPickersUtilsProvider>
       <Box display="flex" justifyContent={props.position}>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+      <Button variant="contained" color="primary" onClick={window.vjcoin.opena}>
           Approve / Reject
         </Button>
       </Box>

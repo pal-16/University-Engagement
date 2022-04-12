@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SchoolRoundedIcon from "@material-ui/icons/SchoolRounded";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Dropdown from "../common/Dropdown";
-import "../common/Dropdownstyles.css";
 import {
   AppBar,
   Button,
@@ -56,31 +54,6 @@ const Header = () => {
     history.push(route);
   };
 
-  const dropdownHandler = (route) => {
-    console.log(route);
-    if (route === "Projects Feed") {
-      navigationHandler(`/${userType}/projects/displayAll`)
-    } else if (route === "Upload project") {
-      navigationHandler(`/${userType}/projects/new`)
-    } else if (route === "Achievements Wall") {
-      navigationHandler(`/${userType}/applications/displayAll`)
-    } else if (route === "Submit an achievement") {
-      navigationHandler(`/${userType}/applications/new`)
-    } else if (route === "View my acheivements") {
-      navigationHandler(`/${userType}/applications/displayAll`)
-    } else if (route === "Create a post") {
-      navigationHandler(`/${userType}/crowdfundings/new`)
-    } else if (route === "Crowdfunding Feed") {
-      navigationHandler(`/${userType}/crowdfundings/displayAll`)
-    } else if (route === "View my posts") {
-      navigationHandler(`/${userType}/crowdfundings/displayUserPosts`)
-    } else if (route === "Profile") {
-      navigationHandler(`/${userType}/profile`)
-    } else {
-      handleLogout();
-    }
-  };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -107,31 +80,20 @@ const Header = () => {
     >
       {isAuthenticated ? (
         <div>
+          {userType === "student" && (
+            <MenuItem onClick={() => navigationHandler(`/${userType}/profile`)}>
+              <p>Profile</p>
+            </MenuItem>
+          )}
           <MenuItem
-            onClick={() => navigationHandler(`/${userType}/profile`)}
-          >
-            <p>Profile</p>
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigationHandler(`/${userType}/applications/displayAll`)}
+            onClick={() => navigationHandler(`/${userType}/applications`)}
           >
             <p>Applications</p>
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigationHandler(`/${userType}/crowdfundings/displayAll`)}
-          >
-            <p>Crowdfunding</p>
-          </MenuItem>
-          <MenuItem
-            onClick={() => navigationHandler(`/${userType}/projects/displayAll`)}
-          >
-            <p>Projects</p>
           </MenuItem>
 
           <MenuItem onClick={handleLogout}>
             <p>Logout</p>
           </MenuItem>
-
         </div>
       ) : (
         <div>
@@ -146,8 +108,7 @@ const Header = () => {
     </Menu>
   );
   return (
-    <div className={classes.grow} >
-
+    <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
           <Button
@@ -155,77 +116,52 @@ const Header = () => {
             disableRipple
             disableFocusRipple
             className={classes.button}
-
             onClick={() => navigationHandler("/")}
           >
             <SchoolRoundedIcon />
-            <Typography variant="h6" noWrap style={{ color: "white", marginLeft: "10px" }}>
-              Microsoft Engage
+            <Typography variant="h6" noWrap style={{ marginLeft: "10px" }}>
+              VJTI Central
             </Typography>
           </Button>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             {isAuthenticated ? (
-
               <div>
-                {userType === "student" ?
-                  <Dropdown
-                    placeholder="Crowdfunding"
-                    value={"Crowdfunding"}
-                    onChange={(val) => dropdownHandler(val)}
-                    options={["Create a post", "Crowdfunding Feed", "View my posts"]}
-                  /> : <p></p>}
-                {userType === "student" ?
-                  <Dropdown
-                    placeholder="Projects"
-                    value={"Projects"}
-                    onChange={(val) => dropdownHandler(val)}
-                    options={["Upload project", "Projects Feed"]}
-                  /> : ""}
-                {userType === "student" ?
-                  <Dropdown
-
-                    placeholder="Acheivements"
-                    value={"Achievements"}
-                    onChange={(val) => dropdownHandler(val)}
-                    options={["Submit an achievement", "View my acheivements"]}
-                  /> : ""}
-                {userType === "faculty" ?
-                  <Button
-                    onClick={() => navigationHandler("/faculty/applications")}
-                    color="inherit"
-                    disableRipple
-                    disableFocusRipple
-                    className={classes.button} style={{ paddingBottom: "15px" }}
-                  >
-                    <Typography variant="body1" noWrap>
-                      Applications
-                    </Typography>
-                  </Button> : ""}
-                {userType == "student" ?
+                {userType === "student" && (
                   <Button
                     onClick={() => navigationHandler(`/${userType}/profile`)}
                     color="inherit"
                     className={`${classes.navButton} ${classes.button}`}
                     disableRipple
-                    disableFocusRipple >
-                    <Typography variant="body1" noWrap style={{ paddingBottom: "8px" }} >
+                    disableFocusRipple
+                  >
+                    <Typography variant="body1" noWrap>
                       Profile
                     </Typography>
                   </Button>
-
-                  : ""}
+                )}
+                <Button
+                  onClick={() => navigationHandler(`/${userType}/applications`)}
+                  color="inherit"
+                  className={`${classes.navButton} ${classes.button}`}
+                  disableRipple
+                  disableFocusRipple
+                >
+                  <Typography variant="body1" noWrap>
+                    Applications
+                  </Typography>
+                </Button>
                 <Button
                   onClick={handleLogout}
                   color="inherit"
                   className={`${classes.navButton} ${classes.button}`}
                   disableRipple
-                  disableFocusRipple >
-                  <Typography variant="body1" noWrap style={{ paddingBottom: "8px" }} >
+                  disableFocusRipple
+                >
+                  <Typography variant="body1" noWrap>
                     Logout
                   </Typography>
                 </Button>
-
               </div>
             ) : (
               <div>
@@ -254,7 +190,6 @@ const Header = () => {
               </div>
             )}
           </div>
-
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -269,12 +204,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-
-
-
     </div>
-
-
   );
 };
 

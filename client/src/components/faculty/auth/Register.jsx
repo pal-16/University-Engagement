@@ -16,14 +16,16 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
-import Spinner from "../../common/Spinner";
+import Spinner from "../../../components/Spinner";
 import { Link } from "react-router-dom";
 import { useAuthState, useAuthDispatch } from "../../../context/AuthContext";
 import { SnackbarContext } from "../../../context/SnackbarContext";
-import FormField from "../../../components/common/FormField";
+import FormField from "../../../components/FormField";
 import constants from "../../../constants";
 import { register } from "../../../actions/authActions";
 import { REQUEST_AUTH, AUTH_ERROR } from "../../../reducers/types";
+import { sendOTP } from "../../../actions/authActions";
+import OtpPageFaculty from "../../common/inputOtpFaculty";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +65,7 @@ const Register = () => {
   const { setOpen, setSeverity, setMessage } = useContext(SnackbarContext);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const [formData, setFormData] = useState(null);
   const [faculty, setFaculty] = useState({
     facultyID: "",
     name: "",
@@ -112,7 +114,7 @@ const Register = () => {
       department: "",
       position: ""
     });
-    if (!faculty.facultyID) {
+    if (faculty.facultyID.length !== 9) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
         facultyID: "* Please enter a valid faculty ID"
@@ -132,6 +134,26 @@ const Register = () => {
         ...prevErrors,
         email: "* Email can't be Empty"
       }));
+    } else if (!faculty.email.includes("vjti.ac.in")) {
+      formIsValid = false;
+      updateErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "* Please use VJTI Email ID only"
+      }));
+    } else {
+      let isFacultyEmail = false;
+      for (let i = 0; i < constants.FACULTY_EMAILS.length; i++) {
+        if (constants.FACULTY_EMAILS[i] === faculty.email) {
+          isFacultyEmail = true;
+        }
+      }
+      if (!isFacultyEmail) {
+        formIsValid = false;
+        updateErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "* Please enter a valid Faculty email ID only"
+        }));
+      }
     }
     if (faculty.password.length < 8) {
       formIsValid = false;
@@ -147,7 +169,6 @@ const Register = () => {
         confirmPassword: "* Password and Confirm Password do not match"
       }));
     }
-    console.log(!faculty.department);
     if (!faculty.department) {
       updateErrors((prevErrors) => ({
         ...prevErrors,
@@ -169,24 +190,30 @@ const Register = () => {
     dispatch({ type: REQUEST_AUTH });
     event.preventDefault();
     if (isFormValid()) {
-      register({ dispatch, user: faculty, userType: "faculty" }).then((res) => {
-        if (res.error) {
-          setSeverity("error");
-          setMessage(res.error);
-          setOpen(true);
-        } else {
-          setSeverity("success");
-          setMessage("You have successfully registered.");
-          setOpen(true);
-          history.push(`/faculty/login`);
+
+      sendOTP({ dispatch, email: faculty.email, type: "Register" }).then(
+        (res) => {
+          if (res.status === 200) {
+            setFormData({
+              faculty,
+              hash: res.data.hash
+            });
+          } else {
+            setSeverity("error");
+            setMessage(res.error);
+            setOpen(true);
+          }
         }
-      });
+      );
+
     }
     dispatch({ type: AUTH_ERROR });
   };
 
   return loading ? (
     <Spinner />
+  ) : formData ? (
+    <OtpPageFaculty type="Register" values={formData} />
   ) : (
     <Box
       className={classes.root}
@@ -280,9 +307,9 @@ const Register = () => {
                 onChange={handleFaculty}
                 label="Department"
               >
-                {constants.BRANCHES.map((branch) => (
-                  <MenuItem key={branch} value={branch}>
-                    {branch}
+                {constants.DEPARTMENTS.map((dept) => (
+                  <MenuItem key={dept} value={dept}>
+                    {dept}
                   </MenuItem>
                 ))}
               </Select>

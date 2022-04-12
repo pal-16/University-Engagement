@@ -2,9 +2,28 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
+export const getStudentRank = async ({ id, token }) => {
+  try {
+    const res = await axios.get(BASE_URL + `/student/${id}/rank`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    return {
+      data: res.data.rank,
+      status: res.status
+    };
+  } catch (err) {
+    return {
+      error: err.response.data.error,
+      status: err.response.status
+    };
+  }
+};
 export const getApplicationDetails = async ({ id, token }) => {
   try {
-    const res = await axios.get(BASE_URL + `/applications/${id}/getDetail`, {
+    const res = await axios.get(BASE_URL + `/applications/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -23,7 +42,7 @@ export const getApplicationDetails = async ({ id, token }) => {
 
 export const getApplications = async ({ id, token, userType }) => {
   try {
-    const res = await axios.get(BASE_URL + `/${userType}/${id}/applications/getAll`, {
+    const res = await axios.get(BASE_URL + `/${userType}/${id}/applications`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -58,29 +77,10 @@ export const getFacultyList = async ({ token }) => {
     };
   }
 };
-export const getStudentRank = async ({ id,token }) => {
 
-  try {
-    const res = await axios.get(BASE_URL + `/student/${id}/rank`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    console.log(res.data);
-    return {
-      data: res.data.message,
-      status: res.status
-    };
-  } catch (err) {
-    return {
-      error: err.response.data.error,
-      status: err.response.status
-    };
-  }
-}
 export const createApplication = async ({ token, body }) => {
   try {
-    const res = await axios.post(BASE_URL + "/applications/new", body, {
+    const res = await axios.post(BASE_URL + "/applications/apply", body, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -96,7 +96,6 @@ export const createApplication = async ({ token, body }) => {
     };
   }
 };
-
 
 export const deleteApplication = async ({ id, token }) => {
   try {
@@ -117,19 +116,30 @@ export const deleteApplication = async ({ id, token }) => {
   }
 };
 
+export const verifyApplication = async ({ body, token }) => {
+  try {
+    const res = await axios.post(BASE_URL + "/applications/verify", body, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return {
+      data: res.data,
+      status: res.status
+    };
+  } catch (err) {
+    return {
+      error: err.response.data.error,
+      status: err.response.status
+    };
+  }
+};
 
-export const approveApplication = async ({
-  title,
-  date,
-  reward,
-  id,
-  facultyID,
-  token
-}) => {
+export const approveApplication = async ({ reward, id, token }) => {
   try {
     const res = await axios.post(
       BASE_URL + `/applications/${id}/approve`,
-      { title, date, reward, facultyID},
+      { reward },
       {
         headers: {
           Authorization: `Bearer ${token}`

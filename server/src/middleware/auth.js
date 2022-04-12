@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config");
+const OTPUtil = require("../utilities/otp");
 
 module.exports = {
   loginRequired(req, res, next) {
@@ -8,7 +9,7 @@ module.exports = {
       jwt.verify(token, config.privateKey, (err, decoded) => {
         if (!err) {
           const d = new Date();
-          console.log(Number(decoded.exp) * 1000, d.getTime());
+          // console.log(Number(decoded.exp) * 1000, d.getTime());
           if (decoded && Number(decoded.exp) * 1000 > d.getTime()) {
             next();
           } else {
@@ -21,5 +22,21 @@ module.exports = {
     } catch (e) {
       return res.status(401).json({ error: e.message });
     }
+  },
+
+  verifyOTP(req, res, next) {
+    const response = OTPUtil.verifyOTP(
+      req.body.student.email,
+      req.body.hash,
+      req.body.otp
+    );
+    if (response.code !== 200) {
+      return res.status(response.code).json({
+        error: response.msg
+      });
+    }
+    delete req.body.hash;
+    delete req.body.otp;
+    next();
   }
 };

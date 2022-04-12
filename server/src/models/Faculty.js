@@ -42,38 +42,6 @@ const faculty = new mongoose.Schema({
       }
     ],
     default: []
-  },
-  coins:{
-    type: Number,
-    required: false,
-    default: 0
-  },
-  transfer: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "transaction"
-      }
-    ],
-    default: []
-  },
-  crowdfunding: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "crowdfunding"
-      }
-    ],
-    default: []
-  },
-  project: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "project"
-      }
-    ],
-    default: []
   }
 });
 

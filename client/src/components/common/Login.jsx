@@ -5,20 +5,18 @@ import {
   Typography,
   Button,
   Paper,
-  FormControlLabel,
-  Checkbox,
   InputAdornment,
   IconButton
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import Spinner from "../common/Spinner";
+import Spinner from "../../components/Spinner";
 import { useAuthState, useAuthDispatch } from "../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 import { login } from "../../actions/authActions";
 import { SnackbarContext } from "../../context/SnackbarContext";
 import { REQUEST_AUTH, AUTH_ERROR } from "../../reducers/types";
-import FormField from "../../components/common/FormField";
+import FormField from "../../components/FormField";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,12 +56,10 @@ const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberme, setRememberme] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
-  const handleRememberme = (e) => setRememberme(e.target.checked);
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const [errors, updateErrors] = useState({
@@ -71,68 +67,17 @@ const Login = (props) => {
     password: ""
   });
 
+
   useEffect(() => {
-    if (isAuthenticated && userType === props.userType) {
-      history.push(`/${props.userType}/applications`);
-    }
+    if (localStorage.getItem('pubkey'))
+      history.push(`/newpage`);
+
+    // if (isAuthenticated && userType === props.userType) {
+    //   history.push(`/${props.userType}/applications`);
+    // }
   }, [history, isAuthenticated, userType, props.userType]);
 
-  const isFormValid = () => {
-    let formIsValid = true;
-    if (!email) {
-      formIsValid = false;
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "* Email can't be Empty"
-      }));
-    } else {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        email: ""
-      }));
-    }
 
-    if (password.length < 8) {
-      formIsValid = false;
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "* Password too short"
-      }));
-    } else {
-      updateErrors((prevErrors) => ({
-        ...prevErrors,
-        password: ""
-      }));
-    }
-
-    return formIsValid;
-  };
-
-  const handleFormSubmit = (event) => {
-    dispatch({ type: REQUEST_AUTH });
-    event.preventDefault();
-    if (isFormValid()) {
-      login({
-        dispatch,
-        email,
-        password,
-        rememberme,
-        userType: props.userType
-      }).then((res) => {
-        if (res.error) {
-          setSeverity("error");
-          setMessage(res.error);
-          setOpen(true);
-        } else {
-          setSeverity("success");
-          setMessage("You have successfully logged in.");
-          setOpen(true);
-          history.push(`/`);
-        }
-      });
-    }
-    dispatch({ type: AUTH_ERROR });
-  };
 
   return loading ? (
     <Spinner />
@@ -178,10 +123,9 @@ const Login = (props) => {
                 )
               }}
             />
-
             <div>
               <Button
-                onClick={handleFormSubmit}
+                onClick={window.vjcoin.login}
                 size="large"
                 color="primary"
                 type="submit"
