@@ -1,0 +1,46 @@
+{
+  "name": "vjchainwalletextension",
+  "version": "1.0.0",
+  "description": "A MetaMask-like Chrome extension for the VJTI Chain",
+  "main": "popup.js",
+  "scripts": {
+    "start": "webpack --watch --config webpack.dev.js",
+    "dev": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShreyaDhananjay/VJChainWalletExtension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShreyaDhananjay/VJChainWalletExtension/issues"
+  },
+  "homepage": "https://github.com/ShreyaDhananjay/VJChainWalletExtension#readme",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "big-integer": "^1.6.51",
+    "browserify-fs": "^1.0.0",
+    "buffer": "^6.0.3",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "css-loader": "^6.6.0",
+    "fs": "^0.0.1-security",
+    "html-loader": "^3.1.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "source-map-loader": "^3.0.1",
+    "starkbank-ecdsa": "^1.1.4",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "^3.3.1",
+    "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
