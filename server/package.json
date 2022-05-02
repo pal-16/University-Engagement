@@ -5,18 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "format:server": "prettier --config .prettierrc ../server/src/**/*.js --write",
-    "format:client": "prettier --config .prettierrc '../client/src/**/*.{js, jsx, css}' --write"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.js": "npm run format:server",
-    "../client/src/**/*.{js,jsx, css}": "npm run format:client"
+    "dev": "nodemon src/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -45,9 +34,6 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "husky": "^4.3.8",
-    "lint-staged": "^11.1.2",
-    "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "nodemon": "^2.0.12"
   }
 }
