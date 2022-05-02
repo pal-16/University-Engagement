@@ -80,7 +80,7 @@ function encryptKey(pw, key){
   return encryptedPriv;
 }
 async function setBalance(pubkey){
-  console.log("inside getbalance");
+ 
   const response = await axios.post(
       ngrok_url+"/checkBalance",
       {
@@ -136,7 +136,7 @@ const response = await axios.post(
 if (response.status !== 200) 
 document.getElementById("coins").innerHTML =  "An error occurred while transfering the reward" 
 else{
- console.log(response.data);
+
 tx_to_be_signed = response.data.sign_this;
 tx_to_be_sent = response.data.send_this;
 
@@ -144,7 +144,7 @@ let password = document.getElementById('password').value;
 let encprivkey = localStorage.getItem("encprivkey");
 let privateKey=decryptKey(password,encprivkey)
   let signature = ecdsa.sign( tx_to_be_signed, privateKey);
-  console.log(signature);
+ 
   let sig=
     "[" + signature.r.toString() + ", " + signature.s.toString() + "]";
 const response_txn = await axios.post(
