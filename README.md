@@ -22,11 +22,15 @@
     
 </details>
 
-<details>
+<details open>
 <summary>Features</summary>
 <br/>
-    
-- Authentication for users using Private and Public Key Pair with the help of a Wallet Extension. 
+
+- Authentication for users using Private and Public Key Pair with the help of a Wallet Extension.  
+   - window.vjcoin.importAccount()
+   - window.vjcoin.generateKeyPair()
+   - window.vjcoin.rewardTransaction(reward, receiver public key)
+
 - Participated in Extracurrciular activities? Submit your application
 - System and Faculty verfieis the application and rewards coins
 - Coins can be utilized in oncampus activities creating a circular economy
