@@ -1,9 +1,6 @@
 const Student = require("../models/Student");
 const axios = require("axios");
 const auth = require("../utilities/auth");
-const bucket = require("../config/firebase");
-const WalletCreation = require("../utilities/WalletCreation");
-const EncryptCredentials = require("../utilities/EncryptCredentials");
 
 //Register Student
 exports.registerStudent = async (req, res) => {

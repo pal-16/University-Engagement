@@ -46,16 +46,15 @@
 
 
 document.addEventListener('rewardTransactionEvent',(e)=>{ 
-
-  chrome.runtime.sendMessage({type:'cointransfer_function_called:'+localStorage.getItem("reward")+':'+localStorage.getItem("recpublickey")});
+  chrome.runtime.sendMessage({type:'transaction_function_called:'+localStorage.getItem("reward")+':'+localStorage.getItem("recpublickey")});
 })
 
 document.addEventListener('importAccountEvent',()=>{ 
-  chrome.runtime.sendMessage({type:'login_function_called'});
+  chrome.runtime.sendMessage({type:'import_function_called'});
 })
 
 document.addEventListener('generateKeyPairEvent',()=>{ 
-chrome.runtime.sendMessage({type:'register_function_called'});
+chrome.runtime.sendMessage({type:'generate_function_called'});
 })
 
 

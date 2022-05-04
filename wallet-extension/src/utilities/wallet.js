@@ -86,7 +86,6 @@ const wallet = {
     },
    rewardTransactionUtil:  async function (reward){
 
-             
         let msg = {
           'status': 'Approved'
         }

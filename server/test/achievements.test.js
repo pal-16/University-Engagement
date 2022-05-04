@@ -66,10 +66,8 @@ describe("Create Achievement", () => {
               .set('Authorization', `Bearer ${token}`)
               .send({ ...incompleteAchievement })
               .end((err, res) => {
-                 // expect(err).to.be.null;
+                 
                   expect(res.status).to.be.equal(400);
-                  // expect(res.body).to.be.an("object");
-                  // expect(res.body).to.have.property("message").not.equal("");
                   done();
               });
       });
@@ -115,10 +113,9 @@ describe("Get Student Application Achievements", () => {
                   .get("/api/student/"+studentID+"/applications")
                   .set('Authorization', `Bearer ${token}`)
                   .end((err, res) => {
-                     // expect(err).to.be.null;
+                      expect(err).to.be.null;
                       expect(res.status).to.be.equal(200);
-                      // expect(res.body).to.be.an("object");
-                      // expect(res.body).to.have.property("message").not.equal("");
+                      expect(res.body).to.be.an("object");
                       done();
                   });
           });
@@ -172,10 +169,9 @@ describe("Get achievements submitted to a faculty", () => {
                   .get("/api/faculty/"+facultyID+"/applications")
                   .set('Authorization', `Bearer ${token}`)
                   .end((err, res) => {
-                     // expect(err).to.be.null;
+                      expect(err).to.be.null;
                       expect(res.status).to.be.equal(200);
-                      // expect(res.body).to.be.an("object");
-                      // expect(res.body).to.have.property("message").not.equal("");
+                      expect(res.body).to.be.an("object");
                       done();
                   });
           });
@@ -253,10 +249,8 @@ describe("View Achievement Details, accordingly Approve or Reject", () => {
                 .get("/api/applications/"+applicationID)
                 .set('Authorization', `Bearer ${token}`)
                 .end((err, res) => {
-                   // expect(err).to.be.null;
+                    expect(err).to.be.null;
                     expect(res.status).to.be.equal(200);
-                    // expect(res.body).to.be.an("object");
-                    // expect(res.body).to.have.property("message").not.equal("");
                     done();
                 });
         });
@@ -267,8 +261,8 @@ describe("View Achievement Details, accordingly Approve or Reject", () => {
       
         it("returns 200 when application is approved", (done) => {
          const applicationToApprove={
-facultyID: facultyID,
-reward:30
+            facultyID: facultyID,
+            reward:30
          }
 
       
@@ -278,10 +272,8 @@ reward:30
                 .set('Authorization', `Bearer ${token}`)
                 .send({ ...applicationToApprove })
                 .end((err, res) => {
-                   // expect(err).to.be.null;
+                    expect(err).to.be.null;
                     expect(res.status).to.be.equal(200);
-                    // expect(res.body).to.be.an("object");
-                    // expect(res.body).to.have.property("message").not.equal("");
                     done();
                 });
         });
@@ -291,8 +283,8 @@ reward:30
       
         it("returns 500 when application ID is wrong", (done) => {
          const applicationToApprove={
-facultyID: facultyID,
-reward:30
+            facultyID: facultyID,
+            reward:30
          }
 
          var invalidApplicationID="dsjcni12243534"
@@ -302,10 +294,8 @@ reward:30
                 .set('Authorization', `Bearer ${token}`)
                 .send({ ...applicationToApprove })
                 .end((err, res) => {
-                   // expect(err).to.be.null;
+
                     expect(res.status).to.be.equal(500);
-                    // expect(res.body).to.be.an("object");
-                    // expect(res.body).to.have.property("message").not.equal("");
                     done();
                 });
         });
@@ -322,10 +312,7 @@ reward:30
                 .set('Authorization', `Bearer ${token}`)
                 .send({})
                 .end((err, res) => {
-                   // expect(err).to.be.null;
                     expect(res.status).to.be.equal(200);
-                    // expect(res.body).to.be.an("object");
-                    // expect(res.body).to.have.property("message").not.equal("");
                     done();
                 });
         });
