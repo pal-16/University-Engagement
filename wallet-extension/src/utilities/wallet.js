@@ -2,7 +2,10 @@ const ellipticcurve = require("starkbank-ecdsa");
 const curves = require("starkbank-ecdsa/ellipticcurve/curve");
 const axios = require("axios");
 const crypto = require("crypto");
+const BigInt= require("big-integer");
+
 var PrivateKey = ellipticcurve.PrivateKey;
+var ecdsa = ellipticcurve.Ecdsa;
 
 const wallet = {
 
@@ -68,7 +71,7 @@ const wallet = {
         decryptedPriv += decipher.final("utf-8");
         return decryptedPriv;
     },
-   encryptKeyUtil: function (pw, key){
+   encryptKey: function (pw, key){
         let iv = Buffer.from([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
         let hash = crypto.createHash("sha1");
         let temp_data = hash.update(pw, "utf-8");
