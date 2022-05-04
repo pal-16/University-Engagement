@@ -68,8 +68,17 @@ const FacultyActions = (props) => {
 
     window.vjcoin.coinTransfer(reward, props.applicationData.studentID.publicKey);
     let id = setInterval(frame, 1000);
+    let secondsRemaining = 60;
     setLoading(true);
     function frame() {
+      if (secondsRemaining == 0) {
+        setSeverity("error");
+        setMessage("Application approved. Reward will be mined shortly.");
+        handleClose();
+        return;
+      }
+      secondsRemaining--;
+
       if (localStorage.getItem("status") === "success") {
         localStorage.setItem("status", "undefined");
 
@@ -99,13 +108,6 @@ const FacultyActions = (props) => {
         props.setLoading(true);
       }
     }
-    // if (+reward <= 0) {
-    //   updateErrors((prevErrors) => ({
-    //     ...prevErrors,
-    //     reward: "Reward cannot be negative"
-    //   }));
-    //   return;
-    // }
 
   };
 

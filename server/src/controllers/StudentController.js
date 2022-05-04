@@ -42,7 +42,7 @@ exports.loginStudent = async (req, res) => {
     const student = await Student.findOne({publicKey: req.body.pubkey })
 
     if (!student) {
-      return res.status(401).json({ error: "Incorrect email or password" });
+      return res.status(401).json({ error: "Incorrect public key" });
     }
 
     const token = auth.signToken(student._id);

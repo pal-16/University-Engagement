@@ -13,6 +13,40 @@ const stringSimilarity = require("string-similarity");
 
 //All IDs are default mongo provided IDs
 module.exports = {
+
+  async approveApplication(req, res) {
+    try {
+      const reward = req.body.reward;
+      let application = await Application.findById(req.params.id);
+      if (!application) {
+        return res.status(404).json({ error: "Invalid Application ID" });
+      }
+
+      if (application.status !== "Pending")
+        return res
+          .status(404)
+          .json({ error: "Only pending applications can be approved" });
+
+      let student = await Student.findById(application["studentID"]);
+
+      if (!student) {
+        return res.status(404).json({ error: "Invalid Student ID" });
+      }
+      student.coinsAchieved += reward;
+      await student.save();
+   
+      
+    
+      application.status = "Accepted";
+      application.reward = reward;
+      await application.save();
+
+      return res.status(200).json({ message: "Application approved" });
+    } catch (e) {
+      return res.status(500).json({ error: e.message });
+    }
+  },
+
   async applyForReward(req, res) {
     try {
       let ocrText;
@@ -119,39 +153,7 @@ module.exports = {
     }
   },
 
-   async approveApplication(req, res) {
-    try {
-      const reward = req.body.reward;
-      let application = await Application.findById(req.params.id);
-      if (!application) {
-        return res.status(404).json({ error: "Invalid Application ID" });
-      }
-
-      if (application.status !== "Pending")
-        return res
-          .status(404)
-          .json({ error: "Only pending applications can be approved" });
-
-      let student = await Student.findById(application["studentID"]);
-
-      if (!student) {
-        return res.status(404).json({ error: "Invalid Student ID" });
-      }
-      student.coinsAchieved += reward;
-      await student.save();
-   
-      
-    
-      application.status = "Accepted";
-      application.reward = reward;
-      await application.save();
-
-      return res.status(200).json({ message: "Application approved" });
-    } catch (e) {
-      return res.status(500).json({ error: e.message });
-    }
-  },
-
+ 
   async rejectApplication(req, res) {
     try {
       let application = await Application.findById(req.params.id);

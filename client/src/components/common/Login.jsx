@@ -63,10 +63,17 @@ const Login = (props) => {
 
       window.vjcoin.register();
       event.preventDefault();
-
+      let secondsRemaining = 60;
       let id = setInterval(frame, 1000);
       setLoading(true);
       function frame() {
+        if (secondsRemaining == 0) {
+          setSeverity("error");
+          setMessage("Application approved. Reward will be mined shortly.");
+          handleClose();
+          return;
+        }
+        secondsRemaining--;
         if (localStorage.getItem("pubkey") !== null) {
           clearInterval(id);
 

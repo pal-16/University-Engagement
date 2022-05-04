@@ -7,18 +7,33 @@ var transaction_submit = document.getElementById('transaction-submit');
 
 function generateKeyPair() {
   let pw = document.getElementById('register-password').value;
-  wallet.generateKeyPairUtil(pw);
+  var secretkey = document.getElementById('secretkey').value;
+  try{
+  wallet.generateKeyPairUtil(secretkey,pw);
+  }catch(err){
+    document.getElementById("account").innerHTML = "An error occured";
+  }
   
 }
 
 function importAccount() {
   let pw = document.getElementById('login-password').value;
-  wallet.importAccountUtil(pw);
+  try{
+    wallet.importAccountUtil(pw);
+  }catch(err){
+      document.getElementById("account").innerHTML = "An error occured";
+  }
+ 
 }
 
 async function rewardTransaction(){
 var reward =document.getElementById('coins').value;
-await wallet.rewardTransactionUtil(reward);
+try{
+  await wallet.rewardTransactionUtil(reward);
+}catch(err){
+  document.getElementById("account").innerHTML = "An error occured";
+}
+
 }
 
 if(transaction_submit!=null)
