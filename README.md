@@ -39,6 +39,12 @@
 <summary>Flowcharts of the Project</summary>
 
 <br/>
+     Generate key Pair <br/>
+<img src="https://github.com/pal-16/engage-demo/blob/master/assets/flow-1.png"  /><br/>
+    Import Account <br/>
+    <img src="https://github.com/pal-16/engage-demo/blob/master/assets/flow-2.png"/><br/>
+    Transaction <br/>
+ <img src="https://github.com/pal-16/engage-demo/blob/master/assets/flow-3.png" /><br/>
 </details>
 
 
